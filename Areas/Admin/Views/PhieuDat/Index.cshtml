@@ -294,7 +294,7 @@
             var productId = $(this).data("product-id");
             $.ajax({
                 type: "GET",
-                url: "/Product/EditProduct?id=" + productId,
+                url: "/PhieuDat/EditProduct?id=" + productId,
                 success: function (response) {
                     // Nạp PartialView vào modal
                     $("#edit-product-modal .modal-content").html(response);

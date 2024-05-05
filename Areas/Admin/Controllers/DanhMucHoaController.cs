@@ -7,6 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QLDienHoa03.Models;
+using System.IO;
+using System.Web.Configuration;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace QLDienHoa03.Areas.Admin.Controllers
 {
@@ -17,7 +21,8 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         // GET: Admin/DanhMucHoa
         public ActionResult Index()
         {
-            return View(db.DM_Hoa.ToList());
+            ViewBag.DM_Hoa = db.DM_Hoa.ToList();
+            return View();
         }
 
         // GET: Admin/DanhMucHoa/Details/5
@@ -35,26 +40,126 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             return View(dM_Hoa);
         }
 
-        // GET: Admin/DanhMucHoa/Create
-        public ActionResult Create()
+        /* [HttpPost]
+         public ActionResult SaveProduct(DM_Hoa sp)
+         {
+             db.DM_Hoa.Add(sp);
+             db.SaveChanges();
+             return RedirectToAction("Index");
+         }
+ */
+        public JsonResult Delete(string id)
         {
-            return View();
-        }
-       
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaHoa,TenHoa,MauSac,Gia,HinhAnh")] DM_Hoa dM_Hoa)
-        {
-            if (ModelState.IsValid)
+            bool result = false;
+
+            var sp = db.DM_Hoa.FirstOrDefault(s => s.MaHoa == id);
+
+            if (sp != null)
             {
-                db.DM_Hoa.Add(dM_Hoa);
+                db.DM_Hoa.Remove(sp);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                result = true;
             }
 
-            return View(dM_Hoa);
+            return Json(result, JsonRequestBehavior.AllowGet);
+
         }
 
+        [HttpPost]
+        public ActionResult Create( DM_Hoa Hoa, HttpPostedFileBase imgfile)
+        {
+            string path = uploadimage(imgfile);
+            DM_Hoa ns = new DM_Hoa();
+            if (path.Equals("-1"))
+            {
+
+            }
+            else
+            {
+                ns.MaHoa = Hoa.MaHoa;
+                ns.TenHoa = Hoa.TenHoa;
+                ns.MauSac = Hoa.MauSac;
+                ns.Gia = Hoa.Gia;
+                ns.HinhAnh = path;
+                ns.DanhGia = null;
+                db.Entry(ns).State = EntityState.Modified;
+                db.DM_Hoa.Add(ns);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
+                }                
+            }
+            return RedirectToAction("Index");
+        }
+
+        public string uploadimage(HttpPostedFileBase file)
+        {
+            Random r = new Random();
+            string path = "-1";
+            int random = r.Next();
+            if (file != null && file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(file.FileName);
+                if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".png"))
+                {
+                    try
+                    {
+                        path = Path.Combine(Server.MapPath("~/Image/img/"), random + Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+                        path = "~/Image/img/" + random + Path.GetFileName(file.FileName);
+                        //    ViewBag.Message = "File uploaded successfully";
+                    }
+                    catch (Exception ex)
+                    {
+                        path = "-1";
+                    }
+                }
+                else
+                {
+
+                    Response.Write("<script>alert('Only jpg ,jpeg or png formats are acceptable....'); </script>");
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Please select a file'); </script>");
+                path = "-1";
+            }
+            return path;
+        }
+
+
+
+        // GET: Admin/DanhMucHoa/Create
+        /* public ActionResult Create()
+         {
+             return View();
+         }
+
+         [HttpPost]
+         [ValidateAntiForgeryToken]
+         public ActionResult Create([Bind(Include = "MaHoa,TenHoa,MauSac,Gia,HinhAnh")] DM_Hoa dM_Hoa)
+         {
+             if (ModelState.IsValid)
+             {
+                 db.DM_Hoa.Add(dM_Hoa);
+                 db.SaveChanges();
+                 return RedirectToAction("Index");
+             }
+
+             return View(dM_Hoa);
+         }
+ */
         // GET: Admin/DanhMucHoa/Edit/5
         public ActionResult Edit(string id)
         {
@@ -69,7 +174,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             }
             return View(dM_Hoa);
         }
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaHoa,TenHoa,MauSac,Gia,HinhAnh")] DM_Hoa dM_Hoa)
@@ -84,30 +189,30 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         }
 
         // GET: Admin/DanhMucHoa/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
-            if (dM_Hoa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dM_Hoa);
-        }
+        /*  public ActionResult Delete(string id)
+          {
+              if (id == null)
+              {
+                  return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+              }
+              DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
+              if (dM_Hoa == null)
+              {
+                  return HttpNotFound();
+              }
+              return View(dM_Hoa);
+          }
 
-        // POST: Admin/DanhMucHoa/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
-            db.DM_Hoa.Remove(dM_Hoa);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+          // POST: Admin/DanhMucHoa/Delete/5
+          [HttpPost, ActionName("Delete")]
+          [ValidateAntiForgeryToken]
+          public ActionResult DeleteConfirmed(string id)
+          {
+              DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
+              db.DM_Hoa.Remove(dM_Hoa);
+              db.SaveChanges();
+              return RedirectToAction("Index");
+          }*/
 
         protected override void Dispose(bool disposing)
         {

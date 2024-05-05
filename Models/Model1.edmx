@@ -22,7 +22,7 @@
           <Property Name="TenHoa" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MauSac" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gia" Type="int" Nullable="false" />
-          <Property Name="HinhAnh" Type="nvarchar" MaxLength="50" />
+          <Property Name="HinhAnh" Type="nvarchar(max)" />
           <Property Name="DanhGia" Type="int" />
         </EntityType>
         <EntityType Name="GiaPhiVanChuyen">
@@ -258,7 +258,7 @@
           <Property Name="TenHoa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MauSac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gia" Type="Int32" Nullable="false" />
-          <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PhieuDats" Relationship="Self.FK_PhieuDat_DM_Hoa" FromRole="DM_Hoa" ToRole="PhieuDat" />
           <Property Name="DanhGia" Type="Int32" />
         </EntityType>

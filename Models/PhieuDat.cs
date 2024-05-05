@@ -21,7 +21,7 @@ namespace QLDienHoa03.Models
         public string TenNguoiNhan { get; set; }
         public string DiaChiNguoiNhan { get; set; }
         public string KhuVuc { get; set; }
-        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}",ApplyFormatInEditMode =true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime NgayGiao { get; set; }
 
         public string NgayGiaoFormatted { get { return NgayGiao.ToString("dd-MM-yyyy"); } }
@@ -32,7 +32,5 @@ namespace QLDienHoa03.Models
     
         public virtual DM_Hoa DM_Hoa { get; set; }
         public virtual GiaPhiVanChuyen GiaPhiVanChuyen { get; set; }
-
-        public bool YourPropertyBool { get; set; }
     }
 }

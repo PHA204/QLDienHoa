@@ -1,16 +1,18 @@
-﻿@model IEnumerable<QLDienHoa03.Models.DM_Hoa>
+﻿@model QLDienHoa03.Models.DM_Hoa
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
 <div class="container-fluid flex-grow-1 container-p-y">
-    <h4 class="font-weight-bold py-3 mb-0">Phiếu Đặt Hàng</h4>
+    <h4 class="font-weight-bold py-3 mb-0">Sản Phẩm Đang Bán</h4>
     <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
             <li class="breadcrumb-item"><a href="#!">Transation</a></li>
-            <li class="breadcrumb-item active"><a href="#!">Phiếu Đặt</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Sản Phẩm Đang Bán</a></li>
         </ol>
     </div>
     <div class="row">
@@ -41,11 +43,11 @@
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                                @foreach (var item in Model)
+                                @foreach (var item in ViewBag.DM_Hoa)
                                 {
                                     <tr>
                                         <td class="align-middle">
-                                            <img src="~/Image/img/@item.HinhAnh" alt="contact-img" title="contact-img" class="rounded mr-3" height="48" />
+                                            <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3" height="48" />
                                             @if (item.DanhGia == 4)
                                             {
                                                 <p class="m-0 d-inline-block align-middle font-16">
@@ -68,20 +70,30 @@
                                                     <span class="text-warning feather icon-star-on"></span>
                                                 </p>
                                             }
-
+                                            @if (item.DanhGia == null)
+                                            {
+                                                <p class="m-0 d-inline-block align-middle font-16">
+                                                    <br />
+                                                    <span class="text-warning feather icon-star"></span>
+                                                    <span class="text-warning feather icon-star"></span>
+                                                    <span class="text-warning feather icon-star"></span>
+                                                    <span class="text-warning feather icon-star"></span>
+                                                    <span class="text-warning feather icon-star"></span>
+                                                </p>
+                                            }
                                         </td>
                                         <td class="align-middle">
-                                            @Html.DisplayFor(modelItem => item.TenHoa)
+                                            @item.TenHoa
                                         </td>
                                         <td class="align-middle">
-                                            @Html.DisplayFor(modelItem => item.MauSac)
+                                            @item.MauSac
                                         </td>
                                         <td class="align-middle">
-                                            @Html.DisplayFor(modelItem => item.Gia)
+                                            @item.Gia
                                         </td>
                                         <td class="table-action">
                                             <a href="#!" class="btn btn-icon btn-outline-primary"><i class="feather icon-eye"></i></a>
-                                            <a href="@Url.Action("Edit","PhieuDat",new { id=item.MaHoa})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
+                                            <a href="@Url.Action("Edit","DanhMucHoa",new { id=item.MaHoa})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
                                             <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.MaHoa')"><i class="feather icon-trash-2"></i></a>
                                         </td>
                                     </tr>
@@ -97,3 +109,195 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="add-product">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Thêm mới </h2>
+            </div>
+            <div class="modal-body ">
+                <form id="saveForm" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Name">Mã Sản Phẩm</label>
+                                @Html.TextBoxFor(model => model.MaHoa, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Category">Tên Sản Phẩm</label>
+                                @Html.TextBoxFor(model => model.TenHoa, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Price">Màu Sắc Chủ Đề</label>
+                                @Html.TextBoxFor(model => model.MauSac, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Quantity">Giá Bán</label>
+                                @Html.TextBoxFor(model => model.Gia, new { @class = "form-control", type = "number" })
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <!--import image-->
+                                    <div class="position-relative d-inline-block">
+                                        <div class="position-absolute bottom-0 end-0">
+                                            <label for="imgfile" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
+                                                <div class="avatar-xs cursor-pointer">
+                                                    <div class="avatar-title bg-light border rounded-circle text-muted">
+                                                        <i class="ion ion-ios-albums"></i>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            <input type="file" class="form-control d-none" id="imgfile" name="imgfile" accept="image/*" onchange="previewImage(event)" />
+                                        </div>
+                                        <div class="avatar-lg p-5">
+                                            <div class="avatar-title bg-light rounded-circle">
+                                                <img id="preview" src="~/assets/img/user/avatar-1.jpg" alt="Preview Image" class="avatar-md  object-fit-cover" style="max-width: 100px; max-height: 100px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end-->
+                                    <h5 class="fs-13 mt-3">Hình Ảnh</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSave" class="btn btn-primary">Lưu</button>
+                <a href="#" class="btn btn-danger btnCancel">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*modal xóa*@
+<div class="modal fade" id="deleteproduct">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Xóa Sản Phẩm </h2>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure about that ?</h3>
+            </div>
+            <div class="modal-footer">
+                <div class="">
+                    <a href="#" id="btnDelete" class="btn btn-primary"> Xóa</a>
+                    <a href="#" class="btn btn-danger btnCancel">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    $(document).ready(function () {
+       @* $(document).on("click", "#btnSave", function () {
+            var productFormData = $("#createForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/DanhMucHoa/SaveProduct",
+                data: productFormData,
+                success: function () {
+                    window.location.href = "/Admin/DanhMucHoa/Index";
+                }
+            });
+            $("#add-product").modal('hide');
+            window.location.href = "/Admin/DanhMucHoa/Index";
+        });
+*@
+        $("#btnSave").click(function () {
+            var formData = new FormData($("#saveForm")[0]); // Tạo một đối tượng FormData từ biểu mẫu
+            $.ajax({
+                type: "POST",
+                url: "/Admin/DanhMucHoa/Create",
+                data: formData, // Sử dụng đối tượng FormData
+                contentType: false, // Không sử dụng contentType mặc định
+                processData: false, // Không xử lý dữ liệu
+                success: function () {
+                    window.location.href = "/Admin/DanhMucHoa/Index";
+                }
+            });
+        });
+
+        $(".btnCancel").click(function () {
+            window.location.href = "/Admin/DanhMucHoa/Index";
+        });
+
+
+        $("#btnDelete").click(function () {
+            var _id = $("#ProductId").val();
+            $.ajax({
+                type: "POST",
+                url: "/DanhMucHoa/Delete",
+                data: { id: _id },
+                success: function (result) {
+                    if (result) {
+                        $("#deleteproduct").modal('hide');
+                        $("#ProductId").val(null);
+                        window.location.href = "/Admin/DanhMucHoa/Index";
+                    } else {
+                        alert("Thất bại");
+                    }
+                }
+            });
+        });
+    });
+
+    var Confirm = function (id) {
+        $("#ProductId").val(id);
+        $("#deleteproduct").modal('show');
+    }
+    var Create = function () {
+        $("#add-product").modal('show');
+    }
+
+    $(document).ready(function () {
+        // Xử lý sự kiện khi nhấn vào nút "Edit"
+        $("body").on("click", ".edit-product", function () {
+            var productId = $(this).data("product-id");
+            $.ajax({
+                type: "GET",
+                url: "/Product/EditProduct?id=" + productId,
+                success: function (response) {
+                    // Nạp PartialView vào modal
+                    $("#edit-product-modal .modal-content").html(response);
+                    // Hiển thị modal
+                    $("#edit-product-modal").modal("show");
+                }
+            });
+        });
+    });
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
