@@ -89,7 +89,7 @@
                                             @item.MauSac
                                         </td>
                                         <td class="align-middle">
-                                            @item.Gia
+                                            @item.GiaFormatted đ
                                         </td>
                                         <td class="table-action">
                                             <a href="#!" class="btn btn-icon btn-outline-primary"><i class="feather icon-eye"></i></a>
@@ -262,23 +262,6 @@
     var Create = function () {
         $("#add-product").modal('show');
     }
-
-    $(document).ready(function () {
-        // Xử lý sự kiện khi nhấn vào nút "Edit"
-        $("body").on("click", ".edit-product", function () {
-            var productId = $(this).data("product-id");
-            $.ajax({
-                type: "GET",
-                url: "/Product/EditProduct?id=" + productId,
-                success: function (response) {
-                    // Nạp PartialView vào modal
-                    $("#edit-product-modal .modal-content").html(response);
-                    // Hiển thị modal
-                    $("#edit-product-modal").modal("show");
-                }
-            });
-        });
-    });
     function previewImage(event) {
         var reader = new FileReader();
         reader.onload = function () {

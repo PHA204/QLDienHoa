@@ -177,16 +177,36 @@ namespace QLDienHoa03.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaHoa,TenHoa,MauSac,Gia,HinhAnh")] DM_Hoa dM_Hoa)
+        public ActionResult Edit(DM_Hoa Hoa, HttpPostedFileBase imgfile, string id) // truyen them 1 cai string id
         {
-            if (ModelState.IsValid)
+            string path = uploadimage(imgfile);
+            var update = db.DM_Hoa.Find(id);
+            if (path.Equals("-1"))
             {
-                db.Entry(dM_Hoa).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
             }
-            return View(dM_Hoa);
+            else
+            {
+                update.MaHoa = Hoa.MaHoa;
+                update.TenHoa = Hoa.TenHoa;
+                update.MauSac = Hoa.MauSac;
+                update.HinhAnh = path;
+                update.DanhGia = null;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
+
+        /* public ActionResult Edit([Bind(Include = "MaHoa,TenHoa,MauSac,Gia,HinhAnh")] DM_Hoa dM_Hoa)
+         {
+             if (ModelState.IsValid)
+             {
+                 db.Entry(dM_Hoa).State = EntityState.Modified;
+                 db.SaveChanges();
+                 return RedirectToAction("Index");
+             }
+             return View(dM_Hoa);
+         }*/
 
         // GET: Admin/DanhMucHoa/Delete/5
         /*  public ActionResult Delete(string id)

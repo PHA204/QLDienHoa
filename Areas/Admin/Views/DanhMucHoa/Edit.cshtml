@@ -5,58 +5,69 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2>Edit</h2>
+<div class="card container btn-glow-success" style="width:50% ;margin-top:20px">
+    <h1 class="card-header text-center">Edit</h1>
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "DanhMucHoa", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.MaHoa)
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>DM_Hoa</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MaHoa)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenHoa, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="form-group col-md-12">
+                <label class="form-label" style="font-size:20px">Tên Sản Phẩm</label>
                 @Html.EditorFor(model => model.TenHoa, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenHoa, "", new { @class = "text-danger" })
+                <div class="clearfix"></div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MauSac, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="form-group col-md-12">
+                <label class="form-label" style="font-size:20px">Màu Sắc Chủ Đề</label>
                 @Html.EditorFor(model => model.MauSac, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MauSac, "", new { @class = "text-danger" })
+                <div class="clearfix"></div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Gia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="form-group col-md-12">
+                <label class="form-label" style="font-size:20px">Giá Bán</label>
                 @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+                <div class="clearfix"></div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HinhAnh, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+            <label class="form-label" style="font-size:20px">Ảnh Sản Phẩm</label>
+            <div class="form-group d-flex">
+                <div class="pt-4">
+                    <label for="imgfile" class="" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
+                        <div class="avatar-xs cursor-pointer">
+                            <div class="avatar-title bg-light border rounded-circle text-muted">
+                                <i class="ion ion-ios-share f-30"></i>
+                            </div>
+                        </div>
+                    </label>
+                    <input type="file" class="form-control d-none" id="imgfile" name="imgfile" accept="image/*" onchange="previewImage(event)" />
+                </div>
+                <div class="ml-5">
+                    <div class="avatar-lg">
+                        <div class="avatar-title bg-light rounded-circle">
+                            <img id="preview" src="@Url.Content(Model.HinhAnh)" alt="Preview Image" class="avatar-md object-fit-cover" style="max-width: 100px; max-height: 100px;" />
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="d-flex justify-content-lg-between">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-outline-linux" href="@Url.Action("Index","DanhMucHoa")"><i class="ion ion-md-return-left f-24"></i></a>
             </div>
-        </div>
+        }
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
