@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QL_Dien_HoaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QL_Dien_HoaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CHITIETPHIEUNHAP">
           <Key>
             <PropertyRef Name="MAPHIEU" />
@@ -23,6 +23,7 @@
           <Property Name="MauSac" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gia" Type="int" Nullable="false" />
           <Property Name="HinhAnh" Type="nvarchar" MaxLength="50" />
+          <Property Name="DanhGia" Type="int" />
         </EntityType>
         <EntityType Name="GiaPhiVanChuyen">
           <Key>
@@ -234,8 +235,7 @@
             <End Role="PHIEUNHAPKHO" EntitySet="PHIEUNHAPKHO" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QL_Dien_HoaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -260,6 +260,7 @@
           <Property Name="Gia" Type="Int32" Nullable="false" />
           <Property Name="HinhAnh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PhieuDats" Relationship="Self.FK_PhieuDat_DM_Hoa" FromRole="DM_Hoa" ToRole="PhieuDat" />
+          <Property Name="DanhGia" Type="Int32" />
         </EntityType>
         <EntityType Name="GiaPhiVanChuyen">
           <Key>
@@ -500,6 +501,7 @@
           <EntitySetMapping Name="DM_Hoa">
             <EntityTypeMapping TypeName="QL_Dien_HoaModel.DM_Hoa">
               <MappingFragment StoreEntitySet="DM_Hoa">
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
                 <ScalarProperty Name="MaHoa" ColumnName="MaHoa" />
                 <ScalarProperty Name="TenHoa" ColumnName="TenHoa" />
                 <ScalarProperty Name="MauSac" ColumnName="MauSac" />

@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DanhMucHoaController.cs" />
     <Compile Include="Areas\Admin\Controllers\MainController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuDatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2149,6 +2150,30 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\img\1621829721767_e51face87c4298bc93a0aabd5896abf0_2_3_art.jpg" />
+    <Content Include="Image\img\1638582490991_2a6d99f1f20fe6fbd1e59b2b7712c2ae_2_3_art.jpeg" />
+    <Content Include="Image\img\20201018_125947.jpg" />
+    <Content Include="Image\img\23eb1f8a66079d54066c0e15fce061e7.jpg" />
+    <Content Include="Image\img\38bf85bee6dc722f5b9f9c7930981b16.jpg" />
+    <Content Include="Image\img\58ad226fb5a47ffb541ff4295b623dc2.jpg" />
+    <Content Include="Image\img\7f9531caf64eb43e482ae1614fa59dc3.jpg" />
+    <Content Include="Image\img\99hoahong.jpg" />
+    <Content Include="Image\img\Binhhoasinhnhat.jpg" />
+    <Content Include="Image\img\Dat.jpg" />
+    <Content Include="Image\img\E3MCJ3PWUAAeyNq.jpeg" />
+    <Content Include="Image\img\f779b0d1546d6299b928e294393446fa.jpg" />
+    <Content Include="Image\img\Giohoa02.jpg" />
+    <Content Include="Image\img\google.jpg" />
+    <Content Include="Image\img\Gpt.jpg" />
+    <Content Include="Image\img\Hoachiabuontrangden.jpg" />
+    <Content Include="Image\img\Hoachucmung.jpg" />
+    <Content Include="Image\img\Hoahong.jpg" />
+    <Content Include="Image\img\Hoamaudon.jpg" />
+    <Content Include="Image\img\Hoasen.jpg" />
+    <Content Include="Image\img\Hoasinhnhat.jpg" />
+    <Content Include="Image\img\Hoatang.jpg" />
+    <Content Include="Image\img\illust_67413738_20211013_204550_remastered.jpg" />
+    <Content Include="Image\img\Youtube.jpg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
@@ -2223,6 +2248,12 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\Admin\Views\PhieuDat\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PhieuDat\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

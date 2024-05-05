@@ -11,7 +11,8 @@ namespace QLDienHoa03.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PhieuDat
     {
         public string SoPhieu { get; set; }
@@ -20,11 +21,18 @@ namespace QLDienHoa03.Models
         public string TenNguoiNhan { get; set; }
         public string DiaChiNguoiNhan { get; set; }
         public string KhuVuc { get; set; }
+        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}",ApplyFormatInEditMode =true)]
         public System.DateTime NgayGiao { get; set; }
+
+        public string NgayGiaoFormatted { get { return NgayGiao.ToString("dd-MM-yyyy"); } }
+
+
         public System.TimeSpan GioGiao { get; set; }
         public int DaGiao { get; set; }
     
         public virtual DM_Hoa DM_Hoa { get; set; }
         public virtual GiaPhiVanChuyen GiaPhiVanChuyen { get; set; }
+
+        public bool YourPropertyBool { get; set; }
     }
 }

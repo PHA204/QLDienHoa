@@ -9,43 +9,109 @@
     new SelectListItem { Text = "Chưa giao", Value = "0" },
     // Thêm các mục khác nếu cần
 };
-
     ViewBag.DaGiao = new SelectList(items, "Value", "Text");
 }
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<link href="~/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<style>
 
-    .input-group {
-        display: flex;
-        justify-content: space-between;
-    }
 
-    .search-bar {
-        display: flex;
-        padding: 10px;
-    }
-</style>
-<h2>Phiếu Đặt Hàng</h2>
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Phiếu Đặt Hàng</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="#!">Transation</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Phiếu Đặt</a></li>
+        </ol>
+    </div>
+    <div class="row">
+        <!-- customar project  start -->
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6 text-left">
+                            <button class="btn btn-success btn-sm mb-3 btn-round" Onclick="Create()" data-target="#add-product"><i class="feather icon-plus"></i> Product</button>
+                        </div>
+                        <div class="col-6">
+                            <div id="report-table_filter" class="dataTables_filter" style="display:flex;margin-left:50%;">
+                                <label>Search:</label><input type="search" id="myInput" class="form-control form-control-sm ml-2" placeholder="" aria-controls="report-table">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Số Phiếu</th>
+                                    <th>Tên Người Gửi</th>
+                                    <th>Tên Người Nhận</th>
+                                    <th>Địa Chỉ Người Nhận</th>
+                                    <th>Ngày Giao</th>
+                                    <th> Giờ Giao</th>
+                                    <th>Đã Giao</th>
+                                    <th>Tên Hoa</th>
+                                    <th>Tên Khu Vực</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                @foreach (var item in ViewBag.phieuDat)
+                                {
+                                    <tr>
+                                        <td class="align-middle">
+                                            @item.SoPhieu
+                                        </td>
+                                        <td class="align-middle">
+                                            @item.TenNguoiGui
+                                        </td>
+                                        <td class="align-middle">
+                                            @item.TenNguoiNhan
+                                        </td>
+                                        <td class="align-middle">
+                                            @item.DiaChiNguoiNhan
+                                        </td>
+                                        <td class="align-middle">
+                                            @item.NgayGiaoFormatted
+                                        </td>
 
-<div class="input-group">
-    <p>
-        <a href="#" class="btn btn-primary" Onclick="Create()" data-target="#add-product"> create new</a>
-    </p>
-    <div class="search-bar">
-        <div class="form-outline" data-mdb-input-init>
-            <input style="height:100%;" id="myInput" class="form-control" type="search" placeholder="Search..">
+                                        <td class="align-middle">
+                                            @item.GioGiao
+                                        </td>
+                                        <td class="align-middle">
+                                            @if (item.DaGiao == 1)
+                                            {
+                                                <span class="badge badge-success">Done</span>
+                                            }
+                                            @if (item.DaGiao == 0)
+                                            {
+                                                <span class="badge badge-danger">SOS</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @item.DM_Hoa.TenHoa
+                                        </td>
+                                        <td>
+                                            @item.GiaPhiVanChuyen.TenKhuVuc
+                                        </td>
+                                        <td class="table-action">
+                                            <a href="#!" class="btn btn-icon btn-outline-primary"><i class="feather icon-eye"></i></a>
+                                            <a href="@Url.Action("Edit","PhieuDat",new { id=item.SoPhieu})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
+                                            <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.SoPhieu')"><i class="feather icon-trash-2"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <input type="hidden" id="ProductId" />
+                    </div>
+                </div>
+            </div>
         </div>
-        <button id="search-button" type="button" class="btn btn-primary">
-            <i class="fa fa-search"></i>
-        </button>
+        <!-- customar project  end -->
     </div>
 </div>
+
 
 <div class="modal fade" id="add-product">
     <div class="modal-dialog">
@@ -55,29 +121,98 @@
             </div>
             <div class="modal-body ">
                 <form id="createForm">
-                    <label> Mã Sản Phẩm </label>
-                    @Html.TextBoxFor(model => model.SoPhieu, new { @class = "form-control" })
-                    <label> Mã Sản Phẩm </label>
-                    @Html.DropDownListFor(model => model.Hoa, (SelectList)ViewBag.Hoa, "Select Type", new { @class = "form-control" })
-                    <label> Mã Sản Phẩm </label>
-                    @Html.TextBoxFor(model => model.TenNguoiGui, new { @class = "form-control" })
-                    <label> Mã Sản Phẩm </label>
-                    @Html.TextBoxFor(model => model.TenNguoiNhan, new { @class = "form-control" })
-                    <label> Mã Sản Phẩm </label>
-                    @Html.TextBoxFor(model => model.DiaChiNguoiNhan, new { @class = "form-control" })
-                    <label> Mã Sản Phẩm </label>
-                    @Html.DropDownListFor(model => model.KhuVuc, (SelectList)ViewBag.KhuVuc, "Select Type", new { @class = "form-control" })
-                    <label> Mã Sản Phẩm </label>
-                    @Html.TextBoxFor(model => model.GioGiao, new { @class = "form-control" })
-                    <label> Mã Sản Phẩm </label>
-                    @Html.DropDownListFor(model => model.DaGiao, (SelectList)ViewBag.DaGiao, "Select Type", new { @class = "form-control" })
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Name">Số Phiếu</label>
+                                @Html.TextBoxFor(model => model.SoPhieu, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Category">Sản Phẩm</label>
+                                @Html.DropDownListFor(model => model.Hoa, (SelectList)ViewBag.Hoa, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Price">Tên Người Gửi</label>
+                                @Html.TextBoxFor(model => model.TenNguoiGui, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="floating-label" for="Quantity">Tên Người Nhận</label>
+                                @Html.TextBoxFor(model => model.TenNguoiNhan, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="floating-label" for="Icon">Địa Chỉ Người Nhận</label>
+                                @Html.TextBoxFor(model => model.DiaChiNguoiNhan, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="floating-label" for="Icon">Khu Vực</label>
+                                @Html.DropDownListFor(model => model.KhuVuc, (SelectList)ViewBag.KhuVuc, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="floating-label" for="Icon">Ngày Giao</label>
+                                @Html.TextBoxFor(model => model.NgayGiao, new { @class = "form-control", type = "date" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="floating-label" for="Icon">Giờ Giao</label>
+                                @Html.TextBoxFor(model => model.GioGiao, new { @class = "form-control", type = "time" })
+                            </div>
+                        </div>
+
+                        @*<div class="col-sm-6">
+                                <label class="switcher">
+                                    <input type="checkbox" class="switcher-input" checked>
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label">Active</span>
+                                </label>
+                            </div>*@
+                        <div class="col-sm-6">
+                            <div class="form-group fill">
+                                <label class="custom-control custom-checkbox m-0">
+                                    <!-- Sử dụng CheckBoxFor để tạo checkbox liên kết với thuộc tính DaGiao trong mô hình -->
+                                    @Html.CheckBoxFor(model => model.YourPropertyBool, new { @class = "custom-control-input", id = "DaGiaoCheckbox" })
+                                    @Html.HiddenFor(model => model.DaGiao, new { id = "DaGiao" })
+                                    <span class="custom-control-label">Đã Giao</span>
+                                </label>
+                            </div>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                // Sự kiện khi checkbox thay đổi trạng thái
+                                $('#DaGiaoCheckbox').change(function () {
+                                    // Nếu checkbox được chọn, gán giá trị 1 cho hidden field
+                                    // Ngược lại, gán giá trị 0
+                                    if ($(this).is(':checked')) {
+                                        $('#DaGiao').val('1');
+                                    } else {
+                                        $('#DaGiao').val('0');
+                                    }
+                                });
+                            });
+                        </script>
+
+
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <div class="">
-                    <a href="#" id="btnSave" class="btn btn-primary">Lưu</a>
-                    <a href="#" class="btn btn-danger btnCancel">Close</a>
-                </div>
+                <button id="btnSave" class="btn btn-primary">Lưu</button>
+                <a href="#" class="btn btn-danger btnCancel">Close</a>
             </div>
         </div>
     </div>
@@ -102,93 +237,12 @@
         </div>
     </div>
 </div>
-
-<table class="table">
-    <tr>
-        <th>
-            Tên Người Gửi
-        </th>
-        <th>
-            Tên Người Nhận
-        </th>
-        <th>
-            Địa Chỉ Người Nhận
-        </th>
-        <th>
-            Ngày Giao
-        </th>
-        <th>
-            Giờ Giao
-        </th>
-        <th>
-            Đã Giao
-        </th>
-        <th>
-            Tên Hoa
-        </th>
-        <th>
-            Tên Khu Vực
-        </th>
-        <th></th>
-    </tr>
-    <tbody id="myTable">
-        @foreach (var item in ViewBag.phieuDat)
-        {
-            <tr>
-                <td>
-                    @item.TenNguoiGui
-                </td>
-                <td>
-                    @item.TenNguoiNhan
-                </td>
-                <td>
-                    @item.DiaChiNguoiNhan
-                </td>
-                <td>
-                    @item.NgayGiao
-
-                </td>
-                <td>
-                    @item.GioGiao
-                </td>
-                <td>
-                    @item.DaGiao
-                </td>
-                <td>
-                    @item.Hoa
-                </td>
-                <td>
-                    @item.KhuVuc
-                </td>
-                <td>
-                    <a href="#" id="showModal" class="btn btn-danger" onclick="Confirm('@item.SoPhieu')">Delete</a> |
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#edit-product-@item.SoPhieu"> edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<input type="hidden" id="ProductId" />
-
-<script src="~/Scripts/popup.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-
 
 
     $(document).ready(function () {
-        $("#btnSave").click(function () {
+        $(document).on("click", "#btnSave", function () {
             var productFormData = $("#createForm").serialize();
-
             $.ajax({
                 type: "POST",
                 url: "/PhieuDat/SaveProduct",
@@ -198,7 +252,9 @@
                 }
             });
             $("#add-product").modal('hide');
+            window.location.href = "/Admin/PhieuDat/Index";
         });
+
 
         $(".btnCancel").click(function () {
             window.location.href = "/Admin/PhieuDat/Index";
@@ -231,6 +287,7 @@
     var Create = function () {
         $("#add-product").modal('show');
     }
+
     $(document).ready(function () {
         // Xử lý sự kiện khi nhấn vào nút "Edit"
         $("body").on("click", ".edit-product", function () {
@@ -247,6 +304,15 @@
             });
         });
     });
+</script>
 
-
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>

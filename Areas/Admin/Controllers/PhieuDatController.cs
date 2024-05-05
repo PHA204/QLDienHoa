@@ -17,7 +17,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         /* [RoleUser(idQuyen = "Q4")]*/
         public ActionResult Index()
         {
-            ViewBag.phieuDat = db.PhieuDats.ToList();
+            ViewBag.phieuDat = db.PhieuDats.Include("DM_Hoa").Include("GiaPhiVanChuyen").ToList();
             ViewBag.Hoa = new SelectList(db.DM_Hoa, "MaHoa", "TenHoa");
             ViewBag.KhuVuc = new SelectList(db.GiaPhiVanChuyens, "MaKhuVuc", "TenKhuVuc");
             return View();

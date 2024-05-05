@@ -1,0 +1,70 @@
+﻿@model QLDienHoa03.Models.PhieuDat
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<div class=" card container btn-glow-success" style="width:50% ;margin-top:20px">
+    <h1 class="card-header text-center">Edit</h1>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+        <form>
+            @Html.HiddenFor(model => model.SoPhieu)
+            <div class="form-group col-md-12">
+                <label class="form-label" style="font-size:20px">Sản Phẩm Mua</label>
+                @Html.DropDownList("Hoa", null, htmlAttributes: new { @class = "form-control", @style = "font-size:15px" })
+                <div class="clearfix"></div>
+            </div>
+            <div class="form-group  col-md-12">
+                <label class="form-label" style="font-size:20px">Tên Người Gửi</label>
+                @Html.EditorFor(model => model.TenNguoiGui, new { htmlAttributes = new { @class = "form-control", @style = "font-size:15px" } })
+                <div class="clearfix"></div>
+            </div>
+            <div class="form-group  col-md-12">
+                <label class="form-label" style="font-size:20px">Tên Người Nhận </label>
+                @Html.EditorFor(model => model.TenNguoiNhan, new { htmlAttributes = new { @class = "form-control", @style = "font-size:15px" } })
+                <div class="clearfix"></div>
+            </div>
+            <div class="form-group  col-md-12">
+                <label class="form-label" style="font-size:20px">Địa Chỉ Nhận Hoa</label>
+                @Html.EditorFor(model => model.DiaChiNguoiNhan, new { htmlAttributes = new { @class = "form-control", @style = "font-size:15px" } })
+                <div class="clearfix"></div>
+            </div>
+            <div class="form-row col-12">
+                <div class="form-group col-md-12">
+                    <label class="form-label" style="font-size:20px">Khu Vực</label>
+                    @Html.DropDownList("KhuVuc", null, htmlAttributes: new { @class = "form-control", @style = "font-size:15px" })
+                    <div class="clearfix"></div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="form-label" style="font-size:20px">Ngày Giao</label>
+                    @Html.EditorFor(model => model.NgayGiao, new { htmlAttributes = new { @class = "form-control", @style = "font-size:15px"} })                    
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="form-label" style="font-size:20px">Giờ Giao</label>
+                    @Html.EditorFor(model => model.GioGiao, new { htmlAttributes = new { @class = "form-control", @style = "font-size:15px" ,type="time"} })
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group col-md-4 ml-5" style = "font-size:20px">
+                    @Html.RadioButtonFor(model => model.DaGiao, "0") <label>Chưa Giao</label>
+                </div>
+                <div class="form-group col-md-5 ml-5"  style = "font-size:20px">
+                    @Html.RadioButtonFor(model => model.DaGiao, "1") <label>Đã Giao</label>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-lg-between">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-outline-linux" href="@Url.Action("Index","PhieuDat")"><i class="ion ion-md-return-left f-24"></i></a>
+            </div>
+        </form>
+
+        }
+    </div>
+</div>
+
