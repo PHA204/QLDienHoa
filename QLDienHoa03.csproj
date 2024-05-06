@@ -567,6 +567,7 @@
     <Content Include="assets\img\avatars\5.png" />
     <Content Include="assets\img\avatars\6-small.png" />
     <Content Include="assets\img\avatars\6.png" />
+    <Content Include="assets\img\avatars\67304d892efcd3e7e5e9ac7b732983a7.jpg" />
     <Content Include="assets\img\avatars\7-small.png" />
     <Content Include="assets\img\avatars\7.png" />
     <Content Include="assets\img\avatars\8-small.png" />
@@ -610,6 +611,7 @@
     <Content Include="assets\img\bg\indexc052.html" />
     <Content Include="assets\img\bg\indexf8a0.html" />
     <Content Include="assets\img\favicon.ico" />
+    <Content Include="assets\img\illust_92937673_20211007_131728.png" />
     <Content Include="assets\img\index.html" />
     <Content Include="assets\img\index30b5.html" />
     <Content Include="assets\img\index5851.html" />
@@ -2257,6 +2259,7 @@
     <Content Include="Areas\Admin\Views\DanhMucHoa\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\List.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\Detail_List.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

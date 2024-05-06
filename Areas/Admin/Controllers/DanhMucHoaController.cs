@@ -54,6 +54,11 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             return PartialView("Details", model);
         }
 
+        public ActionResult Detail_List(string id)
+        {
+            var model = db.DM_Hoa.FirstOrDefault(x => x.MaHoa == id);
+            return View(model);
+        }
         /* [HttpPost]
          public ActionResult SaveProduct(DM_Hoa sp)
          {
