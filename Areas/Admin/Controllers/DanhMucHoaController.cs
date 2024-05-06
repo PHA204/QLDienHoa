@@ -50,16 +50,8 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         // GET: Admin/DanhMucHoa/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
-            if (dM_Hoa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dM_Hoa);
+            var model = db.DM_Hoa.FirstOrDefault(x => x.MaHoa == id);
+            return PartialView("Details", model);
         }
 
         /* [HttpPost]

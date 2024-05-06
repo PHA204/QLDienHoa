@@ -15,6 +15,7 @@
             <li class="breadcrumb-item active"><a href="#!">Product Table</a></li>
         </ol>
     </div>
+    <div id="PlaceHolderHere"></div>
     <div class="row">
         <!-- customar project  start -->
         <div class="col-xl-12">
@@ -47,7 +48,7 @@
                                 {
                                     <tr>
                                         <td class="align-middle">
-                                            <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3"  width="50" />
+                                            <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3" width="50" />
                                             @if (item.DanhGia == 4)
                                             {
                                                 <p class="m-0 d-inline-block align-middle font-16">
@@ -92,7 +93,9 @@
                                             @item.GiaFormatted đ
                                         </td>
                                         <td class="table-action">
-                                            <a href="#!" class="btn btn-icon btn-outline-primary"><i class="feather icon-eye"></i></a>
+                                            <button type="submit" class="btn btn-icon btn-outline-primary feather icon-eye" data-toggle="ajax-modal" data-target="#detailsProduct"
+                                                    data-url="@Url.Action($"Details/{item.MaHoa}")">                                                
+                                            </button>                                           
                                             <a href="@Url.Action("Edit","DanhMucHoa",new { id=item.MaHoa})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
                                             <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.MaHoa')"><i class="feather icon-trash-2"></i></a>
                                         </td>
@@ -283,4 +286,27 @@
             });
         });
     });
+</script>
+
+<script>
+    $(function () {
+        var PlaceHolderElement = $('#PlaceHolderHere');
+        $('button[data-toggle="ajax-modal"]').click(function (event) {
+            var url = $(this).data('url');
+            var decodeUrl = decodeURIComponent(url);
+            $.get(decodeUrl).done(function (data) {
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            })
+        })
+        PlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
+            var form = $(this).parents('.modal.fade').find('form');
+            var actionUrl = form.attr('action');
+            var sendData = form.serialize();
+            $.post(actionUrl, sendData).done(function (data) {
+                PlaceHolderElement.find('.modal').modal('hide');
+                window.location.reload();
+            })
+        })
+    })
 </script>

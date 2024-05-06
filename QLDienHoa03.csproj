@@ -2253,10 +2253,10 @@
     <Content Include="Areas\Admin\Views\PhieuDat\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Create.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\DanhMucHoa\Details.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\List.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
