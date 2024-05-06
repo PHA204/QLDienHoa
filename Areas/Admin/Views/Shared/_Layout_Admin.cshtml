@@ -55,7 +55,7 @@
                     <span class="app-brand-logo demo">
                         <img src="~/assets/img/logo.png" alt="Brand Logo" class="img-fluid">
                     </span>
-                    <a href="index.html" class="app-brand-text demo sidenav-text font-weight-normal ml-2">Empire</a>
+                    <a href="@Url.Action("Index","Main",new { Area="Admin"})" class="app-brand-text demo sidenav-text font-weight-normal ml-2">Empire</a>
                     <a href="javascript:" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
                         <i class="ion ion-md-menu align-middle"></i>
                     </a>
@@ -73,87 +73,79 @@
                             <div class="pl-1 ml-auto">
                                 <div class="badge badge-danger"></div>
                             </div>
-                        </a>                       
-                    </li>
-                @*    <li class="sidenav-item">
-                        <a href="javascript:" class="sidenav-link sidenav-toggle">
-                            <i class="sidenav-icon feather icon-layers"></i>
-                            <div>Widgets</div>
-                            <div class="pl-1 ml-auto">
-                                <div class="badge badge-primary">100+</div>
-                            </div>
                         </a>
-                        <ul class="sidenav-menu">
-                            <li class="sidenav-item">
-                                <a href="w-simple.html" class="sidenav-link">
-                                    <div>Simple</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="w-data.html" class="sidenav-link">
-                                    <div>Data</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="w-social.html" class="sidenav-link">
-                                    <div>Social</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="w-chart.html" class="sidenav-link">
-                                    <div>Chart</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>   *@                 
+                    </li>
+                    @*    <li class="sidenav-item">
+            <a href="javascript:" class="sidenav-link sidenav-toggle">
+                <i class="sidenav-icon feather icon-layers"></i>
+                <div>Widgets</div>
+                <div class="pl-1 ml-auto">
+                    <div class="badge badge-primary">100+</div>
+                </div>
+            </a>
+            <ul class="sidenav-menu">
+                <li class="sidenav-item">
+                    <a href="w-simple.html" class="sidenav-link">
+                        <div>Simple</div>
+                    </a>
+                </li>
+                <li class="sidenav-item">
+                    <a href="w-data.html" class="sidenav-link">
+                        <div>Data</div>
+                    </a>
+                </li>
+                <li class="sidenav-item">
+                    <a href="w-social.html" class="sidenav-link">
+                        <div>Social</div>
+                    </a>
+                </li>
+                <li class="sidenav-item">
+                    <a href="w-chart.html" class="sidenav-link">
+                        <div>Chart</div>
+                    </a>
+                </li>
+            </ul>
+        </li>   *@
 
                     <!-- Layouts -->
                     <li class="sidenav-divider mb-1"></li>
-                    <li class="sidenav-header small font-weight-semibold">Admin Panels</li>                   
+                    <li class="sidenav-header small font-weight-semibold">Admin Panels</li>
                     <li class="sidenav-item">
                         <a href="javascript:" class="sidenav-link sidenav-toggle">
                             <i class="sidenav-icon feather icon-shopping-cart"></i>
-                            <div>E-Commerce</div>
+                            <div>Product</div>
                         </a>
                         <ul class="sidenav-menu">
                             <li class="sidenav-item">
-                                <a href="ecom-product.html" class="sidenav-link">
-                                    <div>Product</div>
+                                <a href="@Url.Action("Index","DanhMucHoa",new {area="Admin"})" class="sidenav-link">
+                                    <div>Product Table</div>
                                 </a>
                             </li>
                             <li class="sidenav-item">
-                                <a href="ecom-product-details.html" class="sidenav-link">
-                                    <div>Product details</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="ecom-order.html" class="sidenav-link">
-                                    <div>Order</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="ecom-checkout.html" class="sidenav-link">
-                                    <div>Checkout</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="ecom-cart.html" class="sidenav-link">
-                                    <div>Shopping Cart</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="ecom-customers.html" class="sidenav-link">
-                                    <div>Customers</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="ecom-sellers.html" class="sidenav-link">
-                                    <div>Sellers</div>
+                                <a href="@Url.Action("List","DanhMucHoa",new {area="Admin"})" class="sidenav-link">
+                                    <div>Product List</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
-
+                    <li class="sidenav-item">
+                        <a href="javascript:" class="sidenav-link sidenav-toggle">
+                            <i class="sidenav-icon feather icon-clipboard"></i>
+                            <div>Phiếu Đặt</div>
+                        </a>
+                        <ul class="sidenav-menu">
+                            <li class="sidenav-item">
+                                <a href="@Url.Action("Index","PhieuDat",new {area="Admin"})" class="sidenav-link">
+                                    <div>Phiếu Đặt Table</div>
+                                </a>
+                            </li>
+                            <li class="sidenav-item">
+                                <a href="@Url.Action("List","DanhMucHoa",new {area="Admin"})" class="sidenav-link">
+                                    <div>Product List</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <!-- Layouts -->
                     <li class="sidenav-divider mb-1"></li>
                     <li class="sidenav-header small font-weight-semibold">UI Components</li>
@@ -1032,10 +1024,10 @@
     </div>
     <!-- [ Layout wrapper] End -->
     <!-- Modal -->
-    
     <!-- Core scripts -->
     <script src="~/assets/js/pace.js"></script>
     @*<script src="~/assets/js/jquery-3.3.1.min.js"></script>*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/assets/libs/popper/popper.js"></script>
     <script src="~/assets/js/bootstrap.js"></script>
     <script src="~/assets/js/sidenav.js"></script>

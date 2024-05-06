@@ -32,5 +32,7 @@ namespace QLDienHoa03.Models
     
         public virtual DM_Hoa DM_Hoa { get; set; }
         public virtual GiaPhiVanChuyen GiaPhiVanChuyen { get; set; }
+
+        public bool YourPropertyBool { get; set; }
     }
 }

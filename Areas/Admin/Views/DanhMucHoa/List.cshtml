@@ -10,15 +10,14 @@
 <link href="~/assets/css/app.css" rel="stylesheet" />
 <link href="~/assets/css/bootstrap-extended.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-
 <div class="page-content">
 
     <h4 class="font-weight-bold py-3 mb-0">Sản Phẩm Đang Bán</h4>
     <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
-            <li class="breadcrumb-item"><a href="#!">Transation</a></li>
-            <li class="breadcrumb-item active"><a href="#!">Sản Phẩm Đang Bán</a></li>
+            <li class="breadcrumb-item"><a href="#!">Admin Panels</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Product List</a></li>
         </ol>
     </div>
     <div class="row align-items-center m-l-0">
@@ -37,7 +36,10 @@
         {
             <div class="col">
                 <div class="card">
-                    <img src="@Url.Content(item.HinhAnh)" class="card-img-top" alt="..." height="400 ">
+                    <a href="" class="img-thumbnail img-thumbnail-shadow">
+                        <img src="@Url.Content(item.HinhAnh)" class="card-img-top" alt="..." height="400 ">
+                    </a>
+
                     <div class="card-body">
                         <h6 class="card-title cursor-pointer text-center">@item.TenHoa</h6>
                         <div class="clearfix">
