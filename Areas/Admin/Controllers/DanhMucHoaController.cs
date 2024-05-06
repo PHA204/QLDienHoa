@@ -21,7 +21,29 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         // GET: Admin/DanhMucHoa
         public ActionResult Index()
         {
+
             ViewBag.DM_Hoa = db.DM_Hoa.ToList();
+            return View();
+        }
+        public ActionResult List()
+        {
+            ViewBag.DM_Hoa = db.DM_Hoa.ToList();
+            var c = ViewBag.DM_Hoa.Count;
+            // Khởi tạo một mảng để chứa các số ngẫu nhiên
+            var random = new int[c];
+            var random2 = new int[c];
+            // Tạo một đối tượng Random để sinh số ngẫu nhiên
+            Random rand = new Random();
+            // Sinh và thêm các số ngẫu nhiên vào mảng
+            for (int i = 0; i < c; i++)
+            {
+                random[i] = rand.Next(1,1001); // Sinh số ngẫu nhiên
+                random2[i] = rand.Next(100000, 200001);
+            }
+
+            // Gán mảng random vào ViewBag để sử dụng trong View
+            ViewBag.R = random;
+            ViewBag.R2 = random2;
             return View();
         }
 
@@ -66,7 +88,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create( DM_Hoa Hoa, HttpPostedFileBase imgfile)
+        public ActionResult Create(DM_Hoa Hoa, HttpPostedFileBase imgfile)
         {
             string path = uploadimage(imgfile);
             DM_Hoa ns = new DM_Hoa();
@@ -97,7 +119,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
                             Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
                         }
                     }
-                }                
+                }
             }
             return RedirectToAction("Index");
         }
@@ -181,15 +203,22 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         {
             string path = uploadimage(imgfile);
             var update = db.DM_Hoa.Find(id);
-            if (path.Equals("-1"))
+            if (path.Equals("-1") && Hoa != null)
             {
-
+                update.MaHoa = Hoa.MaHoa;
+                update.TenHoa = Hoa.TenHoa;
+                update.MauSac = Hoa.MauSac;
+                update.Gia = Hoa.Gia;
+                update.HinhAnh = update.HinhAnh;
+                update.DanhGia = null;
+                db.SaveChanges();
             }
             else
             {
                 update.MaHoa = Hoa.MaHoa;
                 update.TenHoa = Hoa.TenHoa;
                 update.MauSac = Hoa.MauSac;
+                update.Gia = Hoa.Gia;
                 update.HinhAnh = path;
                 update.DanhGia = null;
                 db.SaveChanges();

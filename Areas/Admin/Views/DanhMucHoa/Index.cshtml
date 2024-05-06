@@ -4,6 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
+
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
 <div class="container-fluid flex-grow-1 container-p-y">
@@ -47,7 +48,7 @@
                                 {
                                     <tr>
                                         <td class="align-middle">
-                                            <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3" height="48" />
+                                            <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3"  width="50" />
                                             @if (item.DanhGia == 4)
                                             {
                                                 <p class="m-0 d-inline-block align-middle font-16">
@@ -147,12 +148,12 @@
                             <div class="form-group">
                                 <div class="text-center">
                                     <!--import image-->
-                                    <div class="position-relative d-inline-block">
-                                        <div class="position-absolute bottom-0 end-0">
+                                    <div class="d-inline-block">
+                                        <div class="">
                                             <label for="imgfile" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
                                                 <div class="avatar-xs cursor-pointer">
                                                     <div class="avatar-title bg-light border rounded-circle text-muted">
-                                                        <i class="ion ion-ios-albums"></i>
+                                                        <i class="ion ion-ios-share f-30"></i>
                                                     </div>
                                                 </div>
                                             </label>

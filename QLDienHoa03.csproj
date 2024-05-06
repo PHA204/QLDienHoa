@@ -197,6 +197,8 @@
     <Content Include="assets\audio\indexc052.html" />
     <Content Include="assets\audio\indexf8a0.html" />
     <Content Include="assets\audio\Water_Lily.mp3" />
+    <Content Include="assets\css\app.css" />
+    <Content Include="assets\css\bootstrap-extended.css" />
     <Content Include="assets\css\bootstrap-material.css" />
     <Content Include="assets\css\bootstrap-material.html" />
     <Content Include="assets\css\index.html" />
@@ -2254,6 +2256,7 @@
     <Content Include="Areas\Admin\Views\DanhMucHoa\Details.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DanhMucHoa\List.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

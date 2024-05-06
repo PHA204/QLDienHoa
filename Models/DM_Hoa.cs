@@ -28,6 +28,12 @@ namespace QLDienHoa03.Models
         {
             get { return string.Format("{0:N0}", Gia); } // Gia là giá trị tiền
         }
+        public string GiaFormat(int g)
+        {
+            GetType();
+            { return string.Format("{0:N0}", g); } // Gia là giá trị tiền
+        }
+
         public string HinhAnh { get; set; }
         public Nullable<int> DanhGia { get; set; }
     
