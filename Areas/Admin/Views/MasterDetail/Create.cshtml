@@ -1,0 +1,247 @@
+﻿@model QLDienHoa03.Models.PhieuNhap_ChiTietPN
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+<div class="container-fluid mt-5">
+    <h2 class="f-30" style="text-align:center;background-color:blue;color:white;margin-top:0px;">Phiếu Nhập Kho</h2>
+    @using (Html.BeginForm())
+    {
+        <!-- Form fields for Master (Phiếu Nhập Kho) -->
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MAPHIEU, "Mã Phiếu ", htmlAttributes: new { @class = "floating-label font-weight-bold f-17" })
+                    @Html.EditorFor(model => model.MAPHIEU, new { htmlAttributes = new { @class = "form-control f-16" } })
+                    @Html.ValidationMessageFor(model => model.MAPHIEU, "", new { @class = "" })
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.MANCC, "Nhà Cung Cấp", htmlAttributes: new { @class = "floating-label font-weight-bold f-17" })
+                    @Html.DropDownList("MANCC", ViewBag.NhaCungCapList as SelectList, "Chọn nhà cung cấp", new { @class = "form-control text-uppercase f-16" })
+                    @Html.ValidationMessageFor(model => model.MANCC, "", new { @class = "" })
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-sm-6 ">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NGAYLAP, "Ngày", htmlAttributes: new { @class = "floating-label font-weight-bold f-17" })
+                    @Html.EditorFor(model => model.NGAYLAP, new { htmlAttributes = new { @class = "form-control f-16", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.NGAYLAP, "", new { @class = "" })
+                </div>
+            </div>
+
+            <div class="col-sm-6 ">
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.GHICHU, "Ghi Chú", htmlAttributes: new { @class = "floating-label font-weight-bold f-17" })
+                    @Html.EditorFor(model => model.GHICHU, new { htmlAttributes = new { @class = "form-control f-16" } })
+                    @Html.ValidationMessageFor(model => model.GHICHU, "", new { @class = "" })
+                </div>
+            </div>
+        </div>
+        <div class="">
+
+        </div>
+        <div class="">
+
+        </div>
+        <!-- Các trường khác tương tự -->
+        <!-- Detail (Chi tiết phiếu nhập) -->
+        <!-- Detail (Chi tiết phiếu nhập) -->
+        <div style="border:1px solid black">
+            <table class="table">
+                <thead >
+                    <tr >
+                        <th style="border-bottom:1px solid black" >Nguyên Liệu</th>
+                        <th style="border-bottom:1px solid black" >Giá</th>
+                        <th style="border-bottom:1px solid black" >Số Lượng</th>
+                        <th style="border-bottom:1px solid black" >Tiền</th>
+                        <th style="border-bottom:1px solid black" ></th>
+                    </tr>
+                </thead>
+                <tbody id="details_container">
+                    <!-- Chi tiết phiếu nhập sẽ được thêm vào đây -->
+                </tbody>
+
+            </table>                
+            <div class="total-content">
+                <label class=""><b>Tổng Tiền: </b></label>
+                <span id="total"></span>
+            </div>        
+        </div>
+        <!-- Thêm nguyên liệu -->
+        <div class="d-flex mt-1 mb-2">
+            <div class="row">
+                <div class="mr-2 ml-2">
+                    <button type="button" id="add_nguyenlieu" class="btn btn-primary">Thêm Chi Tiết</button>
+                </div>
+                <div class="">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                </div>
+            </div>
+            <a href="@Url.Action("DSPhieuNhap","Masterdetail")"><i  ></i></a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        var nguyenLieuList1 = @Html.Raw(Json.Encode(ViewBag.NguyenLieuList1));
+        var nguyenLieuList2 = @Html.Raw(Json.Encode(ViewBag.NguyenLieuList2));
+
+        $(document).ready(function () {
+            var index = 0;
+            // Thêm nguyên liệu mới
+            $("#add_nguyenlieu").click(function () {
+                var dropdownHtml = '<tr id="row_' + index + '">' +
+                    '<td>' +
+                    '<select class="form-control select-nguyenlieu" name="MANLs[' + index + ']">';
+                for (var i = 0; i < nguyenLieuList1.length; i++) {
+                    dropdownHtml += '<option value="' + nguyenLieuList1[i].Value + '">' + nguyenLieuList1[i].Text + '</option>';
+                }
+                dropdownHtml += '</select>' +
+                    '</td>' +
+                    '<select class="form-control select-gia" name="GIA[' + index + ']" style="display: none;"></select>' +
+                    '<td>' +
+                    '<input type="text" name="GIA[' + index + ']" value="" class="form-control input-gia" readonly>' +
+                    '</td>' +
+                    '<td>' +
+                    '<div class="input-group">' +
+                    '<span class="input-group-btn">' +
+                    '<button type="button" class="btn btn-default btn-number btn-minus" data-type="minus"><span class="feather icon-minus"></span></button>' +
+                    '</span>' +
+                    '<input type="text" name="SOLUONGs[' + index + ']" class="form-control input-number" value="1" min="1" >' +
+                    '<span class="input-group-btn">' +
+                    '<button type="button" class="btn btn-default btn-number btn-plus mb-3" data-type="plus"><span class="feather icon-plus"></span></button>' +
+                    '</span>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' +
+                    '<input type="text" name="TIEN[' + index + ']" class="form-control input-tien" readonly>' +
+                    '</td>' +
+                    '<td>' +
+                    '<button type="button" class="btn btn-danger btn-remove" onclick="removeProductRow(' + index + ')">Xóa</button>' +
+                    '</td>' +
+                    '</tr>';
+
+                $("#details_container").append(dropdownHtml);
+                index++;
+            });
+
+
+
+            // Xóa hàng sản phẩm khi nhấn nút "Xóa"
+            $(document).on('click', '.btn-remove', function () {
+                $(this).closest('tr').remove();
+                calculateTotal(); // Tính toán lại tổng tiền sau khi xóa sản phẩm
+            });
+
+
+            // Tăng/giảm giá trị của số lượng khi nhấn nút cộng/trừ
+            $(document).on('click', '.btn-number', function (e) {
+                e.preventDefault();
+                var type = $(this).attr('data-type');
+                var input = $(this).closest('.input-group').find('input.input-number');
+                var currentVal = parseInt(input.val());
+                if (!isNaN(currentVal)) {
+                    if (type === 'minus') {
+                        if (currentVal > input.attr('min')) {
+                            input.val(currentVal - 1).change();
+                        }
+                    } else if (type === 'plus') {
+                        input.val(currentVal + 1).change();
+                    }
+                } else {
+                    input.val(1);
+                }
+                calculateTotal(); // Tính toán lại tổng tiền sau khi thay đổi số lượng
+            });
+
+            // Lắng nghe sự kiện khi chọn nguyên liệu mới
+            $(document).on('change', '.select-nguyenlieu', function () {
+                var selectedValue = $(this).val();
+                var $row = $(this).closest('tr');
+
+                // Tìm giá trị GIA tương ứng với nguyên liệu được chọn
+                for (var i = 0; i < nguyenLieuList1.length; i++) {
+                    if (selectedValue == nguyenLieuList1[i].Value) {
+                        var gia = parseFloat(nguyenLieuList2[i].Text);
+                        $row.find('.input-gia').val(gia.toFixed(2));
+                        break;
+                    }
+                }
+                calculateTotal(); // Tính toán lại tổng tiền sau khi thay đổi nguyên liệu
+            });
+
+            // Sự kiện khi thay đổi số lượng hoặc giá
+            $(document).on('change', '.input-number, .input-gia', function () {
+                calculateTotal(); // Tính toán lại tổng tiền sau khi thay đổi số lượng hoặc giá
+            });
+
+            // Hàm tính toán tổng tiền cho mỗi sản phẩm
+            function calculateTotal() {
+                $('tbody#details_container tr').each(function () {
+                    var soluong = parseFloat($(this).find('.input-number').val());
+                    var gia = parseFloat($(this).find('.input-gia').val());
+                    if (!isNaN(soluong) && !isNaN(gia)) {
+                        var tien = soluong * gia;
+                        $(this).find('.input-tien').val(tien.toFixed(2)); // Cập nhật giá trị tiền vào ô tiền tương ứng
+                    }
+                });
+                var total = 0;
+                $('tbody#details_container tr').each(function () {
+                    var value = parseFloat($(this).find('.input-tien').val());
+                    if (!isNaN(value)) {
+                        total += value;
+                    }
+                });
+                $('#total').text(total.toFixed(2)); // Hiển thị tổng tiền
+            }
+
+        });
+    </script>
+}
+<style>
+    .main-content {
+        border: 2px solid black;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .total-content {
+        margin-top: -20px;
+        padding: 5px;
+        border: 1px solid black;
+        border-top: 0px solid black;
+        width: 100%;
+    }
+
+    table {
+        border: 1px solid black;
+    }
+
+    thead, th {
+        text-align: center;
+    }
+
+    .input-gia, .input-tien {
+        margin-left: -15px;
+        text-align: center;
+    }
+
+    .input-group {
+        margin-left: -30px;
+    }
+
+    .input-number {
+        text-align: center;
+    }
+</style>

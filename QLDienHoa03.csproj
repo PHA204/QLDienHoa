@@ -131,6 +131,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DanhMucHoaController.cs" />
     <Compile Include="Areas\Admin\Controllers\MainController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MasterDetailController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhieuDatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,6 +176,7 @@
     <Compile Include="Models\PHIEUNHAPKHO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PhieuNhap_ChiTietPN.cs" />
     <Compile Include="Models\Quyen.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -654,6 +656,7 @@
     <Content Include="assets\img\pages\medal-trial.svg" />
     <Content Include="assets\img\pages\voucher.svg" />
     <Content Include="assets\img\pages\welcome.png" />
+    <Content Include="assets\img\gallery-image_3791336.jpg" />
     <Content Include="assets\img\product\card.png" />
     <Content Include="assets\img\product\cash.png" />
     <Content Include="assets\img\product\cc.png" />
@@ -2260,6 +2263,9 @@
     <Content Include="Areas\Admin\Views\DanhMucHoa\List.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Details.cshtml" />
     <Content Include="Areas\Admin\Views\DanhMucHoa\Detail_List.cshtml" />
+    <Content Include="Areas\Admin\Views\MasterDetail\DSPhieuNhap.cshtml" />
+    <Content Include="Areas\Admin\Views\MasterDetail\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\MasterDetail\Detail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

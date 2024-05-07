@@ -1,57 +1,4 @@
 ﻿@model QLDienHoa03.Models.DM_Hoa
-@*
-    <div>
-        <h4>DM_Hoa</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.TenHoa)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TenHoa)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.MauSac)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.MauSac)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Gia)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Gia)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.HinhAnh)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.HinhAnh)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.DanhGia)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.DanhGia)
-            </dd>
-
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.MaHoa }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-
-*@
 
 <div class="modal fade" id="detailsProduct">
     <div class="modal-dialog modal-xl">
@@ -104,16 +51,47 @@
                                                     <table class="table mb-0">
                                                         <tbody>
                                                             <tr>
-                                                                <th scope="row" style="width: 200px;">Thể Loại</th>
+                                                                <th scope="row" style="width: 200px;">Màu Sắc Chủ Đề</th>
                                                                 <td>@Html.DisplayFor(model => model.MauSac)</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Thời Lượng</th>
+                                                                <th scope="row">Giá Bán</th>
                                                                 <td>@Html.DisplayFor(model => model.GiaFormatted)</td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">Nhà Sản Xuất</th>
-                                                                <td> @Html.DisplayFor(model => model.DanhGia)</td>
+                                                                <th scope="row">Rate</th>
+                                                                <td>
+                                                                    @if (Model.DanhGia == 4)
+                                                                    {
+                                                                        <p class="m-0 d-inline-block align-middle font-16">                                                                            
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star"></span>
+                                                                        </p>
+                                                                    }
+                                                                    @if (Model.DanhGia == 5)
+                                                                    {
+                                                                        <p class="m-0 d-inline-block align-middle font-16">                                                                            
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                            <span class="text-warning feather icon-star-on"></span>
+                                                                        </p>
+                                                                    }
+                                                                    @if (Model.DanhGia == null)
+                                                                    {
+                                                                        <p class="m-0 d-inline-block align-middle font-16">                                                                            
+                                                                            <span class="text-warning feather icon-star"></span>
+                                                                            <span class="text-warning feather icon-star"></span>
+                                                                            <span class="text-warning feather icon-star"></span>
+                                                                            <span class="text-warning feather icon-star"></span>
+                                                                            <span class="text-warning feather icon-star"></span>
+                                                                        </p>
+                                                                    }
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

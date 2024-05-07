@@ -1,0 +1,212 @@
+﻿@model QLDienHoa03.Models.PHIEUNHAPKHO
+
+@{
+    ViewBag.Title = "DSPhieuNhap";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Danh Sách Các Phiếu Nhập</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="#!">Kho Hàng</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Nhập Kho</a></li>
+        </ol>
+    </div>
+    <div id="PlaceHolderHere"></div>
+    <div class="row">
+        <!-- customar project  start -->
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6 text-left">
+                            <a href="@Url.Action("Create","MasterDetail")" class="btn btn-success btn-sm mb-3 btn-round"><i class="feather icon-plus f-18">Thêm Phiếu Nhập Kho Mới</i></a>                            
+                        </div>
+                        <div class="col-6">
+                            <div id="report-table_filter" class="dataTables_filter" style="display:flex;margin-left:50%;">
+                                <label>Search:</label><input type="search" id="myInput" class="form-control form-control-sm ml-2" placeholder="" aria-controls="report-table">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Mã Phiếu Nhập</th>
+                                    <th>Ngày Lập</th>
+                                    <th>Tên Nhà Cung Cấp</th>
+                                    <th>Ghi Chú</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                @foreach (var item in ViewBag.DSPN)
+                                {
+                                <tr>
+                                    <td class="align-middle">
+                                        @item.MAPHIEU
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.NGAYLAPFormat
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.NHACUNGCAP.TENNCC
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.GHICHU
+                                    </td>
+                                    <td class="table-action">                                       
+                                        <a href="@Url.Action("Detail","MasterDetail",new { ma=item.MAPHIEU})" class="btn btn-icon btn-outline-success"><i class="feather icon-eye"></i></a>
+                                        <a href="@Url.Action("Edit","MasterDetail",new { ma=item.MAPHIEU})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
+                                        <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.MAPHIEU')"><i class="feather icon-trash-2"></i></a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <input type="hidden" id="ProductId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- customar project  end -->
+    </div>
+</div>
+
+
+
+
+@*modal xóa*@
+<div class="modal fade" id="deleteproduct">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Xóa Sản Phẩm </h2>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure about that ?</h3>
+            </div>
+            <div class="modal-footer">
+                <div class="">
+                    <a href="#" id="btnDelete" class="btn btn-primary"> Xóa</a>
+                    <a href="#" class="btn btn-danger btnCancel">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    $(document).ready(function () {
+       @* $(document).on("click", "#btnSave", function () {
+            var productFormData = $("#createForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/DanhMucHoa/SaveProduct",
+                data: productFormData,
+                success: function () {
+                    window.location.href = "/Admin/DanhMucHoa/Index";
+                }
+            });
+            $("#add-product").modal('hide');
+            window.location.href = "/Admin/DanhMucHoa/Index";
+        });
+*@
+        $("#btnSave").click(function () {
+            var formData = new FormData($("#saveForm")[0]); // Tạo một đối tượng FormData từ biểu mẫu
+            $.ajax({
+                type: "POST",
+                url: "/Admin/DanhMucHoa/Create",
+                data: formData, // Sử dụng đối tượng FormData
+                contentType: false, // Không sử dụng contentType mặc định
+                processData: false, // Không xử lý dữ liệu
+                success: function () {
+                    window.location.href = "/Admin/Masterdetail/DSPhieuNhap";
+                }
+            });
+        });
+
+        $(".btnCancel").click(function () {
+            window.location.href = "/Admin/Masterdetail/DSPhieuNhap";
+        });
+
+
+        $("#btnDelete").click(function () {
+            var _id = $("#ProductId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Masterdetail/Delete",
+                data: { id: _id },
+                success: function (result) {
+                    if (result) {
+                        $("#deleteproduct").modal('hide');
+                        $("#ProductId").val(null);
+                        window.location.href = "/Admin/MasterDetail/DSPhieuNhap";
+                    } else {
+                        alert("Thất bại");
+                    }
+                }
+            });
+        });
+    });
+
+    var Confirm = function (id) {
+        $("#ProductId").val(id);
+        $("#deleteproduct").modal('show');
+    }
+    var Create = function () {
+        $("#add-product").modal('show');
+    }
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        var PlaceHolderElement = $('#PlaceHolderHere');
+        $('button[data-toggle="ajax-modal"]').click(function (event) {
+            var url = $(this).data('url');
+            var decodeUrl = decodeURIComponent(url);
+            $.get(decodeUrl).done(function (data) {
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            })
+        })
+        PlaceHolderElement.on('click', '[data-save="modal"]', function (event) {
+            var form = $(this).parents('.modal.fade').find('form');
+            var actionUrl = form.attr('action');
+            var sendData = form.serialize();
+            $.post(actionUrl, sendData).done(function (data) {
+                PlaceHolderElement.find('.modal').modal('hide');
+                window.location.reload();
+            })
+        })
+    })
+</script>

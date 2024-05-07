@@ -1,0 +1,64 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    QLDienHoa03.Models.QL_Dien_HoaEntities data = new QLDienHoa03.Models.QL_Dien_HoaEntities();
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+     ViewBag.Title = "Detail";
+    string ma = ViewBag.chitiet;
+    var query = from pnk in data.PHIEUNHAPKHOes
+                join ctpn in data.CHITIETPHIEUNHAPs on pnk.MAPHIEU equals ctpn.MAPHIEU
+                join nl in data.NGUYENLIEUx on ctpn.MANL equals nl.MANL
+                join ncc in data.NHACUNGCAPs on pnk.MANCC equals ncc.MANCC
+                where pnk.MAPHIEU == ma
+                select new
+                {
+                    pnk.MAPHIEU,
+                    pnk.NGAYLAP,
+                    nl.TENNL,
+                    ctpn.SOLUONG,
+                    ncc.TENNCC,
+                    nl.GIA,
+                    ncc.DIACHI,
+                    ncc.SDT
+                };
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<h2>Chi Tiết Phiếu Nhập</h2>
+<div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã Phiếu</th>
+            <th>Ngày Nhập</th>
+            <th>Tên Nguyên Liệu</th>
+            <th>Số Lượng</th>
+            <th>Tên Nhà Cung Cấp</th>
+            <th>Giá</th>
+            <th>Địa Chỉ</th>
+            <th>Số Điện Thoại</th>
+            <th>Thành Tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in query)
+        {
+            <tr>
+                <td>@item.MAPHIEU</td>
+                <td>@item.NGAYLAP</td>
+                <td>@item.TENNL</td>
+                <td>@item.SOLUONG</td>
+                <td>@item.TENNCC</td>
+                <td>@item.GIA</td>
+                <td>@item.DIACHI</td>
+                <td>@item.SDT</td>
+                <td>@(Convert.ToInt32(item.SOLUONG) * (Decimal)item.GIA)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "DSPhieuNhap")
+</p>

@@ -11,7 +11,8 @@ namespace QLDienHoa03.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PHIEUNHAPKHO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,9 @@ namespace QLDienHoa03.Models
         }
     
         public string MAPHIEU { get; set; }
+        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}")]
         public System.DateTime NGAYLAP { get; set; }
+        public string NGAYLAPFormat { get { return NGAYLAP.ToString("dd-MM-yyyy"); } }
         public string MANCC { get; set; }
         public string GHICHU { get; set; }
     
