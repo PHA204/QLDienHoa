@@ -23,14 +23,12 @@ namespace QLDienHoa03.Models
         public string KhuVuc { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime NgayGiao { get; set; }
-
         public string NgayGiaoFormatted { get { return NgayGiao.ToString("dd-MM-yyyy"); } }
-
+        public bool YourPropertyBool { get; set; }
         public System.TimeSpan GioGiao { get; set; }
         public int DaGiao { get; set; }
     
         public virtual DM_Hoa DM_Hoa { get; set; }
         public virtual GiaPhiVanChuyen GiaPhiVanChuyen { get; set; }
-        public bool YourPropertyBool { get; set; }
     }
 }

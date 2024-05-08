@@ -248,13 +248,11 @@
                 url: "/PhieuDat/SaveProduct",
                 data: productFormData,
                 success: function () {
-                    window.location.href = "/Admin/PhieuDat/Index";
+                    window.location.href ="/Admin/PhieuDat/Index";
                 }
-            });
-            $("#add-product").modal('hide');
+            });            
             window.location.href = "/Admin/PhieuDat/Index";
         });
-
 
         $(".btnCancel").click(function () {
             window.location.href = "/Admin/PhieuDat/Index";

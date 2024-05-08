@@ -7,7 +7,7 @@
       <Diagram DiagramId="45fb05a5f41b444a89b44af2dfbd3d67" Name="Diagram1">
         <EntityTypeShape EntityType="QL_Dien_HoaModel.CHITIETPHIEUNHAP" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_Dien_HoaModel.DM_Hoa" Width="1.5" PointX="5.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QL_Dien_HoaModel.GiaPhiVanChuyen" Width="1.5" PointX="5.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_Dien_HoaModel.GiaPhiVanChuyen" Width="1.5" PointX="5.375" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_Dien_HoaModel.NGUYENLIEU" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_Dien_HoaModel.NHACUNGCAP" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="QL_Dien_HoaModel.PhanQuyen" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
@@ -24,6 +24,9 @@
         <AssociationConnector Association="QL_Dien_HoaModel.FK_PhanQuyen_Quyen" ManuallyRouted="false" />
         <AssociationConnector Association="QL_Dien_HoaModel.FK_PhanQuyen_TaiKhoan" ManuallyRouted="false" />
         <AssociationConnector Association="QL_Dien_HoaModel.FK_DM_Hoa_NGUYENLIEU" />
+        <EntityTypeShape EntityType="QL_Dien_HoaModel.BangCMT" Width="1.5" PointX="10" PointY="11.875" />
+        <AssociationConnector Association="QL_Dien_HoaModel.FK_BangCMT_TaiKhoan" />
+        <AssociationConnector Association="QL_Dien_HoaModel.FK_DM_Hoa_BangCMT" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

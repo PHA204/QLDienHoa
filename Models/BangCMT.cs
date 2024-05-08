@@ -12,24 +12,22 @@ namespace QLDienHoa03.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TaiKhoan
+    public partial class BangCMT
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaiKhoan()
+        public BangCMT()
         {
-            this.PhanQuyens = new HashSet<PhanQuyen>();
-            this.BangCMTs = new HashSet<BangCMT>();
+            this.DM_Hoa = new HashSet<DM_Hoa>();
         }
     
+        public string MACMT { get; set; }
+        public Nullable<System.DateTime> Ngaydang { get; set; }
+        public Nullable<int> DanhGia { get; set; }
         public string TenTK { get; set; }
-        public string MK { get; set; }
-        public string HoTen { get; set; }
-        public string SĐT { get; set; }
-        public string DiaChi { get; set; }
+        public string Comment { get; set; }
     
+        public virtual TaiKhoan TaiKhoan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BangCMT> BangCMTs { get; set; }
+        public virtual ICollection<DM_Hoa> DM_Hoa { get; set; }
     }
 }

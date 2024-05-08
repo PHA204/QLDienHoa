@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="QL_Dien_HoaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BangCMT">
+          <Key>
+            <PropertyRef Name="MACMT" />
+          </Key>
+          <Property Name="MACMT" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ngaydang" Type="date" />
+          <Property Name="DanhGia" Type="int" />
+          <Property Name="TenTK" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="CHITIETPHIEUNHAP">
           <Key>
             <PropertyRef Name="MAPHIEU" />
@@ -23,7 +33,7 @@
           <Property Name="MauSac" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Gia" Type="int" Nullable="false" />
           <Property Name="HinhAnh" Type="nvarchar(max)" />
-          <Property Name="DanhGia" Type="int" />
+          <Property Name="MACMT" Type="nvarchar" MaxLength="50" />
           <Property Name="MANL" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="GiaPhiVanChuyen">
@@ -111,6 +121,18 @@
           <Property Name="SĐT" Type="nvarchar" MaxLength="50" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_BangCMT_TaiKhoan">
+          <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+          <End Role="BangCMT" Type="Self.BangCMT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTK" />
+            </Principal>
+            <Dependent Role="BangCMT">
+              <PropertyRef Name="TenTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CHITIETPHIEUNHAP_NGUYENLIEU">
           <End Role="NGUYENLIEU" Type="Self.NGUYENLIEU" Multiplicity="1" />
           <End Role="CHITIETPHIEUNHAP" Type="Self.CHITIETPHIEUNHAP" Multiplicity="*" />
@@ -132,6 +154,18 @@
             </Principal>
             <Dependent Role="CHITIETPHIEUNHAP">
               <PropertyRef Name="MAPHIEU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DM_Hoa_BangCMT">
+          <End Role="BangCMT" Type="Self.BangCMT" Multiplicity="0..1" />
+          <End Role="DM_Hoa" Type="Self.DM_Hoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BangCMT">
+              <PropertyRef Name="MACMT" />
+            </Principal>
+            <Dependent Role="DM_Hoa">
+              <PropertyRef Name="MACMT" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -208,6 +242,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="QL_Dien_HoaModelStoreContainer">
+          <EntitySet Name="BangCMT" EntityType="Self.BangCMT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CHITIETPHIEUNHAP" EntityType="Self.CHITIETPHIEUNHAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DM_Hoa" EntityType="Self.DM_Hoa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiaPhiVanChuyen" EntityType="Self.GiaPhiVanChuyen" Schema="dbo" store:Type="Tables" />
@@ -219,6 +254,10 @@
           <EntitySet Name="Quyen" EntityType="Self.Quyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BangCMT_TaiKhoan" Association="Self.FK_BangCMT_TaiKhoan">
+            <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+            <End Role="BangCMT" EntitySet="BangCMT" />
+          </AssociationSet>
           <AssociationSet Name="FK_CHITIETPHIEUNHAP_NGUYENLIEU" Association="Self.FK_CHITIETPHIEUNHAP_NGUYENLIEU">
             <End Role="NGUYENLIEU" EntitySet="NGUYENLIEU" />
             <End Role="CHITIETPHIEUNHAP" EntitySet="CHITIETPHIEUNHAP" />
@@ -226,6 +265,10 @@
           <AssociationSet Name="FK_CHITIETPHIEUNHAP_PHIEUNHAPKHO" Association="Self.FK_CHITIETPHIEUNHAP_PHIEUNHAPKHO">
             <End Role="PHIEUNHAPKHO" EntitySet="PHIEUNHAPKHO" />
             <End Role="CHITIETPHIEUNHAP" EntitySet="CHITIETPHIEUNHAP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DM_Hoa_BangCMT" Association="Self.FK_DM_Hoa_BangCMT">
+            <End Role="BangCMT" EntitySet="BangCMT" />
+            <End Role="DM_Hoa" EntitySet="DM_Hoa" />
           </AssociationSet>
           <AssociationSet Name="FK_DM_Hoa_NGUYENLIEU" Association="Self.FK_DM_Hoa_NGUYENLIEU">
             <End Role="NGUYENLIEU" EntitySet="NGUYENLIEU" />
@@ -277,9 +320,10 @@
           <Property Name="Gia" Type="Int32" Nullable="false" />
           <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PhieuDats" Relationship="Self.FK_PhieuDat_DM_Hoa" FromRole="DM_Hoa" ToRole="PhieuDat" />
-          <Property Name="DanhGia" Type="Int32" />
           <Property Name="MANL" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="NGUYENLIEU" Relationship="QL_Dien_HoaModel.FK_DM_Hoa_NGUYENLIEU" FromRole="DM_Hoa" ToRole="NGUYENLIEU" />
+          <Property Name="MACMT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BangCMT" Relationship="QL_Dien_HoaModel.FK_DM_Hoa_BangCMT" FromRole="DM_Hoa" ToRole="BangCMT" />
         </EntityType>
         <EntityType Name="GiaPhiVanChuyen">
           <Key>
@@ -377,6 +421,7 @@
           <Property Name="SĐT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PhanQuyens" Relationship="Self.FK_PhanQuyen_TaiKhoan" FromRole="TaiKhoan" ToRole="PhanQuyen" />
+          <NavigationProperty Name="BangCMTs" Relationship="QL_Dien_HoaModel.FK_BangCMT_TaiKhoan" FromRole="TaiKhoan" ToRole="BangCMT" />
         </EntityType>
         <Association Name="FK_CHITIETPHIEUNHAP_NGUYENLIEU">
           <End Role="NGUYENLIEU" Type="Self.NGUYENLIEU" Multiplicity="1" />
@@ -506,6 +551,15 @@
             <End Role="NGUYENLIEU" EntitySet="NGUYENLIEUx" />
             <End Role="DM_Hoa" EntitySet="DM_Hoa" />
           </AssociationSet>
+          <EntitySet Name="BangCMTs" EntityType="QL_Dien_HoaModel.BangCMT" />
+          <AssociationSet Name="FK_BangCMT_TaiKhoan" Association="QL_Dien_HoaModel.FK_BangCMT_TaiKhoan">
+            <End Role="TaiKhoan" EntitySet="TaiKhoans" />
+            <End Role="BangCMT" EntitySet="BangCMTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DM_Hoa_BangCMT" Association="QL_Dien_HoaModel.FK_DM_Hoa_BangCMT">
+            <End Role="BangCMT" EntitySet="BangCMTs" />
+            <End Role="DM_Hoa" EntitySet="DM_Hoa" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_DM_Hoa_NGUYENLIEU">
           <End Type="QL_Dien_HoaModel.NGUYENLIEU" Role="NGUYENLIEU" Multiplicity="0..1" />
@@ -516,6 +570,42 @@
             </Principal>
             <Dependent Role="DM_Hoa">
               <PropertyRef Name="MANL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BangCMT">
+          <Key>
+            <PropertyRef Name="MACMT" />
+          </Key>
+          <Property Name="MACMT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ngaydang" Type="DateTime" Precision="0" />
+          <Property Name="DanhGia" Type="Int32" />
+          <Property Name="TenTK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TaiKhoan" Relationship="QL_Dien_HoaModel.FK_BangCMT_TaiKhoan" FromRole="BangCMT" ToRole="TaiKhoan" />
+          <NavigationProperty Name="DM_Hoa" Relationship="QL_Dien_HoaModel.FK_DM_Hoa_BangCMT" FromRole="BangCMT" ToRole="DM_Hoa" />
+        </EntityType>
+        <Association Name="FK_BangCMT_TaiKhoan">
+          <End Type="QL_Dien_HoaModel.TaiKhoan" Role="TaiKhoan" Multiplicity="0..1" />
+          <End Type="QL_Dien_HoaModel.BangCMT" Role="BangCMT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaiKhoan">
+              <PropertyRef Name="TenTK" />
+            </Principal>
+            <Dependent Role="BangCMT">
+              <PropertyRef Name="TenTK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DM_Hoa_BangCMT">
+          <End Type="QL_Dien_HoaModel.BangCMT" Role="BangCMT" Multiplicity="0..1" />
+          <End Type="QL_Dien_HoaModel.DM_Hoa" Role="DM_Hoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BangCMT">
+              <PropertyRef Name="MACMT" />
+            </Principal>
+            <Dependent Role="DM_Hoa">
+              <PropertyRef Name="MACMT" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -537,8 +627,8 @@
           <EntitySetMapping Name="DM_Hoa">
             <EntityTypeMapping TypeName="QL_Dien_HoaModel.DM_Hoa">
               <MappingFragment StoreEntitySet="DM_Hoa">
+                <ScalarProperty Name="MACMT" ColumnName="MACMT" />
                 <ScalarProperty Name="MANL" ColumnName="MANL" />
-                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
                 <ScalarProperty Name="MaHoa" ColumnName="MaHoa" />
                 <ScalarProperty Name="TenHoa" ColumnName="TenHoa" />
                 <ScalarProperty Name="MauSac" ColumnName="MauSac" />
@@ -637,6 +727,17 @@
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="SĐT" ColumnName="SĐT" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BangCMTs">
+            <EntityTypeMapping TypeName="QL_Dien_HoaModel.BangCMT">
+              <MappingFragment StoreEntitySet="BangCMT">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="TenTK" ColumnName="TenTK" />
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+                <ScalarProperty Name="Ngaydang" ColumnName="Ngaydang" />
+                <ScalarProperty Name="MACMT" ColumnName="MACMT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

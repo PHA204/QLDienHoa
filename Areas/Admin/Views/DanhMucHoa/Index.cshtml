@@ -49,7 +49,7 @@
                                     <tr>
                                         <td class="align-middle">
                                             <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3" width="50" />
-                                            @if (item.DanhGia == 4)
+                                            @if (item.BangCMT.DanhGia == 4)
                                             {
                                                 <p class="m-0 d-inline-block align-middle font-16">
                                                     <br />
@@ -60,7 +60,7 @@
                                                     <span class="text-warning feather icon-star"></span>
                                                 </p>
                                             }
-                                            @if (item.DanhGia == 5)
+                                            @if (item.BangCMT.DanhGia == 5)
                                             {
                                                 <p class="m-0 d-inline-block align-middle font-16">
                                                     <br />
@@ -71,7 +71,7 @@
                                                     <span class="text-warning feather icon-star-on"></span>
                                                 </p>
                                             }
-                                            @if (item.DanhGia == null)
+                                            @if (item.BangCMT.DanhGia == null)
                                             {
                                                 <p class="m-0 d-inline-block align-middle font-16">
                                                     <br />
@@ -179,7 +179,7 @@
             </div>
             <div class="modal-footer" style="margin-top:-40px">
                 <button id="btnSave" class="btn btn-primary">Lưu</button>
-                <a href="#" class="btn btn-danger btnCancel">Close</a>
+                <button class="btn btn-danger btnCancel">Close</button>
             </div>
         </div>
     </div>
