@@ -25,6 +25,7 @@ namespace QLDienHoa03.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<BangCMT> BangCMTs { get; set; }
         public virtual DbSet<CHITIETPHIEUNHAP> CHITIETPHIEUNHAPs { get; set; }
         public virtual DbSet<DM_Hoa> DM_Hoa { get; set; }
         public virtual DbSet<GiaPhiVanChuyen> GiaPhiVanChuyens { get; set; }
@@ -36,6 +37,5 @@ namespace QLDienHoa03.Models
         public virtual DbSet<Quyen> Quyens { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
-        public virtual DbSet<BangCMT> BangCMTs { get; set; }
     }
 }

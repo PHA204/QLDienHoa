@@ -22,7 +22,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         public ActionResult Index()
         {
 
-            ViewBag.DM_Hoa = db.DM_Hoa.Include("BangCMT").ToList();
+            ViewBag.DM_Hoa = db.DM_Hoa.ToList();
             return View();
         }
         public ActionResult List()
@@ -89,6 +89,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         {
             string path = uploadimage(imgfile);
             DM_Hoa ns = new DM_Hoa();
+            BangCMT cmt = new BangCMT();
             if (path.Equals("-1"))
             {
 
@@ -101,7 +102,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
                 ns.Gia = Hoa.Gia;
                 ns.HinhAnh = path;
                 ns.MANL = null;
-                ns.MACMT = "1";
+                ns.DanhGia = 0;
                 db.Entry(ns).State = EntityState.Modified;
                 db.DM_Hoa.Add(ns);
                 try
@@ -209,7 +210,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
                 update.Gia = Hoa.Gia;
                 update.HinhAnh = update.HinhAnh;
                 update.MANL = null;
-                update.MACMT = "1";
+                update.DanhGia = 0; 
                 db.SaveChanges();
             }
             else
@@ -220,7 +221,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
                 update.Gia = Hoa.Gia;
                 update.HinhAnh = path;
                 update.MANL = null;
-                update.MACMT = null;
+                update.DanhGia = 0;
                 db.SaveChanges();
             }
             return RedirectToAction("Index");

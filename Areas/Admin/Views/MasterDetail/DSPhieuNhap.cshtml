@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <div class="row align-items-center m-l-0">
                         <div class="col-sm-6 text-left">
-                            <a href="@Url.Action("Create","MasterDetail")" class="btn btn-success btn-sm mb-3 btn-round"><i class="feather icon-plus f-18">Thêm Phiếu Nhập Kho Mới</i></a>                            
+                            <a href="@Url.Action("Create","MasterDetail")" class="btn btn-success btn-sm mb-3 btn-round"><i class="feather icon-plus f-18">Thêm Phiếu Nhập Kho Mới</i></a>
                         </div>
                         <div class="col-6">
                             <div id="report-table_filter" class="dataTables_filter" style="display:flex;margin-left:50%;">
@@ -37,6 +37,7 @@
                         <table id="report-table" class="table mb-0">
                             <thead class="thead-light">
                                 <tr>
+
                                     <th>Mã Phiếu Nhập</th>
                                     <th>Ngày Lập</th>
                                     <th>Tên Nhà Cung Cấp</th>
@@ -48,25 +49,25 @@
                             <tbody id="myTable">
                                 @foreach (var item in ViewBag.DSPN)
                                 {
-                                <tr>
-                                    <td class="align-middle">
-                                        @item.MAPHIEU
-                                    </td>
-                                    <td class="align-middle">
-                                        @item.NGAYLAPFormat
-                                    </td>
-                                    <td class="align-middle">
-                                        @item.NHACUNGCAP.TENNCC
-                                    </td>
-                                    <td class="align-middle">
-                                        @item.GHICHU
-                                    </td>
-                                    <td class="table-action">                                       
-                                        <a href="@Url.Action("Detail","MasterDetail",new { ma=item.MAPHIEU})" class="btn btn-icon btn-outline-success"><i class="feather icon-eye"></i></a>
-                                        <a href="@Url.Action("Edit","MasterDetail",new { ma=item.MAPHIEU})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
-                                        <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.MAPHIEU')"><i class="feather icon-trash-2"></i></a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            @item.MAPHIEU
+                                        </td>
+                                        <td class="align-middle">
+                                            @item.NGAYLAPFormat
+                                        </td>
+                                        <td class="align-middle">
+                                            @item.NHACUNGCAP.TENNCC
+                                        </td>
+                                        <td class="align-middle">
+                                            @item.GHICHU
+                                        </td>
+                                        <td class="table-action">
+                                            <a href="@Url.Action("Detail","MasterDetail",new { ma=item.MAPHIEU})" class="btn btn-icon btn-outline-success"><i class="feather icon-eye"></i></a>
+                                           @* <a href="@Url.Action("Edit","MasterDetail",new { ma=item.MAPHIEU})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>*@
+                                            <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.MAPHIEU')"><i class="feather icon-trash-2"></i></a>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

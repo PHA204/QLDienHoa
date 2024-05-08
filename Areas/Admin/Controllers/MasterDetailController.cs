@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+    
 namespace QLDienHoa03.Areas.Admin.Controllers
 {
     public class MasterDetailController : Controller

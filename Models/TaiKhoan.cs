@@ -17,8 +17,8 @@ namespace QLDienHoa03.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TaiKhoan()
         {
-            this.PhanQuyens = new HashSet<PhanQuyen>();
             this.BangCMTs = new HashSet<BangCMT>();
+            this.PhanQuyens = new HashSet<PhanQuyen>();
         }
     
         public string TenTK { get; set; }
@@ -28,8 +28,8 @@ namespace QLDienHoa03.Models
         public string DiaChi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BangCMT> BangCMTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
     }
 }

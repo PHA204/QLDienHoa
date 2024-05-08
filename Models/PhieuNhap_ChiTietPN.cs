@@ -9,6 +9,7 @@ namespace QLDienHoa03.Models
 {
     public class PhieuNhap_ChiTietPN
     {
+        //Master
         public string MAPHIEU { get; set; }
         [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}",ApplyFormatInEditMode =true)]
         public System.DateTime NGAYLAP { get; set; }
@@ -19,13 +20,12 @@ namespace QLDienHoa03.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETPHIEUNHAP> CHITIETPHIEUNHAPs { get; set; }
-        public virtual NHACUNGCAP NHACUNGCAP { get; set; }
-        public string TENNCC { get; set; }
-        /////////////////////////
-        public string MANL { get; set; }
+        public virtual NHACUNGCAP NHACUNGCAP { get; set; }        
+
+        // Detail //
+      
         public string SOLUONG { get; set; }
-        public string TENNL { get; set; }       
-        public Nullable<int> GIA { get; set; }
+        public string TENNL { get; set; }              
         public virtual NGUYENLIEU NGUYENLIEU { get; set; }
         public virtual PHIEUNHAPKHO PHIEUNHAPKHO { get; set; }
     }

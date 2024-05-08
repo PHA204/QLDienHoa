@@ -14,20 +14,14 @@ namespace QLDienHoa03.Models
     
     public partial class BangCMT
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BangCMT()
-        {
-            this.DM_Hoa = new HashSet<DM_Hoa>();
-        }
-    
         public string MACMT { get; set; }
         public Nullable<System.DateTime> Ngaydang { get; set; }
         public Nullable<int> DanhGia { get; set; }
         public string TenTK { get; set; }
         public string Comment { get; set; }
+        public string MaHoa { get; set; }
     
+        public virtual DM_Hoa DM_Hoa { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DM_Hoa> DM_Hoa { get; set; }
     }
 }

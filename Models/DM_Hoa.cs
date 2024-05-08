@@ -17,6 +17,7 @@ namespace QLDienHoa03.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DM_Hoa()
         {
+            this.BangCMTs = new HashSet<BangCMT>();
             this.PhieuDats = new HashSet<PhieuDat>();
         }
     
@@ -35,11 +36,12 @@ namespace QLDienHoa03.Models
         }
         public string HinhAnh { get; set; }
         public string MANL { get; set; }
-        public string MACMT { get; set; }
-    
+        public int DanhGia { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BangCMT> BangCMTs { get; set; }
+        public virtual NGUYENLIEU NGUYENLIEU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuDat> PhieuDats { get; set; }
-        public virtual NGUYENLIEU NGUYENLIEU { get; set; }
-        public virtual BangCMT BangCMT { get; set; }
     }
 }
