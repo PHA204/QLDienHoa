@@ -24,6 +24,7 @@
           <Property Name="Gia" Type="int" Nullable="false" />
           <Property Name="HinhAnh" Type="nvarchar(max)" />
           <Property Name="DanhGia" Type="int" />
+          <Property Name="MANL" Type="varchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="GiaPhiVanChuyen">
           <Key>
@@ -134,6 +135,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DM_Hoa_NGUYENLIEU">
+          <End Role="NGUYENLIEU" Type="Self.NGUYENLIEU" Multiplicity="0..1" />
+          <End Role="DM_Hoa" Type="Self.DM_Hoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NGUYENLIEU">
+              <PropertyRef Name="MANL" />
+            </Principal>
+            <Dependent Role="DM_Hoa">
+              <PropertyRef Name="MANL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PhanQuyen_Quyen">
           <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
           <End Role="PhanQuyen" Type="Self.PhanQuyen" Multiplicity="*" />
@@ -214,6 +227,10 @@
             <End Role="PHIEUNHAPKHO" EntitySet="PHIEUNHAPKHO" />
             <End Role="CHITIETPHIEUNHAP" EntitySet="CHITIETPHIEUNHAP" />
           </AssociationSet>
+          <AssociationSet Name="FK_DM_Hoa_NGUYENLIEU" Association="Self.FK_DM_Hoa_NGUYENLIEU">
+            <End Role="NGUYENLIEU" EntitySet="NGUYENLIEU" />
+            <End Role="DM_Hoa" EntitySet="DM_Hoa" />
+          </AssociationSet>
           <AssociationSet Name="FK_PhanQuyen_Quyen" Association="Self.FK_PhanQuyen_Quyen">
             <End Role="Quyen" EntitySet="Quyen" />
             <End Role="PhanQuyen" EntitySet="PhanQuyen" />
@@ -261,6 +278,8 @@
           <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PhieuDats" Relationship="Self.FK_PhieuDat_DM_Hoa" FromRole="DM_Hoa" ToRole="PhieuDat" />
           <Property Name="DanhGia" Type="Int32" />
+          <Property Name="MANL" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NGUYENLIEU" Relationship="QL_Dien_HoaModel.FK_DM_Hoa_NGUYENLIEU" FromRole="DM_Hoa" ToRole="NGUYENLIEU" />
         </EntityType>
         <EntityType Name="GiaPhiVanChuyen">
           <Key>
@@ -280,6 +299,7 @@
           <Property Name="TENNL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="GIA" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CHITIETPHIEUNHAPs" Relationship="Self.FK_CHITIETPHIEUNHAP_NGUYENLIEU" FromRole="NGUYENLIEU" ToRole="CHITIETPHIEUNHAP" />
+          <NavigationProperty Name="DM_Hoa" Relationship="QL_Dien_HoaModel.FK_DM_Hoa_NGUYENLIEU" FromRole="NGUYENLIEU" ToRole="DM_Hoa" />
         </EntityType>
         <EntityType Name="NHACUNGCAP">
           <Key>
@@ -482,7 +502,23 @@
             <End Role="TaiKhoan" EntitySet="TaiKhoans" />
             <End Role="PhanQuyen" EntitySet="PhanQuyens" />
           </AssociationSet>
+          <AssociationSet Name="FK_DM_Hoa_NGUYENLIEU" Association="QL_Dien_HoaModel.FK_DM_Hoa_NGUYENLIEU">
+            <End Role="NGUYENLIEU" EntitySet="NGUYENLIEUx" />
+            <End Role="DM_Hoa" EntitySet="DM_Hoa" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_DM_Hoa_NGUYENLIEU">
+          <End Type="QL_Dien_HoaModel.NGUYENLIEU" Role="NGUYENLIEU" Multiplicity="0..1" />
+          <End Type="QL_Dien_HoaModel.DM_Hoa" Role="DM_Hoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NGUYENLIEU">
+              <PropertyRef Name="MANL" />
+            </Principal>
+            <Dependent Role="DM_Hoa">
+              <PropertyRef Name="MANL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -501,6 +537,7 @@
           <EntitySetMapping Name="DM_Hoa">
             <EntityTypeMapping TypeName="QL_Dien_HoaModel.DM_Hoa">
               <MappingFragment StoreEntitySet="DM_Hoa">
+                <ScalarProperty Name="MANL" ColumnName="MANL" />
                 <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
                 <ScalarProperty Name="MaHoa" ColumnName="MaHoa" />
                 <ScalarProperty Name="TenHoa" ColumnName="TenHoa" />

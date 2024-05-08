@@ -18,6 +18,7 @@ namespace QLDienHoa03.Models
         public NGUYENLIEU()
         {
             this.CHITIETPHIEUNHAPs = new HashSet<CHITIETPHIEUNHAP>();
+            this.DM_Hoa = new HashSet<DM_Hoa>();
         }
     
         public string MANL { get; set; }
@@ -26,5 +27,7 @@ namespace QLDienHoa03.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETPHIEUNHAP> CHITIETPHIEUNHAPs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DM_Hoa> DM_Hoa { get; set; }
     }
 }

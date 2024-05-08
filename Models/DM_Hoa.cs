@@ -26,18 +26,19 @@ namespace QLDienHoa03.Models
         public int Gia { get; set; }
         public string GiaFormatted
         {
-            get { return string.Format("{0:N0}", Gia); } // Gia là giá trị tiền
+            get { return string.Format("{0:N0}", Gia); } 
         }
         public string GiaFormat(int g)
         {
             GetType();
-            { return string.Format("{0:N0}", g); } // Gia là giá trị tiền
+            { return string.Format("{0:N0}", g); } 
         }
-
         public string HinhAnh { get; set; }
         public Nullable<int> DanhGia { get; set; }
+        public string MANL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuDat> PhieuDats { get; set; }
+        public virtual NGUYENLIEU NGUYENLIEU { get; set; }
     }
 }

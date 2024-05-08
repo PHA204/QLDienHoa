@@ -22,7 +22,7 @@ namespace QLDienHoa03.Models
         }
     
         public string MAPHIEU { get; set; }
-        [DisplayFormat(DataFormatString ="{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public System.DateTime NGAYLAP { get; set; }
         public string NGAYLAPFormat { get { return NGAYLAP.ToString("dd-MM-yyyy"); } }
         public string MANCC { get; set; }

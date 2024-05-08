@@ -23,6 +23,7 @@
         <AssociationConnector Association="QL_Dien_HoaModel.FK_PHIEUNHAPKHO_NHACUNGCAP" ManuallyRouted="false" />
         <AssociationConnector Association="QL_Dien_HoaModel.FK_PhanQuyen_Quyen" ManuallyRouted="false" />
         <AssociationConnector Association="QL_Dien_HoaModel.FK_PhanQuyen_TaiKhoan" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_Dien_HoaModel.FK_DM_Hoa_NGUYENLIEU" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

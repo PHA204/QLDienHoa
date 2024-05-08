@@ -26,13 +26,11 @@ namespace QLDienHoa03.Models
 
         public string NgayGiaoFormatted { get { return NgayGiao.ToString("dd-MM-yyyy"); } }
 
-
         public System.TimeSpan GioGiao { get; set; }
         public int DaGiao { get; set; }
     
         public virtual DM_Hoa DM_Hoa { get; set; }
         public virtual GiaPhiVanChuyen GiaPhiVanChuyen { get; set; }
-
         public bool YourPropertyBool { get; set; }
     }
 }
