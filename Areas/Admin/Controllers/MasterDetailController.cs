@@ -77,6 +77,8 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             return View();
         }
         
+
+
         public JsonResult Delete(string id)
         {
             bool result = false;

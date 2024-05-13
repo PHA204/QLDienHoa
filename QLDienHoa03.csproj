@@ -2154,6 +2154,12 @@
     <Content Include="assets\video\indexbfec.html" />
     <Content Include="assets\video\indexc052.html" />
     <Content Include="assets\video\indexf8a0.html" />
+    <Content Include="Content\Alert\sweetalert2.all.js" />
+    <Content Include="Content\Alert\sweetalert2.all.min.js" />
+    <Content Include="Content\Alert\sweetalert2.css" />
+    <Content Include="Content\Alert\sweetalert2.js" />
+    <Content Include="Content\Alert\sweetalert2.min.css" />
+    <Content Include="Content\Alert\sweetalert2.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -2272,6 +2278,9 @@
     <Content Include="Areas\Admin\Views\MasterDetail\Create.cshtml" />
     <Content Include="Areas\Admin\Views\MasterDetail\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\Voting\Index.cshtml" />
+    <Content Include="Content\Alert\LICENSE" />
+    <Content Include="Content\Alert\package.json" />
+    <Content Include="Content\Alert\README.md" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2297,6 +2306,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_user.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

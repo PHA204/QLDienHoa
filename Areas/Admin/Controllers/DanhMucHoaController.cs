@@ -25,6 +25,18 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             ViewBag.DM_Hoa = db.DM_Hoa.ToList();
             return View();
         }
+        [HttpPost]
+        public ActionResult Multi_Delete(FormCollection formcc)
+        {
+            string[] ids = formcc["MaHoa"].Split(new char[] { ',' });
+            foreach (string id in ids)
+            {
+                var Hoa = this.db.DM_Hoa.Find(id);
+                this.db.DM_Hoa.Remove(Hoa);
+                this.db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
         public ActionResult List()
         {
             ViewBag.DM_Hoa = db.DM_Hoa.ToList();
@@ -67,6 +79,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
              return RedirectToAction("Index");
          }
  */
+        [HttpPost]
         public JsonResult Delete(string id)
         {
             bool result = false;

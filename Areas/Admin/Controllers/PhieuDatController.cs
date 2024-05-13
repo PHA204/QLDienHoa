@@ -75,7 +75,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         }
 
         // POST: Admin/PhieuDat/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for       
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SoPhieu,Hoa,TenNguoiGui,TenNguoiNhan,DiaChiNguoiNhan,KhuVuc,NgayGiao,GioGiao,DaGiao")] PhieuDat phieuDat)
@@ -88,7 +88,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         }
 
         // GET: Admin/PhieuDat/Edit/5
-        /*[RoleUser(idQuyen = "Q3")]*/
+       
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -106,7 +106,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         }
 
         // POST: Admin/PhieuDat/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+     
 
         [HttpPost]
         [ValidateAntiForgeryToken]

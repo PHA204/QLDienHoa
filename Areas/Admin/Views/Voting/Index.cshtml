@@ -5,48 +5,89 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SĐT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </th>
-        <th></th>
-    </tr>
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Danh Sách Các Phiếu Nhập</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="#!">Account</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Danh Sách Tài Khoản</a></li>
+        </ol>
+    </div>
+    <div id="PlaceHolderHere"></div>
+    <div class="row">
+        <!-- customar project  start -->
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6 text-left">
+                            <a href="@Url.Action("Create","MasterDetail")" class="btn btn-success btn-sm mb-3 btn-round"><i class="feather icon-plus f-18">Thêm Phiếu Nhập Kho Mới</i></a>
+                        </div>
+                        <div class="col-6">
+                            <div id="report-table_filter" class="dataTables_filter" style="display:flex;margin-left:50%;">
+                                <label>Search:</label><input type="search" id="myInput" class="form-control form-control-sm ml-2" placeholder="" aria-controls="report-table">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table mb-0 datatables-demo">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TenTK)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.HoTen)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SĐT)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DiaChi)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MK)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.HoTen)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SĐT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DiaChi)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.TenTK }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.TenTK }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.TenTK })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <input type="hidden" id="ProductId" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoTen)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SĐT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DiaChi)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TenTK }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TenTK }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TenTK })
-        </td>
-    </tr>
-}
+    </div>
+</div>
 
-</table>
+
+
+<style>
+    #report-table_filter {
+        display: none;
+    }
+</style>

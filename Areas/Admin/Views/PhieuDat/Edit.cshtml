@@ -6,7 +6,7 @@
 }
 
 <div class=" card container btn-glow-success" style="width:50% ;margin-top:20px">
-    <h1 class="card-header text-center">Edit</h1>
+    <h1 class="card-header text-center">Chỉnh Sửa</h1>
     <div class="card-body">
         @using (Html.BeginForm())
         {
@@ -58,8 +58,8 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <div class="d-flex justify-content-lg-between">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="d-flex justify-content-end">
+                <input type="submit" value="Save" class="btn btn-primary mr-3" />
                 <a class="btn btn-outline-linux" href="@Url.Action("Index","PhieuDat")"><i class="ion ion-md-return-left f-24"></i></a>
             </div>
         </form>

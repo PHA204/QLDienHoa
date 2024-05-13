@@ -101,8 +101,8 @@
             var index = 0;
             // Thêm nguyên liệu mới
             $("#add_nguyenlieu").click(function () {
-                var dropdownHtml = '<tr id="row_' + index + '">' +
-                    '<td>' +
+                var dropdownHtml = '<tr  id="row_' + index + '">' +
+                    '<td style="border-bottom:1px solid black">' +
                     '<select class="form-control select-nguyenlieu" name="MANLs[' + index + ']">';
                 for (var i = 0; i < nguyenLieuList1.length; i++) {
                     dropdownHtml += '<option value="' + nguyenLieuList1[i].Value + '">' + nguyenLieuList1[i].Text + '</option>';
@@ -110,10 +110,10 @@
                 dropdownHtml += '</select>' +
                     '</td>' +
                     '<select class="form-control select-gia" name="GIA[' + index + ']" style="display: none;"></select>' +
-                    '<td>' +
+                    '<td style="border-bottom:1px solid black">' +
                     '<input type="text" name="GIA[' + index + ']" value="" class="form-control input-gia" readonly>' +
                     '</td>' +
-                    '<td>' +
+                    '<td style="border-bottom:1px solid black">' +
                     '<div class="input-group">' +
                     '<span class="input-group-btn">' +
                     '<button type="button" class="btn btn-default btn-number btn-minus" data-type="minus"><span class="feather icon-minus"></span></button>' +
@@ -124,11 +124,11 @@
                     '</span>' +
                     '</div>' +
                     '</td>' +
-                    '<td>' +
+                    '<td style="border-bottom:1px solid black">' +
                     '<input type="text" name="TIEN[' + index + ']" class="form-control input-tien" readonly>' +
                     '</td>' +
-                    '<td>' +
-                    '<button type="button" class="btn btn-danger btn-remove" onclick="removeProductRow(' + index + ')">Xóa</button>' +
+                    '<td style="border-bottom:1px solid black">' +
+                    '<button type="button" class="btn btn-danger btn-remove" onclick="removeProductRow(' + index + ')"><i class="feather icon-trash"></i></button>' +
                     '</td>' +
                     '</tr>';
 

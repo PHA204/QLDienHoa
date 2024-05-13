@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table id="report-table" class="table mb-0">
+                        <table id="report-table" class="table mb-0 datatables-demo">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Số Phiếu</th>
@@ -134,7 +134,7 @@
                                 @Html.DropDownListFor(model => model.Hoa, (SelectList)ViewBag.Hoa, new { @class = "form-control" })
                             </div>
                         </div>
-                        <div class="col-sm-6">  
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="floating-label" for="Price">Tên Người Gửi</label>
                                 @Html.TextBoxFor(model => model.TenNguoiGui, new { @class = "form-control" })
@@ -248,9 +248,9 @@
                 url: "/PhieuDat/SaveProduct",
                 data: productFormData,
                 success: function () {
-                    window.location.href ="/Admin/PhieuDat/Index";
+                    window.location.href = "/Admin/PhieuDat/Index";
                 }
-            });            
+            });
             window.location.href = "/Admin/PhieuDat/Index";
         });
 
@@ -314,3 +314,11 @@
         });
     });
 </script>
+
+
+
+<style>
+    #report-table_filter {
+        display: none;
+    }
+</style>
