@@ -16,30 +16,17 @@ namespace QLDienHoa03.Areas.Admin.Controllers
 {
     public class DanhMucHoaController : Controller
     {
-        private QL_Dien_HoaEntities db = new QL_Dien_HoaEntities();
+        private QL_Dien_HoaEntities data = new QL_Dien_HoaEntities();
 
         // GET: Admin/DanhMucHoa
         public ActionResult Index()
         {
-
-            ViewBag.DM_Hoa = db.DM_Hoa.ToList();
+            ViewBag.DM_Hoa = data.DM_Hoa.ToList();
             return View();
-        }
-        [HttpPost]
-        public ActionResult Multi_Delete(FormCollection formcc)
-        {
-            string[] ids = formcc["MaHoa"].Split(new char[] { ',' });
-            foreach (string id in ids)
-            {
-                var Hoa = this.db.DM_Hoa.Find(id);
-                this.db.DM_Hoa.Remove(Hoa);
-                this.db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
+        }                
         public ActionResult List()
         {
-            ViewBag.DM_Hoa = db.DM_Hoa.ToList();
+            ViewBag.DM_Hoa = data.DM_Hoa.ToList();
             var c = ViewBag.DM_Hoa.Count;
             // Khởi tạo một mảng để chứa các số ngẫu nhiên
             var random = new int[c];
@@ -62,20 +49,20 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         // GET: Admin/DanhMucHoa/Details/5
         public ActionResult Details(string id)
         {
-            var model = db.DM_Hoa.FirstOrDefault(x => x.MaHoa == id);
+            var model = data.DM_Hoa.FirstOrDefault(x => x.MaHoa == id);
             return PartialView("Details", model);
         }
 
         public ActionResult Detail_List(string id)
         {
-            var model = db.DM_Hoa.FirstOrDefault(x => x.MaHoa == id);
+            var model = data.DM_Hoa.FirstOrDefault(x => x.MaHoa == id);
             return View(model);
         }
         /* [HttpPost]
          public ActionResult SaveProduct(DM_Hoa sp)
          {
-             db.DM_Hoa.Add(sp);
-             db.SaveChanges();
+             data.DM_Hoa.Add(sp);
+             data.SaveChanges();
              return RedirectToAction("Index");
          }
  */
@@ -84,19 +71,23 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         {
             bool result = false;
 
-            var sp = db.DM_Hoa.FirstOrDefault(s => s.MaHoa == id);
+            var sp = data.DM_Hoa.FirstOrDefault(s => s.MaHoa == id);
 
             if (sp != null)
             {
-                db.DM_Hoa.Remove(sp);
-                db.SaveChanges();
+                data.DM_Hoa.Remove(sp);
+                data.SaveChanges();
                 result = true;
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
 
         }
-
+        public string getma()
+        {
+            int ma = data.DM_Hoa.Count() + 1;
+            return "H00" + ma.ToString();
+        }
         [HttpPost]
         public ActionResult Create(DM_Hoa Hoa, HttpPostedFileBase imgfile)
         {
@@ -109,20 +100,20 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             }
             else
             {
-                ns.MaHoa = Hoa.MaHoa;
+                ns.MaHoa = getma();
                 ns.TenHoa = Hoa.TenHoa;
                 ns.MauSac = Hoa.MauSac;
                 ns.Gia = Hoa.Gia;
                 ns.HinhAnh = path;
                 ns.MANL = null;
                 ns.DanhGia = 0;
-                db.Entry(ns).State = EntityState.Modified;
-                db.DM_Hoa.Add(ns);
+                data.Entry(ns).State = EntityState.Modified;
+                data.DM_Hoa.Add(ns);
                 try
                 {
-                    db.SaveChanges();
+                    data.SaveChanges();
                 }
-                catch (DbEntityValidationException ex)
+                catch (dataEntityValidationException ex)
                 {
                     foreach (var validationErrors in ex.EntityValidationErrors)
                     {
@@ -186,8 +177,8 @@ namespace QLDienHoa03.Areas.Admin.Controllers
          {
              if (ModelState.IsValid)
              {
-                 db.DM_Hoa.Add(dM_Hoa);
-                 db.SaveChanges();
+                 data.DM_Hoa.Add(dM_Hoa);
+                 data.SaveChanges();
                  return RedirectToAction("Index");
              }
 
@@ -201,7 +192,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
+            DM_Hoa dM_Hoa = data.DM_Hoa.Find(id);
             if (dM_Hoa == null)
             {
                 return HttpNotFound();
@@ -214,7 +205,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         public ActionResult Edit(DM_Hoa Hoa, HttpPostedFileBase imgfile, string id) // truyen them 1 cai string id
         {
             string path = uploadimage(imgfile);
-            var update = db.DM_Hoa.Find(id);
+            var update = data.DM_Hoa.Find(id);
             if (path.Equals("-1") && Hoa != null)
             {
                 update.MaHoa = Hoa.MaHoa;
@@ -224,7 +215,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
                 update.HinhAnh = update.HinhAnh;
                 update.MANL = null;
                 update.DanhGia = 0; 
-                db.SaveChanges();
+                data.SaveChanges();
             }
             else
             {
@@ -235,7 +226,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
                 update.HinhAnh = path;
                 update.MANL = null;
                 update.DanhGia = 0;
-                db.SaveChanges();
+                data.SaveChanges();
             }
             return RedirectToAction("Index");
         }
@@ -244,8 +235,8 @@ namespace QLDienHoa03.Areas.Admin.Controllers
          {
              if (ModelState.IsValid)
              {
-                 db.Entry(dM_Hoa).State = EntityState.Modified;
-                 db.SaveChanges();
+                 data.Entry(dM_Hoa).State = EntityState.Modified;
+                 data.SaveChanges();
                  return RedirectToAction("Index");
              }
              return View(dM_Hoa);
@@ -258,7 +249,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
               {
                   return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
               }
-              DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
+              DM_Hoa dM_Hoa = data.DM_Hoa.Find(id);
               if (dM_Hoa == null)
               {
                   return HttpNotFound();
@@ -271,9 +262,9 @@ namespace QLDienHoa03.Areas.Admin.Controllers
           [ValidateAntiForgeryToken]
           public ActionResult DeleteConfirmed(string id)
           {
-              DM_Hoa dM_Hoa = db.DM_Hoa.Find(id);
-              db.DM_Hoa.Remove(dM_Hoa);
-              db.SaveChanges();
+              DM_Hoa dM_Hoa = data.DM_Hoa.Find(id);
+              data.DM_Hoa.Remove(dM_Hoa);
+              data.SaveChanges();
               return RedirectToAction("Index");
           }*/
 
@@ -281,7 +272,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                data.Dispose();
             }
             base.Dispose(disposing);
         }

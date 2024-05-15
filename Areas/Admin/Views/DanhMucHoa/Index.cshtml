@@ -123,14 +123,8 @@
             </div>
             <div class="modal-body ">
                 <form id="saveForm" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="floating-label" for="Name">Mã Sản Phẩm</label>
-                                @Html.TextBoxFor(model => model.MaHoa, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                    <div class="row">                        
+                        <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="floating-label" for="Category">Tên Sản Phẩm</label>
                                 @Html.TextBoxFor(model => model.TenHoa, new { @class = "form-control" })
@@ -260,43 +254,42 @@
             cancelButtonText: 'Hủy'
         }).then((result) => {
             if (result.isConfirmed) {
-                $("#btnDelete").click(function () {
-                    var _id = $("#ProductId").val();
-                    $.ajax({
-                        type: "POST",
-                        url: "/DanhMucHoa/Delete",
-                        data: { id: _id },
-                        success: function (result) {
-                            if (result) {
-                                swal.fire(
-                                    {
-                                        title: 'Thành Công',
-                                        text: 'Sản phẩm đã được xóa.',
-                                        icon: 'success',
-                                        confirmButtonText: 'Đóng'
-                                    }
-                                ).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $("#ProductId").val(null);
-                                        window.location.href = "/Admin/DanhMucHoa/Index";
-                                    }
-                                });
-                            } else {
-                                swal.fire(
-                                    {
-                                        title: 'Thất Bại',
-                                        text: 'Đã có lỗi xảy ra khi xóa sản phẩm.',
-                                        icon: 'error',
-                                        confirmButtonText: 'Đóng'
-                                    }
-                                );
-                            }
+                var _id = $("#ProductId").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/DanhMucHoa/Delete",
+                    data: { id: _id },
+                    success: function (result) {
+                        if (result) {
+                            swal.fire(
+                                {
+                                    title: 'Thành Công',
+                                    text: 'Sản phẩm đã được xóa.',
+                                    icon: 'success',
+                                    confirmButtonText: 'Đóng'
+                                }
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    $("#ProductId").val(null);
+                                    window.location.href = "/Admin/DanhMucHoa/Index";
+                                }
+                            });
+                        } else {
+                            swal.fire(
+                                {
+                                    title: 'Thất Bại',
+                                    text: 'Đã có lỗi xảy ra khi xóa sản phẩm.',
+                                    icon: 'error',
+                                    confirmButtonText: 'Đóng'
+                                }
+                            );
                         }
-                    });
+                    }
                 });
             }
         });
     }
+
    
     var Create = function () {
         $("#add-product").modal('show');

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using QLDienHoa03.App_Start;
 namespace QLDienHoa03.Areas.Admin.Controllers
 {
     public class PhieuDatController : Controller
@@ -14,7 +14,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         private QL_Dien_HoaEntities db = new QL_Dien_HoaEntities();
 
         // GET: Admin/PhieuDat
-        /* [RoleUser(idQuyen = "Q4")]*/
+        [Role(idQuyen = "Q4")]
         public ActionResult Index()
         {
             ViewBag.phieuDat = db.PhieuDats.Include("DM_Hoa").Include("GiaPhiVanChuyen").ToList();
