@@ -14,7 +14,7 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         private QL_Dien_HoaEntities db = new QL_Dien_HoaEntities();
 
         // GET: Admin/PhieuDat
-        [Role(idQuyen = "Q4")]
+      [Role(idQuyen = "Q4")]
         public ActionResult Index()
         {
             ViewBag.phieuDat = db.PhieuDats.Include("DM_Hoa").Include("GiaPhiVanChuyen").ToList();

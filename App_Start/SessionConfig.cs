@@ -10,8 +10,9 @@ namespace QLDienHoa03.App_Start
     {
         public static void SetUser(TaiKhoan user)
         {
-            HttpContext.Current.Session["user"] = user;
+            HttpContext.Current.Session["user"] = user;            
         }
+
         // lay session
         public static TaiKhoan GetUser()
         {

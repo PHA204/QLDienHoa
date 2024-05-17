@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using QLDienHoa03.App_Start;
+@{
+    bool ss = SessionConfig.GetUser() != null;
+}
+<!DOCTYPE html>
 
 <html lang="en" class="default-style layout-fixed layout-navbar-fixed">
 
@@ -21,7 +25,7 @@
 
     <!-- Icon fonts -->
     <link rel="stylesheet" href="~/assets/fonts/fontawesome.css">
-    
+
     <link rel="stylesheet" href="~/assets/fonts/ionicons.css">
     <link rel="stylesheet" href="~/assets/fonts/linearicons.css">
     <link rel="stylesheet" href="~/assets/fonts/open-iconic.css">
@@ -56,7 +60,7 @@
                         <img src="~/assets/img/illust_92937673_20211007_131728.png" width="50" alt="Brand Logo" class="img-fluid">
                         <span class="bg-white f-27" style="font-family:Gigi">The Fool</span>
                     </span>
-                    <a href="@Url.Action("Index","Main",new { Area="Admin"})" class="app-brand-text demo sidenav-text font-weight-normal ml-2"></a>
+                    <a href="@Url.Action("Index", "Main", new { Area = "Admin" })" class="app-brand-text demo sidenav-text font-weight-normal ml-2"></a>
                     <a href="javascript:" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
                         <i class="ion ion-md-menu align-middle"></i>
                     </a>
@@ -68,46 +72,14 @@
 
                     <!-- Dashboards -->
                     <li class="sidenav-item open active">
-                        <a href="@Url.Action("Index","Main",new {area="Admin"})" class="sidenav-link">
+                        <a href="@Url.Action("Index", "Main", new { area = "Admin" })" class="sidenav-link">
                             <i class="sidenav-icon feather icon-home"></i>
                             <div>Dashboards</div>
                             <div class="pl-1 ml-auto">
                                 <div class="badge badge-danger"></div>
                             </div>
                         </a>
-                    </li>
-                    @*    <li class="sidenav-item">
-                            <a href="javascript:" class="sidenav-link sidenav-toggle">
-                                <i class="sidenav-icon feather icon-layers"></i>
-                                <div>Widgets</div>
-                                <div class="pl-1 ml-auto">
-                                    <div class="badge badge-primary">100+</div>
-                                </div>
-                            </a>
-                            <ul class="sidenav-menu">
-                                <li class="sidenav-item">
-                                    <a href="w-simple.html" class="sidenav-link">
-                                        <div>Simple</div>
-                                    </a>
-                                </li>
-                                <li class="sidenav-item">
-                                    <a href="w-data.html" class="sidenav-link">
-                                        <div>Data</div>
-                                    </a>
-                                </li>
-                                <li class="sidenav-item">
-                                    <a href="w-social.html" class="sidenav-link">
-                                        <div>Social</div>
-                                    </a>
-                                </li>
-                                <li class="sidenav-item">
-                                    <a href="w-chart.html" class="sidenav-link">
-                                        <div>Chart</div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>   *@
-
+                    </li>                  
                     <!-- Layouts -->
                     <li class="sidenav-divider mb-1"></li>
                     <li class="sidenav-header small font-weight-semibold">Admin Panels</li>
@@ -118,12 +90,12 @@
                         </a>
                         <ul class="sidenav-menu">
                             <li class="sidenav-item">
-                                <a href="@Url.Action("Index","DanhMucHoa",new {area="Admin"})" class="sidenav-link">
+                                <a href="@Url.Action("Index", "DanhMucHoa", new { area = "Admin" })" class="sidenav-link">
                                     <div>Product Table</div>
                                 </a>
                             </li>
                             <li class="sidenav-item">
-                                <a href="@Url.Action("List","DanhMucHoa",new {area="Admin"})" class="sidenav-link">
+                                <a href="@Url.Action("List", "DanhMucHoa", new { area = "Admin" })" class="sidenav-link">
                                     <div>Product List</div>
                                 </a>
                             </li>
@@ -136,12 +108,12 @@
                         </a>
                         <ul class="sidenav-menu">
                             <li class="sidenav-item">
-                                <a href="@Url.Action("Index","PhieuDat",new {area="Admin"})" class="sidenav-link">
+                                <a href="@Url.Action("Index", "PhieuDat", new { area = "Admin" })" class="sidenav-link">
                                     <div>Phiếu Đặt Table</div>
                                 </a>
                             </li>
                             <li class="sidenav-item">
-                                <a href="@Url.Action("List","DanhMucHoa",new {area="Admin"})" class="sidenav-link">
+                                <a href="@Url.Action("List", "DanhMucHoa", new { area = "Admin" })" class="sidenav-link">
                                     <div>Product List</div>
                                 </a>
                             </li>
@@ -151,12 +123,12 @@
                     <li class="sidenav-divider mb-1"></li>
                     <li class="sidenav-header small font-weight-semibold">Kho Hàng</li>
                     <li class="sidenav-item">
-                        <a href="@Url.Action("DSPhieuNhap","Masterdetail", new {area="Admin"})" class="sidenav-link">
+                        <a href="@Url.Action("DSPhieuNhap", "Masterdetail", new { area = "Admin" })" class="sidenav-link">
                             <i class="sidenav-icon feather icon-box"></i>
                             <div>Danh Sách Phiếu Nhập Kho</div>
                         </a>
                     </li>
-                  
+
 
                     <!-- Forms & Tables -->
                     <li class="sidenav-divider mb-1"></li>
@@ -176,7 +148,7 @@
                                 <a href="forms_controls.html" class="sidenav-link">
                                     <div>Controls</div>
                                 </a>
-                            </li>                         
+                            </li>
                         </ul>
                     </li>
                     <li class="sidenav-item">
@@ -233,175 +205,21 @@
                         <ul class="sidenav-menu">
                             <li class="sidenav-item">
                                 <a href="charts_am.html" class="sidenav-link">
-                                    <div>AM</div>
+                                    <div>Thu Ngân</div>
                                 </a>
                             </li>
                             <li class="sidenav-item">
                                 <a href="charts_flot.html" class="sidenav-link">
-                                    <div>Flot.js</div>
+                                    <div>Giao Hàng</div>
                                 </a>
                             </li>
                             <li class="sidenav-item">
                                 <a href="charts_chartist.html" class="sidenav-link">
-                                    <div>Chartist</div>
+                                    <div>Làm Hoa</div>
                                 </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="charts_chartjs.html" class="sidenav-link">
-                                    <div>Chart.js</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="charts_morrisjs.html" class="sidenav-link">
-                                    <div>Morris.js</div>
-                                </a>
-                            </li>
+                            </li>                                                        
                         </ul>
-                    </li>
-
-                    <!--  Icons -->
-                    <li class="sidenav-divider mb-1"></li>
-                    <li class="sidenav-header small font-weight-semibold">Icons</li>
-                    <li class="sidenav-item">
-                        <a href="javascript:" class="sidenav-link sidenav-toggle">
-                            <i class="sidenav-icon feather icon-feather"></i>
-                            <div>Icons</div>
-                        </a>
-                        <ul class="sidenav-menu">
-                            <li class="sidenav-item">
-                                <a href="icons_feather.html" class="sidenav-link">
-                                    <div>Feather</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="icons_font-awesome.html" class="sidenav-link">
-                                    <div>Font Awesome 5</div>
-                                    <div class="pl-1 ml-auto">
-                                        <div class="badge badge-primary">New</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="icons_ionicons.html" class="sidenav-link">
-                                    <div>Ionicons</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="icons_linearicons.html" class="sidenav-link">
-                                    <div>Linearicons</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="icons_openiconic.html" class="sidenav-link">
-                                    <div>Open Iconic</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="icons_stroke7.html" class="sidenav-link">
-                                    <div>Stroke Icons 7</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Pages -->
-                    <li class="sidenav-divider mb-1"></li>
-                    <li class="sidenav-header small font-weight-semibold">Pages</li>
-                    <li class="sidenav-item">
-                        <a href="javascript:" class="sidenav-link sidenav-toggle">
-                            <i class="sidenav-icon feather icon-lock"></i>
-                            <div>Authentication</div>
-                        </a>
-                        <ul class="sidenav-menu">
-                            <li class="sidenav-item">
-                                <a href="javascript:" class="sidenav-link sidenav-toggle">
-                                    <div>Login</div>
-                                </a>
-                                <ul class="sidenav-menu">
-                                    <li class="sidenav-item">
-                                        <a href="pages_authentication_login-v1.html" class="sidenav-link">
-                                            <div>Login v1</div>
-                                        </a>
-                                    </li>
-                                    <li class="sidenav-item">
-                                        <a href="pages_authentication_login-v2.html" class="sidenav-link">
-                                            <div>Login v2</div>
-                                        </a>
-                                    </li>
-                                    <li class="sidenav-item">
-                                        <a href="pages_authentication_login-v3.html" class="sidenav-link">
-                                            <div>Login v3</div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="javascript:" class="sidenav-link sidenav-toggle">
-                                    <div>Signup</div>
-                                </a>
-                                <ul class="sidenav-menu">
-                                    <li class="sidenav-item">
-                                        <a href="pages_authentication_register-v1.html" class="sidenav-link">
-                                            <div>Register v1</div>
-                                        </a>
-                                    </li>
-                                    <li class="sidenav-item">
-                                        <a href="pages_authentication_register-v2.html" class="sidenav-link">
-                                            <div>Register v2</div>
-                                        </a>
-                                    </li>
-                                    <li class="sidenav-item">
-                                        <a href="pages_authentication_register-v3.html" class="sidenav-link">
-                                            <div>Register v3</div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="pages_authentication_login-and-register.html" class="sidenav-link">
-                                    <div>Login + Register</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="pages_authentication_lock-screen-v1.html" class="sidenav-link">
-                                    <div>Lock screen v1</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="pages_authentication_lock-screen-v2.html" class="sidenav-link">
-                                    <div>Lock screen v2</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="pages_authentication_password-reset.html" class="sidenav-link">
-                                    <div>Password reset</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="pages_authentication_email-confirm.html" class="sidenav-link">
-                                    <div>Email confirm</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidenav-item">
-                        <a href="javascript:" class="sidenav-link sidenav-toggle">
-                            <i class="sidenav-icon feather icon-book"></i>
-                            <div>Education</div>
-                        </a>
-                        <ul class="sidenav-menu">
-                            <li class="sidenav-item">
-                                <a href="pages_education_courses-v1.html" class="sidenav-link">
-                                    <div>Courses v1</div>
-                                </a>
-                            </li>
-                            <li class="sidenav-item">
-                                <a href="pages_education_courses-v2.html" class="sidenav-link">
-                                    <div>Courses v2</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>                  
+                    </li>                    
                 </ul>
             </div>
             <!-- [ Layout sidenav ] End -->
@@ -564,30 +382,45 @@
 
                             <!-- Divider -->
                             <div class="nav-item d-none d-lg-block text-big font-weight-light line-height-1 opacity-25 mr-3 ml-1">|</div>
-                            <div class="demo-navbar-user nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                                    <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="~/assets/img/avatars/67304d892efcd3e7e5e9ac7b732983a7.jpg" alt class="d-block ui-w-30 rounded-circle">
-                                        <span class="px-1 mr-lg-2 ml-2 ml-lg-0">Klein Moretti</span>
-                                    </span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="javascript:" class="dropdown-item">
-                                        <i class="feather icon-user text-muted"></i> &nbsp; My profile
-                                    </a>
-                                    <a href="javascript:" class="dropdown-item">
-                                        <i class="feather icon-mail text-muted"></i> &nbsp; Messages
-                                    </a>
-                                    <a href="javascript:" class="dropdown-item">
-                                        <i class="feather icon-settings text-muted"></i> &nbsp; Account settings
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="@Url.Action("Logout","Account",new {Area=""})" class="dropdown-item">
-                                        <i class="feather icon-power text-danger"></i> &nbsp; Log Out
-                                    </a>
-                                </div>
-                            </div>
+                            @{
+                                if (ss == true)
+                                {
+                                    <div class="demo-navbar-user nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                            <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
+                                                <img src="~/assets/img/avatars/67304d892efcd3e7e5e9ac7b732983a7.jpg" alt class="d-block ui-w-30 rounded-circle">
+                                                <span class="px-1 mr-lg-2 ml-2 ml-lg-0">
+                                                    @if (ss == true)
+                                                    {
+                                                        Write(SessionConfig.GetUser().HoTen);
+                                                    }
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="javascript:" class="dropdown-item">
+                                                <i class="feather icon-user text-muted"></i> &nbsp; My profile
+                                            </a>
+                                            <a href="javascript:" class="dropdown-item">
+                                                <i class="feather icon-mail text-muted"></i> &nbsp; Messages
+                                            </a>
+                                            <a href="javascript:" class="dropdown-item">
+                                                <i class="feather icon-settings text-muted"></i> &nbsp; Account settings
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a href="@Url.Action("Logout","Account",new {Area=""})" class="dropdown-item">
+                                                <i class="feather icon-power text-danger"></i> &nbsp; Log Out
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                   <a href="@Url.Action("Login","Account",new { area=""})">Đăng Nhập</a>
+                                }
+                            }
                         </div>
+
                     </div>
                 </nav>
                 <!-- [ Layout navbar ( Header ) ] End -->
@@ -642,57 +475,9 @@
     <!-- Demo -->
     <script src="~/assets/js/demo.js"></script>
     <script src="~/assets/js/analytics.js"></script>
-    <script src="~/assets/libs/datatables/datatables.js"></script>   
+    <script src="~/assets/libs/datatables/datatables.js"></script>
     <script src="~/assets/js/pages/tables_datatables.js"></script>
-    @* <script>
-            $(document).ready(function () {
-                // checkCookie();
-                $('#exampleModalCenter').modal();
-            });
-
-            function setCookie(cname, cvalue, exdays) {
-                var d = new Date();
-                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-                var expires = "expires=" + d.toGMTString();
-                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            }
-
-            function getCookie(cname) {
-                var name = cname + "=";
-                var decodedCookie = decodeURIComponent(document.cookie);
-                var ca = decodedCookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') {
-                        c = c.substring(1);
-                    }
-                    if (c.indexOf(name) == 0) {
-                        return c.substring(name.length, c.length);
-                    }
-                }
-                return "";
-            }
-
-            function checkCookie() {
-                var ticks = getCookie("modelopen");
-                if (ticks != "") {
-                    ticks++;
-                    setCookie("modelopen", ticks, 1);
-                    if (ticks == "2" || ticks == "1" || ticks == "0") {
-                        $('#exampleModalCenter').modal();
-                    }
-                } else {
-                    // user = prompt("Please enter your name:", "");
-                    $('#exampleModalCenter').modal();
-                    ticks = 1;
-                    setCookie("modelopen", ticks, 1);
-                }
-            }
-        </script>*@
-    @*<script src="~/assets/js/pages/dashboards_index.js"></script>*@
+   
 
 </body>
-
-
-<!-- Mirrored from html.phoenixcoded.net/empire/bootstrap/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 03 May 2024 07:14:08 GMT -->
 </html>

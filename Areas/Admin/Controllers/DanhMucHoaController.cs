@@ -108,21 +108,8 @@ namespace QLDienHoa03.Areas.Admin.Controllers
                 ns.MANL = null;
                 ns.DanhGia = 0;
                 data.Entry(ns).State = EntityState.Modified;
-                data.DM_Hoa.Add(ns);
-                try
-                {
-                    data.SaveChanges();
-                }
-                catch (dataEntityValidationException ex)
-                {
-                    foreach (var validationErrors in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                        }
-                    }
-                }
+                data.DM_Hoa.Add(ns);                
+                data.SaveChanges();                                               
             }
             return RedirectToAction("Index");
         }

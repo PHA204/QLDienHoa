@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
-
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 @using (Html.BeginForm("Edit", "DanhMucHoa", FormMethod.Post, new { enctype = "multipart/form-data f-18" }))
 {
     @Html.AntiForgeryToken()

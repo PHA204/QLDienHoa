@@ -18,16 +18,14 @@ namespace QLDienHoa03.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost]        
         public ActionResult Login(string username, string password)
         {
             using (var TK = new QL_Dien_HoaEntities())
             {
                 var account = TK.TaiKhoans.FirstOrDefault(x => x.TenTK.Equals(username.ToLower().Trim()) && x.MK.Equals(password));
                 if (account != null)
-                {
-                    //Session["user"] = account;
+                {                    
                     SessionConfig.SetUser(account);
                     var check = TK.PhanQuyens.FirstOrDefault(x => x.TenTK.Equals(account.TenTK));
                     if (check == null)
@@ -61,7 +59,8 @@ namespace QLDienHoa03.Controllers
         {
             Session.Remove("user");
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Main",new {area="Admin" });
+           
         }
     }
 }

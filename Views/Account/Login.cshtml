@@ -47,12 +47,12 @@
                                             <form class="row g-3">
                                                 <div class="col-12 mb-3">
                                                     <label for="inputEmailAddress" class="form-label">Tên Tài Khoản</label>
-                                                    @Html.TextBox("acc", "", new { @class = "form-control", @placeholder = "Username" })
+                                                    @Html.TextBox("username", "", new { @class = "form-control", @placeholder = "Username" })
                                                 </div>
                                                 <div class="col-12 mb-3">
                                                     <label for="inputChoosePassword" class="form-label">Password</label>
                                                     <div class="input-group" id="show_hide_password">
-                                                        @Html.Password("pass", "", new { @class = "form-control", @placeholder = "Password" }) <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                        @Html.Password("password", "", new { @class = "form-control", @placeholder = "Password" }) <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                                         <div class="form-group col-12">
                                                             <p class="text-danger">
                                                                 @TempData["error"]

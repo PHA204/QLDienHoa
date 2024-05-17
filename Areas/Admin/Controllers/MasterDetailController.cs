@@ -32,34 +32,23 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         public ActionResult Create(PhieuNhap_ChiTietPN model, List<string> MANLs, List<int> SOLUONGs)
         {
             if (MANLs == null || SOLUONGs == null || MANLs.Count != SOLUONGs.Count)
-            {
-                // Xử lý trường hợp dữ liệu gửi lên không hợp lệ
-                ModelState.AddModelError("", "Dữ liệu không hợp lệ.");
+            {               
                 ViewBag.NhaCungCapList = new SelectList(data.NHACUNGCAPs, "MANCC", "TENNCC");
                 // Lấy danh sách nguyên liệu từ cơ sở dữ liệu
                 var nguyenLieuList = data.NGUYENLIEUx.ToList();
-
                 // Truyền danh sách nguyên liệu và giá vào ViewBag hoặc ViewModel
                 ViewBag.NguyenLieuList1 = new SelectList(nguyenLieuList, "MANL", "TENNL");
-                ViewBag.NguyenLieuList2 = new SelectList(data.NGUYENLIEUx, "MANL", "GIA");
-
-
-
+                ViewBag.NguyenLieuList2 = new SelectList(nguyenLieuList, "MANL", "GIA");
                 return View(model);
-            }
-
-            // Tiếp tục xử lý khi dữ liệu hợp lệ
-            // Tạo mới phiếu nhập kho
+            }         
             PHIEUNHAPKHO pn = new PHIEUNHAPKHO();
             pn.MAPHIEU = model.MAPHIEU;
             pn.NGAYLAP = model.NGAYLAP;
             pn.MANCC = model.MANCC;
             pn.GHICHU = model.GHICHU;
             data.PHIEUNHAPKHOes.Add(pn);
-            data.SaveChanges();
-
-            // Thêm từng nguyên liệu vào chi tiết phiếu nhập
-            for (int i = 0; i < MANLs.Count; i++)
+            data.SaveChanges();            
+            for (int i = 0; i < SOLUONGs.Count; i++)
             {
                 CHITIETPHIEUNHAP ctpn = new CHITIETPHIEUNHAP();
                 ctpn.MAPHIEU = model.MAPHIEU;
@@ -70,9 +59,9 @@ namespace QLDienHoa03.Areas.Admin.Controllers
             data.SaveChanges();
             return RedirectToAction("DSPhieuNhap"); // Chuyển hướng sau khi thêm thành công
         }
+
         public ActionResult Detail(string ma)
         {
-
             ViewBag.chitiet = ma;
             return View();
         }
@@ -82,14 +71,12 @@ namespace QLDienHoa03.Areas.Admin.Controllers
         public JsonResult Delete(string id)
         {
             bool result = false;
-
             var pnk = data.PHIEUNHAPKHOes.FirstOrDefault(s => s.MAPHIEU == id);           
             if (pnk != null)
             {
                 // Xóa tất cả các chi tiết phiếu nhập có mã phiếu trùng khớp với id
                 var ctpnList = data.CHITIETPHIEUNHAPs.Where(ctpn => ctpn.MAPHIEU == id).ToList();
                 data.CHITIETPHIEUNHAPs.RemoveRange(ctpnList);
-
                 data.PHIEUNHAPKHOes.Remove(pnk);
                 data.SaveChanges();
                 result = true;
