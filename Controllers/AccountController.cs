@@ -59,7 +59,7 @@ namespace QLDienHoa03.Controllers
         {
             Session.Remove("user");
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index","Main",new {area="Admin" });
+            return RedirectToAction("Index","Home");
            
         }
     }
