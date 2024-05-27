@@ -52,7 +52,6 @@ namespace QLDienHoa03.Controllers
             data.TaiKhoans.Add(TK);
             data.SaveChanges();
             return RedirectToAction("Login");
-
         }
 
         public ActionResult Logout()

@@ -29,7 +29,7 @@
                 <div class="form-group">
 
                     @Html.LabelFor(model => model.MANCC, "Nhà Cung Cấp", htmlAttributes: new { @class = "floating-label font-weight-bold f-17" })
-                    @Html.DropDownList("MANCC", ViewBag.NhaCungCapList as SelectList, "Chọn nhà cung cấp", new { @class = "form-control  text-uppercase f-16" })
+                    @Html.DropDownList("MANCC", ViewBag.NhaCungCapList as SelectList, "Chọn nhà cung cấp", new { @class = "form-control selectpicker text-uppercase f-16" , data_live_search = "true" })
                     @Html.ValidationMessageFor(model => model.MANCC, "", new { @class = "" })
                 </div>
             </div>
