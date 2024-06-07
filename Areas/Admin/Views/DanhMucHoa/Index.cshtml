@@ -13,8 +13,8 @@
     <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#"><i class="feather icon-home"></i></a></li>
-            <li class="breadcrumb-item"><a href="#!">Admin Panels</a></li>
-            <li class="breadcrumb-item active"><a href="#!">Product Table</a></li>
+            <li class="breadcrumb-item"><a href="#!">Các Bảng</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Bảng Sản Phẩm</a></li>
         </ol>
     </div>
     <div id="PlaceHolderHere"></div>
@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <div class="row align-items-center m-l-0">
                         <div class="col-sm-6 text-left">
-                            <button class="btn btn-success btn-sm mb-3 btn-round" Onclick="Create()" data-target="#add-product"><i class="feather icon-plus"></i> Product</button>
+                            <button class="btn btn-success btn-sm mb-3 btn-round" Onclick="Create()" data-target="#add-product"><i class="feather icon-plus"></i> Sản Phẩm</button>
                         </div>
                         <div class="col-6">
                             <div id="report-table_filter" class="dataTables_filter" style="display:flex;margin-left:50%;">
@@ -38,6 +38,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th></th>
+                                    <th>Mã Sản Phẩm</th>
                                     <th>Tên Sản Phẩm</th>
                                     <th>Màu Sắc</th>
                                     <th>Giá Bán</th>
@@ -48,60 +49,63 @@
                             <tbody id="myTable">
                                 @foreach (var item in ViewBag.DM_Hoa)
                                 {
-                                    <tr>
-                                        <td class="align-middle">
-                                            <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3" width="50" />
-                                            @if (item.DanhGia == 4)
-                                            {
-                                                <p class="m-0 d-inline-block align-middle font-16">
-                                                    <br />
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star"></span>
-                                                </p>
-                                            }
-                                            @if (item.DanhGia == 5)
-                                            {
-                                                <p class="m-0 d-inline-block align-middle font-16">
-                                                    <br />
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                    <span class="text-warning feather icon-star-on"></span>
-                                                </p>
-                                            }
-                                            @if (item.DanhGia == 0)
-                                            {
-                                                <p class="m-0 d-inline-block align-middle font-16">
-                                                    <br />
-                                                    <span class="text-warning feather icon-star"></span>
-                                                    <span class="text-warning feather icon-star"></span>
-                                                    <span class="text-warning feather icon-star"></span>
-                                                    <span class="text-warning feather icon-star"></span>
-                                                    <span class="text-warning feather icon-star"></span>
-                                                </p>
-                                            }
-                                        </td>
-                                        <td class="align-middle">
-                                            @item.TenHoa
-                                        </td>
-                                        <td class="align-middle">
-                                            @item.MauSac
-                                        </td>
-                                        <td class="align-middle">
-                                            @item.GiaFormatted đ
-                                        </td>
-                                        <td class="table-action">
-                                            <button type="submit" class="btn btn-icon btn-outline-primary feather icon-eye" data-toggle="ajax-modal" data-target="#detailsProduct"
-                                                    data-url="@Url.Action($"Details/{item.MaHoa}")">
-                                            </button>
-                                            <a href="@Url.Action("Edit","DanhMucHoa",new { id=item.MaHoa})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
-                                            <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.MaHoa')"><i class="feather icon-trash-2"></i></a>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td class="align-middle">
+                                        <img src="@Url.Content(item.HinhAnh)" alt="contact-img" title="contact-img" class="rounded mr-3" width="50" />
+                                        @if (item.DanhGia == 4)
+                                        {
+                                            <p class="m-0 d-inline-block align-middle font-16">
+                                                <br />
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star"></span>
+                                            </p>
+                                        }
+                                        @if (item.DanhGia == 5)
+                                        {
+                                            <p class="m-0 d-inline-block align-middle font-16">
+                                                <br />
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star-on"></span>
+                                                <span class="text-warning feather icon-star-on"></span>
+                                            </p>
+                                        }
+                                        @if (item.DanhGia == 0)
+                                        {
+                                            <p class="m-0 d-inline-block align-middle font-16">
+                                                <br />
+                                                <span class="text-warning feather icon-star"></span>
+                                                <span class="text-warning feather icon-star"></span>
+                                                <span class="text-warning feather icon-star"></span>
+                                                <span class="text-warning feather icon-star"></span>
+                                                <span class="text-warning feather icon-star"></span>
+                                            </p>
+                                        }
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.MaHoa
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.TenHoa
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.MauSac
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.GiaFormatted đ
+                                    </td>
+                                    <td class="table-action">
+                                        <button type="submit" class="btn btn-icon btn-outline-primary feather icon-eye" data-toggle="ajax-modal" data-target="#detailsProduct"
+                                                data-url="@Url.Action($"Details/{item.MaHoa}")">
+                                        </button>
+                                        <a href="@Url.Action("Edit","DanhMucHoa",new { id=item.MaHoa})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
+                                        <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.MaHoa')"><i class="feather icon-trash-2"></i></a>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>

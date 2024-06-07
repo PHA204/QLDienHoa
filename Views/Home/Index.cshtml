@@ -4,13 +4,119 @@
     QLDienHoa03.Models.QL_Dien_HoaEntities data = new QLDienHoa03.Models.QL_Dien_HoaEntities();
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout_user.cshtml";
-    ViewBag.Women = data.DM_Hoa.Where(hoa => hoa.MauSac.Contains("Đỏ") || hoa.TenHoa.Contains("")).ToList();
-    ViewBag.Furniture = data.DM_Hoa.Where(hoa => hoa.Gia > 1000000).ToList();
-    ViewBag.Men = data.DM_Hoa.Where(hoa => hoa.MauSac.Contains("trắng")).ToList();
-    ViewBag.Kid = data.DM_Hoa.Where(hoa => hoa.MauSac.Contains("vàng") || hoa.MauSac.Contains("Đa sắc")).ToList();
-
 }
+<!-- Slider -->
+<div id="thm-slideshow" class="thm-slideshow">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
+                    <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
+                        <ul>
+                            <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='images/slide-img1.jpg'>
+                                <img src='~/assets3/images/slide-img1.jpg' alt="slide-img" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
+                                <div class="info">
+                                    <div class='tp-caption ExtraLargeTitle sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Thiết kế hiện đại</span> </div>
+                                    <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Đơn giản, tinh tế</span> </div>
+                                    <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1450' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Uy tín , chất lượng, số 1 VN</div>
+                                    <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><a href='#' class="buy-btn">Mua Ngay</a> </div>
+                                </div>
+                            </li>
+                            <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='images/slide-img2.jpg'>
+                                <img src='~/assets3/images/slide-img2.jpg' alt="slide-img" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
+                                <div class="info">
+                                    <div class='tp-caption ExtraLargeTitle sft slide2  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Giảm Giá Sốc</span> </div>
+                                    <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Hoa Theo Mùa </div>
+                                    <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Những bông hoa dại không người hái, Lặng lẽ bốn mùa khắp mọi nơi</div>
+                                    <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><a href='#' class="buy-btn">Mua Ngay</a> </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 hot-deal">
+                <ul class="products-grid">
+                    <li class="right-space two-height item">
+                        <div class="item-inner">
+                            <div class="item-img">
+                                <div class="item-img-info">
+                                    <a href="@Url.Action("Detail","Home", new { id="BH03"})" title="Retis lapen casen" class="product-image"> <img src="~/Image/img/Hoamaudon.jpg" alt="Retis lapen casen"> </a>
+                                    <div class="hot-label hot-top-left">Hot</div>
+                                    <div class="box-hover">
+                                        <ul class="add-to-links">
+                                            <li><a class="link-quickview" href="@Url.Action("Detail","Home", new { id="BH03"})">Detail</a> </li>
+                                            <li><a class="link-wishlist" href="~/assets3/wishlist.html">Yêu Thích</a> </li>
+                                            <li><a class="link-compare" href="~/assets3/compare.html">Compare</a> </li>
+                                        </ul>
+                                    </div>
+                                    <div class="box-timer">
+                                        <div class="countbox_1 timer-grid"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-info">
+                                <div class="info-inner">
+                                    <div class="item-title"> <a href="~/assets3/product_detail.html" title="Retis lapen casen"> Hoa Mẫu Đơn </a> </div>
+                                    <div class="item-content">
+                                        <div class="rating">
+                                            <div class="ratings">
+                                                <div class="rating-box">
+                                                    <div class="rating" style="width:80%"></div>
+                                                </div>
+                                                <p class="rating-links"> <a href="~/assets3/#">1 Review(s)</a> <span class="separator">|</span> <a href="~/assets3/#">Add Review</a> </p>
+                                            </div>
+                                        </div>
+                                        <div class="item-price">
+                                            <div class="price-box"> <span class="regular-price"> <span class="price">1.000.000 Vnđ</span> </span> </div>
+                                        </div>
+                                        <div class="action">
+                                            @*<input type="hidden" class="input-text qty" title="Qty" value="1" maxlength="12" name="qty">*@
+                                            <button id="addToCartButton" class="button btn-cart" title="Add to Cart" type="button" data-id="BH03">Thêm vào giỏ</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- end Slider -->
+<!-- our features -->
+<div class="our-features-box">
+    <div class="container">
+        <ul>
+            <li>
+                <div class="feature-box need-help">
+                    <div class="icon-truck"></div>
+                    <div class="content">FREE SHIP đơn trên 1tr5</div>
+                </div>
+            </li>
+            <li>
+                <div class="feature-box free-shipping">
+                    <div class="icon-support"></div>
+                    <div class="content">Cần hỗ trợ gọi  0123456789</div>
+                </div>
+            </li>
+            <li>
+                <div class="feature-box money-back">
+                    <div class="icon-money"></div>
+                    <div class="content">Hoàn tiền nếu sản phẩm lỗi</div>
+                </div>
+            </li>
+            <li class="last">
+                <div class="feature-box return-policy">
+                    <div class="icon-return"></div>
+                    <div class="content">30 ngày đổi trả</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
 
 <div class="content-page">
     <div class="container">
@@ -21,13 +127,13 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <div class="new_title">
-                                <h2>New Products</h2>
+                                <h2>Sản Phẩm Mới</h2>
                             </div>
                         </li>
                         <li class="active"><a data-toggle="tab" href="#tab-1">Hoa Tỏ Tình</a> </li>
                         <li><a data-toggle="tab" href="#tab-2">Top Bán Chạy</a> </li>
                         <li><a data-toggle="tab" href="#tab-3">Hoa Buồn</a> </li>
-                        <li><a data-toggle="tab" href="#tab-4">Chúc Mừng</a> </li>                      
+                        <li><a data-toggle="tab" href="#tab-4">Chúc Mừng</a> </li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -50,11 +156,11 @@
                                                 <div class="item-inner">
                                                     <div class="item-img">
                                                         <div class="item-img-info">
-                                                            <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
+                                                            <a class="product-image" title="Retis lapen casen" href="@Url.Action("Detail","Home", new { id=item.MaHoa})"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
                                                             <div class="box-hover">
                                                                 <ul class="add-to-links">
-                                                                    <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                                    <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                                    <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                                    <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                                     <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                                                 </ul>
                                                             </div>
@@ -76,7 +182,8 @@
                                                                     <div class="price-box"> <span class="regular-price"> <span class="price">@item.Gia vnđ</span> </span> </div>
                                                                 </div>
                                                                 <div class="action">
-                                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                                    <input type="hidden" class="input-text qty" title="Qty" value="1" maxlength="12" name="qty">
+                                                                    <button id="addToCartButton" class="button btn-cart" title="Add to Cart" type="button" data-id="@item.MaHoa">Thêm vào giỏ</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -108,11 +215,11 @@
                                                 <div class="item-inner">
                                                     <div class="item-img">
                                                         <div class="item-img-info">
-                                                            <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
+                                                            <a class="product-image" title="Retis lapen casen" href="@Url.Action("Detail","Home", new { id=item.MaHoa})"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
                                                             <div class="box-hover">
                                                                 <ul class="add-to-links">
-                                                                    <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                                    <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                                    <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                                    <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                                     <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                                                 </ul>
                                                             </div>
@@ -134,7 +241,7 @@
                                                                     <div class="price-box"> <span class="regular-price"> <span class="price">@item.Gia vnđ</span> </span> </div>
                                                                 </div>
                                                                 <div class="action">
-                                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                                    <button id="addToCartButton" class="button btn-cart" title="Add to Cart" type="button" data-id="@item.MaHoa">Thêm vào giỏ</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -162,11 +269,11 @@
                                                 <div class="item-inner">
                                                     <div class="item-img">
                                                         <div class="item-img-info">
-                                                            <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
+                                                            <a class="product-image" title="Retis lapen casen" href="@Url.Action("Detail","Home", new { id=item.MaHoa})"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
                                                             <div class="box-hover">
                                                                 <ul class="add-to-links">
-                                                                    <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                                    <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                                    <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                                    <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                                     <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                                                 </ul>
                                                             </div>
@@ -188,7 +295,7 @@
                                                                     <div class="price-box"> <span class="regular-price"> <span class="price">@item.Gia vnđ</span> </span> </div>
                                                                 </div>
                                                                 <div class="action">
-                                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                                    <button id="addToCartButton" class="button btn-cart" title="Add to Cart" type="button" data-id="@item.MaHoa">Thêm vào giỏ</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -216,11 +323,11 @@
                                                 <div class="item-inner">
                                                     <div class="item-img">
                                                         <div class="item-img-info">
-                                                            <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
+                                                            <a class="product-image" title="Retis lapen casen" href="@Url.Action("Detail","Home", new { id=item.MaHoa})"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="300"> </a>
                                                             <div class="box-hover">
                                                                 <ul class="add-to-links">
-                                                                    <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                                    <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                                    <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                                    <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                                     <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                                                 </ul>
                                                             </div>
@@ -242,7 +349,7 @@
                                                                     <div class="price-box"> <span class="regular-price"> <span class="price">@item.Gia vnđ</span> </span> </div>
                                                                 </div>
                                                                 <div class="action">
-                                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                                    <button id="addToCartButton" class="button btn-cart" title="Add to Cart" type="button" data-id="@item.MaHoa">Thêm vào giỏ</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -257,7 +364,7 @@
                                         }
                                     </ul>
                                 </div>
-                            </div>                         
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -274,289 +381,59 @@
                 <div id="bestsell-slider" class="product-flexslider hidden-buttons">
                     <div class="home-block-inner">
                         <div class="block-title">
-                            <h2>Best Sellers </h2>
+                            <h2>Bán Siu Chạy</h2>
                         </div>
                         <div class="pretext">
                             <a title="Retis lapen casen" href="#"> <img alt="Retis lapen casen" src="~/assets3/images/offer-banner.jpg"> </a>
-                            <div class="offer-text">Save upto 25% Today!</div>
+                            <div class="offer-text">Giảm 25% hôm nay!</div>
                         </div>
-                        <a href="grid.html" class="view_more_bnt">View All</a>
+                        <a href="grid.html" class="view_more_bnt">Xem Tất Cả</a>
                     </div>
                     <div class="slider-items slider-width-col4 products-grid block-content">
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product10.jpg"> </a>
-                                        <div class="sale-label new-top-left">sale</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="rating">
-                                            <div class="ratings">
-                                                <div class="rating-box">
-                                                    <div style="width:80%" class="rating"></div>
-                                                </div>
-                                                <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                            </div>
-                                        </div>
-                                        <div class="item-content">
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$88.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product11.jpg"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                            </ul>
+                        @foreach (var item in ViewBag.Furniture)
+                        {
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="@Url.Action("Detail", "Home", new { id = item.MaHoa })"> <img alt="Retis lapen casen" src="@Url.Content(item.HinhAnh)" height="250"> </a>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="quick_view.html">Chi Tiết</a> </li>
+                                                    <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
+                                                    <li><a class="link-compare" href="compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                     </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                 </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$325.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$325.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button id="addToCartButton" class="button btn-cart" title="Add to Cart" type="button" data-id="@item.MaHoa">Thêm vào giỏ</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        }
+                            <!-- End Item -->                           
                         </div>
-                        <!-- End Item -->
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product12.jpg"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$245.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product13.jpg"> </a>
-                                        <div class="new-label new-top-left">new</div>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$225.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product14.jpg"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$115.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product16.jpg"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$155.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item -->
-                        <div class="item">
-                            <div class="item-inner">
-                                <div class="item-img">
-                                    <div class="item-img-info">
-                                        <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product10.jpg"> </a>
-                                        <div class="box-hover">
-                                            <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
-                                                <li><a class="link-compare" href="compare.html">Compare</a> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-info">
-                                    <div class="info-inner">
-                                        <div class="item-title"> <a title="Retis lapen casen" href="product_detail.html"> Retis lapen casen </a> </div>
-                                        <div class="item-content">
-                                            <div class="rating">
-                                                <div class="ratings">
-                                                    <div class="rating-box">
-                                                        <div style="width:80%" class="rating"></div>
-                                                    </div>
-                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                </div>
-                                            </div>
-                                            <div class="item-price">
-                                                <div class="price-box"> <span class="regular-price"> <span class="price">$175.00</span> </span> </div>
-                                            </div>
-                                            <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Item -->
-
-                    </div>
                 </div>
             </div>
         </div>
@@ -679,8 +556,8 @@
                                         <div class="new-label new-top-right">new</div>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                 <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                             </ul>
                                         </div>
@@ -702,7 +579,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
                                             </div>
                                             <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Thêm Vào Giỏ"><span>Thêm Vào Giỏ</span> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -718,8 +595,8 @@
                                         <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product7.jpg"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                 <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                             </ul>
                                         </div>
@@ -741,7 +618,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">$235.00</span> </span> </div>
                                             </div>
                                             <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Thêm Vào Giỏ"><span>Thêm Vào Giỏ</span> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -757,8 +634,8 @@
                                         <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product6.jpg"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                 <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                             </ul>
                                         </div>
@@ -780,7 +657,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">$325.00</span> </span> </div>
                                             </div>
                                             <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Thêm Vào Giỏ"><span>Thêm Vào Giỏ</span> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -797,8 +674,8 @@
                                         <div class="new-label new-top-left">new</div>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                 <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                             </ul>
                                         </div>
@@ -820,7 +697,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">$425.00</span> </span> </div>
                                             </div>
                                             <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Thêm Vào Giỏ"><span>Thêm Vào Giỏ</span> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -836,8 +713,8 @@
                                         <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product5.jpg"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                 <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                             </ul>
                                         </div>
@@ -859,7 +736,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">$525.00</span> </span> </div>
                                             </div>
                                             <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Thêm Vào Giỏ"><span>Thêm Vào Giỏ</span> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -874,8 +751,8 @@
                                         <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product6.jpg"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                 <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                             </ul>
                                         </div>
@@ -897,7 +774,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">$225.00</span> </span> </div>
                                             </div>
                                             <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Thêm Vào Giỏ"><span>Thêm Vào Giỏ</span> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -912,8 +789,8 @@
                                         <a class="product-image" title="Retis lapen casen" href="product_detail.html"> <img alt="Retis lapen casen" src="~/assets3/products-images/product7.jpg"> </a>
                                         <div class="box-hover">
                                             <ul class="add-to-links">
-                                                <li><a class="link-quickview" href="quick_view.html">Quick View</a> </li>
-                                                <li><a class="link-wishlist" href="wishlist.html">Wishlist</a> </li>
+                                                <li><a class="link-quickview" href="quick_view.html">Detail</a> </li>
+                                                <li><a class="link-wishlist" href="wishlist.html">Yêu Thích</a> </li>
                                                 <li><a class="link-compare" href="compare.html">Compare</a> </li>
                                             </ul>
                                         </div>
@@ -935,7 +812,7 @@
                                                 <div class="price-box"> <span class="regular-price"> <span class="price">$185.00</span> </span> </div>
                                             </div>
                                             <div class="action">
-                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Thêm Vào Giỏ"><span>Thêm Vào Giỏ</span> </button>
                                             </div>
                                         </div>
                                     </div>

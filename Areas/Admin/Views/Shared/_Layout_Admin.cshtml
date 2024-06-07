@@ -74,7 +74,7 @@
                     <li class="sidenav-item open active">
                         <a href="@Url.Action("Index", "Main", new { area = "Admin" })" class="sidenav-link">
                             <i class="sidenav-icon feather icon-home"></i>
-                            <div>Dashboards</div>
+                            <div>Bảng Điều Khiển</div>
                             <div class="pl-1 ml-auto">
                                 <div class="badge badge-danger"></div>
                             </div>
@@ -82,21 +82,21 @@
                     </li>                  
                     <!-- Layouts -->
                     <li class="sidenav-divider mb-1"></li>
-                    <li class="sidenav-header small font-weight-semibold">Admin Panels</li>
+                    <li class="sidenav-header small font-weight-semibold">Các Bảng</li>
                     <li class="sidenav-item">
                         <a href="javascript:" class="sidenav-link sidenav-toggle">
                             <i class="sidenav-icon feather icon-shopping-cart"></i>
-                            <div>Product</div>
+                            <div>Sản Phẩm</div>
                         </a>
                         <ul class="sidenav-menu">
                             <li class="sidenav-item">
                                 <a href="@Url.Action("Index", "DanhMucHoa", new { area = "Admin" })" class="sidenav-link">
-                                    <div>Product Table</div>
+                                    <div>Bảng Sản Phẩm</div>
                                 </a>
                             </li>
                             <li class="sidenav-item">
                                 <a href="@Url.Action("List", "DanhMucHoa", new { area = "Admin" })" class="sidenav-link">
-                                    <div>Product List</div>
+                                    <div>Danh Sách Sản Phẩm</div>
                                 </a>
                             </li>
                         </ul>
@@ -109,12 +109,12 @@
                         <ul class="sidenav-menu">
                             <li class="sidenav-item">
                                 <a href="@Url.Action("Index", "PhieuDat", new { area = "Admin" })" class="sidenav-link">
-                                    <div>Phiếu Đặt Table</div>
+                                    <div>Bảng Phiếu Đặt</div>
                                 </a>
                             </li>
                             <li class="sidenav-item">
                                 <a href="@Url.Action("List", "DanhMucHoa", new { area = "Admin" })" class="sidenav-link">
-                                    <div>Product List</div>
+                                    <div>Sản Phẩm (Danh Sách)</div>
                                 </a>
                             </li>
                         </ul>
@@ -131,7 +131,7 @@
 
 
                     <!-- Forms & Tables -->
-                    <li class="sidenav-divider mb-1"></li>
+                  @*  <li class="sidenav-divider mb-1"></li>
                     <li class="sidenav-header small font-weight-semibold">Forms & Tables</li>
                     <li class="sidenav-item">
                         <a href="javascript:" class="sidenav-link sidenav-toggle">
@@ -186,7 +186,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>*@
 
                     <!-- Charts & Maps -->
                     <li class="sidenav-divider mb-1"></li>
@@ -407,6 +407,9 @@
                                             <a href="javascript:" class="dropdown-item">
                                                 <i class="feather icon-settings text-muted"></i> &nbsp; Account settings
                                             </a>
+                                            <a href="@Url.Action("Index","Home",new {Area=""})" class="dropdown-item">
+                                                <i class="feather icon-globe text-muted"></i> &nbsp; Public Page
+                                            </a>
                                             <div class="dropdown-divider"></div>
                                             <a href="@Url.Action("Logout","Account",new {Area=""})" class="dropdown-item">
                                                 <i class="feather icon-power text-danger"></i> &nbsp; Log Out
@@ -416,7 +419,7 @@
                                 }
                                 else
                                 {
-                                   <a href="@Url.Action("Login","Account",new { area=""})">Đăng Nhập</a>
+                                   <a href="@Url.Action("Login","Account",new { area="", returnUrl = Request.Url.PathAndQuery})">Đăng Nhập</a>
                                 }
                             }
                         </div>

@@ -1,10 +1,20 @@
 ﻿@model QLDienHoa03.Models.DM_Hoa
-
+@using QLDienHoa03.App_Start;
 @{
+    QLDienHoa03.Models.QL_Dien_HoaEntities data = new QLDienHoa03.Models.QL_Dien_HoaEntities();
     ViewBag.Title = "Detail_List";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
-}
+    ViewBag.comment1 = data.BangCMTs.Where(cmt => cmt.MaHoa == Model.MaHoa).ToList();
+    if (SessionConfig.GetUser() != null)
+    {
+        string TK = SessionConfig.GetUser().TenTK;
+        ViewBag.checkCMT = data.BangCMTs.Where(cmt => cmt.TenTK == TK &&  cmt.MaHoa == Model.MaHoa).ToList();
+        ViewBag.comment2 = data.BangCMTs.Where(cmt => cmt.MaHoa == Model.MaHoa && cmt.TenTK != TK).ToList();
+        ViewBag.comment3 = data.BangCMTs.Where(cmt => cmt.MaHoa == Model.MaHoa && cmt.TenTK == TK).ToList();
+    }
 
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <h2>Detail_List</h2>
 
 <div>
@@ -48,12 +58,159 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DanhGia)
+
         </dd>
 
     </dl>
 </div>
+
+<h3>Your comment</h3>
+@{
+    if (ViewBag.checkCMT == null || ViewBag.checkCMT.Count == 0)
+    {
+        using (Html.BeginForm("addCMT", "DanhMucHoa", new { area = "Admin" }, FormMethod.Post))
+        {
+            <div style="margin-left:18%" onmouseout="RateSelect()">
+                <span id="sp1" onmouseout="RateOut(1)" onmouseover="RateOver(1)" onclick="RateClick(1)" class="text-warning feather icon-star f-30"></span>
+                <span id="sp2" onmouseout="RateOut(2)" onmouseover="RateOver(2)" onclick="RateClick(2)" class="text-warning feather icon-star f-30"></span>
+                <span id="sp3" onmouseout="RateOut(3)" onmouseover="RateOver(3)" onclick="RateClick(3)" class="text-warning feather icon-star f-30"></span>
+                <span id="sp4" onmouseout="RateOut(4)" onmouseover="RateOver(4)" onclick="RateClick(4)" class="text-warning feather icon-star f-30"></span>
+                <span id="sp5" onmouseout="RateOut(5)" onmouseover="RateOver(5)" onclick="RateClick(5)" class="text-warning feather icon-star f-30"></span>
+            </div>
+            <div>
+                <input type="hidden" id="lblRate" name="rate" value="0" />
+                <input type="hidden" id="lblName" name="MaHoa" value="@Model.MaHoa" />
+            </div>
+            <textarea rows="6" cols="100" name="comment" id="CMT">        
+             </textarea>
+            @Html.Hidden("returnUrl", ViewBag.ReturnUrl as string)
+            <div class="form-group col-12">
+                <p style="margin-left:10%">
+                    @TempData["error"]
+                    <a href="@Url.Action("Login", "Account", new { area = "", returnUrl = Url.Action("Detail_List", "DanhMucHoa", new { area = "Admin" }) })">@TempData["solution"]</a>
+                </p>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Đăng" />
+            </div>
+        }
+    }
+
+    else
+    {
+        <table class="table mt-4">
+            @foreach (var item in ViewBag.comment3)
+            {
+                <tr>
+                    <td class="" style="border:1px solid black">
+                        @item.NgayDangFormatted<br />
+                        @item.TaiKhoan.HoTen<br />
+
+                        @for (int i = 0; i < item.DanhGia; i++)
+                        {
+                            <span class="text-warning feather icon-star-on"></span>
+                        }
+                        @for (int i = item.DanhGia; i < 5; i++)
+                        {
+                            <span class="text-warning feather icon-star"></span>
+                        }<br />
+                        @item.CMT<br />
+                        Sản Phẩm :  @item.DM_Hoa.TenHoa
+                    </td>
+                </tr>
+
+            }
+        </table>
+    }
+
+    if (SessionConfig.GetUser() != null)
+    {
+        <h3>Điểm xếp hạng và các bài đánh giá khác</h3>
+        <table class="table mt-4">
+            @foreach (var item in ViewBag.comment2)
+            {
+                <tr>
+                    <td class="" style="border:1px solid black">
+                        @item.NgayDangFormatted<br />
+                        @item.TaiKhoan.HoTen<br />
+
+                        @for (int i = 0; i < item.DanhGia; i++)
+                        {
+                            <span class="text-warning feather icon-star-on"></span>
+                        }
+                        @for (int i = item.DanhGia; i < 5; i++)
+                        {
+                            <span class="text-warning feather icon-star"></span>
+                        }<br />
+                        @item.CMT<br />
+                        Sản Phẩm :  @item.DM_Hoa.TenHoa
+                    </td>
+                </tr>
+
+            }
+        </table>
+    }
+    else
+    {
+        <h3 class="mt-2">Điểm xếp hạng và các bài đánh giá khác</h3>
+        <table class="table mt-4">
+            @foreach (var item in ViewBag.comment1)
+            {
+                <tr>
+                    <td class="" style="border:1px solid black">
+                        @item.NgayDangFormatted<br />
+                        @item.TaiKhoan.HoTen<br />
+
+                        @for (int i = 0; i < item.DanhGia; i++)
+                        {
+                            <span class="text-warning feather icon-star-on"></span>
+                        }
+                        @for (int i = item.DanhGia; i < 5; i++)
+                        {
+                            <span class="text-warning feather icon-star"></span>
+                        }<br />
+                        @item.CMT<br />
+                        Sản Phẩm :  @item.DM_Hoa.TenHoa
+                    </td>
+                </tr>
+
+            }
+        </table>
+    }
+}
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHoa }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List")
 </p>
+
+
+
+<script type="text/javascript">
+    function RateOut(rating) {
+        for (var i = 1; i <= rating; i++) {
+            $("#sp" + i).attr('class', 'text-warning feather icon-star f-30');
+        }
+    }
+
+    function RateOver(rating) {
+        for (var i = 1; i <= rating; i++) {
+            $("#sp" + i).attr('class', 'text-warning feather icon-star-on f-30');
+        }
+    }
+    function RateClick(rating) {
+        $("#lblRate").val(rating);
+        for (var i = 1; i <= rating; i++) {
+            $("#sp" + i).attr('class', 'text-warning feather icon-star-on f-30');
+        }
+
+        for (var i = rating + 1; i <= 5; i++) {
+            $("#sp" + i).attr('class', 'text-warning feather icon-star f-30');
+        }
+    }
+    function RateSelect(rating) {
+        var rating = $("#lblRate").val();
+        for (var i = 1; i <= rating; i++) {
+            $("#sp" + i).attr('class', 'text-warning feather icon-star-on f-30');
+        }
+    }
+</script>

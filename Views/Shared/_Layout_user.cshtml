@@ -1,7 +1,16 @@
 ﻿@using QLDienHoa03.App_Start;
+@using QLDienHoa03.Models;
 @model  QLDienHoa03.Models.DM_Hoa
 @{
+
     bool ss = SessionConfig.GetUser() != null;
+    string acc = null;
+    if (ss)
+    {
+        acc = SessionConfig.GetUser().TenTK;
+    }
+    var TK = new QL_Dien_HoaEntities();
+    var check = TK.PhanQuyens.FirstOrDefault(x => x.TenTK.Equals(acc));
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -30,10 +39,16 @@
     <link rel="stylesheet" type="text/css" href="~/assets3/css/simple-line-icons.css" media="all">
     <link rel="stylesheet" type="text/css" href="~/assets3/css/owl.carousel.css">
     <link rel="stylesheet" type="text/css" href="~/assets3/css/owl.theme.css">
+
+    <link rel="stylesheet" type="text/css" href="~/assets3/css/internal.css" media="all">
+
+
     <link rel="stylesheet" type="text/css" href="~/assets3/css/jquery.bxslider.css">
     <link rel="stylesheet" type="text/css" href="~/assets3/css/jquery.mobile-menu.css">
     <link rel="stylesheet" type="text/css" href="~/assets3/css/style.css" media="all">
     <link rel="stylesheet" type="text/css" href="~/assets3/css/revslider.css">
+
+    <link rel="stylesheet" href="~/assets/fonts/feather.css">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400' rel='stylesheet' type='text/css'>
     <link href="~/assets3/https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i,900" rel="stylesheet">
@@ -50,22 +65,10 @@
                             <!-- Header Language -->
                             <div class="col-xs-12 col-sm-6">
                                 <div class="dropdown block-language-wrapper">
-                                    <a role="button" data-toggle="dropdown" data-target="#" class="block-language dropdown-toggle" href="~/assets3/#"> <img src="~/assets3/images/english.png" alt="language"> English <span class="caret"></span> </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"> <a href="~/assets3/#"><img src="~/assets3/images/english.png" alt="language"> VietNamese </a> </li>
-                                        <li role="presentation"> <a href="~/assets3/#"><img src="~/assets3/images/francais.png" alt="language"> English </a> </li>
-                                        <li role="presentation"> <a href="~/assets3/#"><img src="~/assets3/images/german.png" alt="language"> Chinese </a> </li>
-                                    </ul>
                                 </div>
                                 <!-- End Header Language -->
                                 <!-- Header Currency -->
                                 <div class="dropdown block-currency-wrapper">
-                                    <a role="button" data-toggle="dropdown" data-target="#" class="block-currency dropdown-toggle" href="~/assets3/#"> Vnđ <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a href="~/assets3/#"> $ - Dollar </a> </li>
-                                        <li role="presentation"><a href="~/assets3/#"> £ - Pound </a> </li>
-                                        <li role="presentation"><a href="~/assets3/#"> € - Euro </a> </li>
-                                    </ul>
                                 </div>
                                 <!-- End Header Currency -->
                                 <div class="welcome-msg"> Welcome To The Fool Shop  </div>
@@ -74,12 +77,11 @@
                                 <!-- Header Top Links -->
                                 <div class="toplinks">
                                     <div class="links">
-                                        <div class="myaccount"><a title="My Account" href="~/assets3/login.html"><span class="hidden-xs">My Account</span></a> </div>
-                                        <div class="check"><a title="Checkout" href="~/assets3/checkout.html"><span class="hidden-xs">Checkout</span></a> </div>
+                                        <div class="check"><a title="Checkout" href="~/assets3/checkout.html"><span class="hidden-xs">Tham Quan</span></a> </div>
                                         <div class="demo"><a title="Blog" href="~/assets3/blog.html"><span class="hidden-xs">Blog</span></a> </div>
                                         <!-- Header Company -->
                                         <div class="dropdown block-company-wrapper hidden-xs">
-                                            <a role="button" data-toggle="dropdown" data-target="#" class="block-company dropdown-toggle" href="~/assets3/#"> Company <span class="caret"></span></a>
+                                            <a role="button" data-toggle="dropdown" data-target="#" class="block-company dropdown-toggle" href="~/assets3/#"> Công Ty <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
                                                 <li role="presentation"><a href="~/assets3/about_us.html"> About Us </a> </li>
                                                 <li role="presentation"><a href="~/assets3/#"> Customer Service </a> </li>
@@ -97,7 +99,7 @@
                                                 <div class="demo-navbar-user nav-item dropdown">
                                                     <div class="dropdown block-company-wrapper hidden-xs">
                                                         <a role="button" data-toggle="dropdown" data-target="#" class="block-company dropdown-toggle" href="~/assets3/#">
-                                                            <img width="40" height="40" src="~/assets/img/avatars/67304d892efcd3e7e5e9ac7b732983a7.jpg" class="d-block rounded-circle" style="border-radius:50%;">
+                                                            <img width="40" height="40" src="~/Image/img/user-profile-icon-free-vector.jpg" class="d-block rounded-circle" style="border-radius:50%;">
                                                             <span class="px-1 mr-lg-2 ml-2 ml-lg-0">
                                                                 @if (ss == true)
                                                                 {
@@ -108,16 +110,34 @@
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li role="presentation">
-                                                                <i class="feather icon-user text-muted"></i> &nbsp; My profile
+                                                                <a href="@Url.Action("Logout","Account",new { Area = ""})" class="dropdown-item">
+                                                                    <i class="feather icon-user text-muted"></i> &nbsp; My profile
+                                                                </a>
+
                                                             </li>
                                                             <li role="presentation">
-                                                                <i class="feather icon-mail text-muted"></i> &nbsp; Messages
+                                                                <a href="@Url.Action("Logout","Account",new { Area = ""})" class="dropdown-item">
+                                                                    <i class="feather icon-mail text-muted"></i> &nbsp; Messages
+                                                                </a>
+
                                                             </li>
                                                             <li role="presentation">
-                                                                <i class="feather icon-settings text-muted"></i> &nbsp; Account settings
+                                                                <a href="@Url.Action("Logout","Account",new { Area = ""})" class="dropdown-item">
+                                                                    <i class="feather icon-settings text-muted"></i> &nbsp; Account settings
+                                                                </a>
+
                                                             </li>
+                                                            @if (check != null)
+                                                            {
+                                                                <li role="presentation">
+                                                                    <a href="@Url.Action("Index","Main",new { Area = "Admin"})" class="dropdown-item">
+                                                                        <i class="glyphicon glyphicon-dashboard text-danger"></i> &nbsp; ADMIN PAGE
+                                                                    </a>
+                                                                </li>
+                                                            }
+
                                                             <li role="presentation">
-                                                                <a href="@Url.Action("Logout","Account",new {Area=""})" class="dropdown-item">
+                                                                <a href="@Url.Action("Logout","Account",new { Area = ""})" class="dropdown-item">
                                                                     <i class="feather icon-power text-danger"></i> &nbsp; Log Out
                                                                 </a>
                                                             </li>
@@ -127,7 +147,9 @@
                                             }
                                             else
                                             {
-                                                <a href="@Url.Action("Login","Account",new { area=""})">Đăng Nhập</a>
+                                                <div>
+                                                    <a href="@Url.Action("Login","Account",new { area="",returnUrl = Request.Url.PathAndQuery})">Đăng Nhập</a>
+                                                </div>
                                             }
                                         }
                                     </div>
@@ -186,32 +208,32 @@
                                                     <li class="level3 nav-6-1 parent item">
                                                         <a href="~/assets3/grid.html"><span>Bó Hoa</span></a>
                                                         <ul class="level1">
-                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/assets3/images/menu-img.jpg" alt=""> </a> </li>
+                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/Image/img/Hoamaudon.jpg" alt=""> </a> </li>
                                                         </ul>
                                                     </li>
                                                     <li class="level3 nav-6-1 parent item">
                                                         <a href="~/assets3/grid.html"><span>Giỏ Hoa</span></a>
                                                         <ul class="level1">
-                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/assets3/images/menu-img1.jpg" alt=""> </a> </li>
+                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/Image/img/Giohoa02.jpg" alt=""> </a> </li>
                                                         </ul>
                                                     </li>
                                                     <li class="level3 nav-6-1 parent item">
                                                         <a href="~/assets3/grid.html"><span>Vòng Hoa Viếng</span></a>
                                                         <ul class="level1">
-                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/assets3/images/menu-img2.jpg" alt=""> </a> </li>
+                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/Image/img/Hoatang.jpg" alt=""> </a> </li>
                                                         </ul>
                                                     </li>
                                                     <li class="level3 nav-6-1 parent item">
-                                                        <a href="~/assets3/grid.html"><span>Chậu Lan Hồ Điệp</span></a>
+                                                        <a href="~/assets3/grid.html"><span>Chậu Hoa</span></a>
                                                         <ul class="level1">
-                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/assets3/images/menu-img3.jpg" alt=""> </a> </li>
+                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/Image/img/Hoasen.jpg" alt=""> </a> </li>
                                                         </ul>
 
                                                     </li>
                                                     <li class="level3 nav-6-1 parent item">
                                                         <a href="~/assets3/grid.html"><span>Kệ Đứng Hoa Chúc Mừng</span></a>
                                                         <ul class="level1">
-                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/assets3/images/menu-img4.jpg" alt=""> </a> </li>
+                                                            <li class="push_img"> <a href="~/assets3/#"><img src="~/Image/img/Hoachucmung.jpg" alt=""> </a> </li>
                                                         </ul>
 
                                                     </li>
@@ -236,81 +258,45 @@
                                 <a class="level-top" href="~/assets3/grid.html"><span>Hoa Sinh Nhật</span></a>
                             </li>
                             <li class="mega-menu"> <a class="level-top" href="~/assets3/grid.html"><span>Hoa Chúc Mừng</span></a> </li>
-                            <li class="nav-custom-link mega-menu">
-                                <a href="~/assets3/#" class="level-top"> <span>Bán Chạy</span> </a>
-                                <div class="level0-wrapper custom-menu">
-                                    <div class="container">
-                                        <div class="header-nav-dropdown-wrapper clearer">
-                                            <div class="grid12-3">
-                                                <div><img src="~/assets3/images/custom-img1.jpg" alt="custom-image"> </div>
-                                                <h4 class="heading">Hurry up only today!</h4>
-                                                <p>Consult our specialists for help with an order, customization, or design advice.</p>
+                            @* <li class="nav-custom-link mega-menu">
+                                    <a href="~/assets3/#" class="level-top"> <span>Bán Chạy</span> </a>
+                                    <div class="level0-wrapper custom-menu">
+                                        <div class="container">
+                                            <div class="header-nav-dropdown-wrapper clearer">
+                                                <div class="grid12-3">
+                                                    <div><img src="~/assets3/images/custom-img1.jpg" alt="custom-image"> </div>
+                                                    <h4 class="heading">Hurry up only today!</h4>
+                                                    <p>Consult our specialists for help with an order, customization, or design advice.</p>
 
-                                            </div>
-                                            <div class="grid12-3">
-                                                <div><img src="~/assets3/images/custom-img2.jpg" alt="custom-image"> </div>
-                                                <h4 class="heading">Flat 30% on Fruits</h4>
-                                                <p>We stand behind our goods and services and want you to be satisfied with them.</p>
+                                                </div>
+                                                <div class="grid12-3">
+                                                    <div><img src="~/assets3/images/custom-img2.jpg" alt="custom-image"> </div>
+                                                    <h4 class="heading">Flat 30% on Fruits</h4>
+                                                    <p>We stand behind our goods and services and want you to be satisfied with them.</p>
 
-                                            </div>
-                                            <div class="grid12-3">
-                                                <div><img src="~/assets3/images/custom-img3.jpg" alt="custom-image"> </div>
-                                                <h4 class="heading">Hot Deals!</h4>
-                                                <p>Our font delivery service is built upon a reliable, global network of servers.</p>
+                                                </div>
+                                                <div class="grid12-3">
+                                                    <div><img src="~/assets3/images/custom-img3.jpg" alt="custom-image"> </div>
+                                                    <h4 class="heading">Hot Deals!</h4>
+                                                    <p>Our font delivery service is built upon a reliable, global network of servers.</p>
 
-                                            </div>
-                                            <div class="grid12-3">
-                                                <div><img src="~/assets3/images/custom-img4.jpg" alt="custom-image"> </div>
-                                                <h4 class="heading">New Arrivals!</h4>
-                                                <p>Currently over 50 countries qualify for express international shipping.</p>
+                                                </div>
+                                                <div class="grid12-3">
+                                                    <div><img src="~/assets3/images/custom-img4.jpg" alt="custom-image"> </div>
+                                                    <h4 class="heading">New Arrivals!</h4>
+                                                    <p>Currently over 50 countries qualify for express international shipping.</p>
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>*@
                         </ul>
                         <!--nav-->
                         <div class="top-cart-contain pull-right">
                             <!-- Top Cart -->
                             <div class="mini-cart">
-                                <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> <a href="~/assets3/shopping_cart.html"> <span class="cart_count">2</span> </a> </div>
-                                <div>
-                                    <div class="top-cart-content">
-
-                                        <!--block-subtitle-->
-                                        <ul class="mini-products-list" id="cart-sidebar">
-                                            <li class="item first">
-                                                <div class="item-inner">
-                                                    <a class="product-image" title="Retis lapen casen" href="~/assets3/#l"><img alt="Retis lapen casen" src="~/Image/img/Hoahong.jpg"> </a>
-                                                    <div class="product-details">                                                    
-                                                        <div class="access"><a class="btn-remove1" title="Remove This Item" href="~/assets3/#">Remove</a> <a class="btn-edit" title="Edit item" href="~/assets3/#"><i class="icon-pencil"></i><span class="hidden">Edit item</span></a> </div>
-                                                        <!--access--><strong>1</strong> x <span class="price">1000000 Vnđ</span>
-                                                        <p class="product-name"><a href="~/assets3/#">Bó Hoa Hồng ...</a> </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="item last">
-                                                <div class="item-inner">
-                                                    <a class="product-image" title="Retis lapen casen" href="~/assets3/product_detail.html">
-                                                        <img alt="Retis lapen casen" src="~/Image/img/Giohoa02.jpg" />
-                                                    </a>
-                                                    <div class="product-details">
-                                                        <div class="access"><a class="btn-remove1" title="Remove This Item" href="~/assets3/#">Remove</a> <a class="btn-edit" title="Edit item" href="~/assets3/#"><i class="icon-pencil"></i><span class="hidden">Edit item</span></a> </div>
-                                                        <!--access--><strong>1</strong> x <span class="price">650000 Vnđ</span>
-                                                        <p class="product-name"><a href="~/assets3/#">Giỏ Hoa ...</a> </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                        <!--actions-->
-                                        <div class="actions">
-                                            <button class="btn-checkout" title="Checkout" type="button"><span>Checkout</span> </button>
-                                            <a href="~/assets3/shopping_cart.html" class="view-cart"><span>View Cart</span></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="basket"> <a href="@Url.Action("Index","ShoppingCart")"> <span id="cart_count" class="cart_count">0</span> </a> </div>
                             </div>
                             <!-- Top Cart -->
                             <div id="ajaxconfig_info" style="display:none">
@@ -326,119 +312,8 @@
             </nav>
             <!-- end nav -->
         </header>
-        <!-- Slider -->
-        <div id="thm-slideshow" class="thm-slideshow">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
-                            <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
-                                <ul>
-                                    <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='images/slide-img1.jpg'>
-                                        <img src='~/assets3/images/slide-img1.jpg' alt="slide-img" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
-                                        <div class="info">
-                                            <div class='tp-caption ExtraLargeTitle sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Thiết kế hiện đại</span> </div>
-                                            <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Đơn giản, tinh tế</span> </div>
-                                            <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1450' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Uy tín , chất lượng, số 1 VN</div>
-                                            <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><a href='#' class="buy-btn">Mua Ngay</a> </div>
-                                        </div>
-                                    </li>
-                                    <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='images/slide-img2.jpg'>
-                                        <img src='~/assets3/images/slide-img2.jpg' alt="slide-img" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
-                                        <div class="info">
-                                            <div class='tp-caption ExtraLargeTitle sft slide2  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Giảm Giá Sốc</span> </div>
-                                            <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Hoa Theo Mùa </div>
-                                            <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Những bông hoa dại không người hái, Lặng lẽ bốn mùa khắp mọi nơi</div>
-                                            <div class='tp-caption sfb  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><a href='#' class="buy-btn">Mua Ngay</a> </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 hot-deal">
-                        <ul class="products-grid">
-                            <li class="right-space two-height item">
-                                <div class="item-inner">
-                                    <div class="item-img">
-                                        <div class="item-img-info">
-                                            <a href="~/assets3/#" title="Retis lapen casen" class="product-image"> <img src="~/Image/img/Hoamaudon.jpg" alt="Retis lapen casen"> </a>
-                                            <div class="hot-label hot-top-left">Hot</div>                                            
-                                            <div class="box-hover">
-                                                <ul class="add-to-links">
-                                                    <li><a class="link-quickview" href="~/assets3/quick_view.html">Quick View</a> </li>
-                                                    <li><a class="link-wishlist" href="~/assets3/wishlist.html">Wishlist</a> </li>
-                                                    <li><a class="link-compare" href="~/assets3/compare.html">Compare</a> </li>
-                                                </ul>
-                                            </div>
-                                            <div class="box-timer">
-                                                <div class="countbox_1 timer-grid"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item-info">
-                                        <div class="info-inner">
-                                            <div class="item-title"> <a href="~/assets3/product_detail.html" title="Retis lapen casen"> Hoa Mẫu Đơn </a> </div>
-                                            <div class="item-content">
-                                                <div class="rating">
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:80%"></div>
-                                                        </div>
-                                                        <p class="rating-links"> <a href="~/assets3/#">1 Review(s)</a> <span class="separator">|</span> <a href="~/assets3/#">Add Review</a> </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item-price">
-                                                    <div class="price-box"> <span class="regular-price"> <span class="price">1.000.000 Vnđ</span> </span> </div>
-                                                </div>
-                                                <div class="action">
-                                                    <button data-original-title="Add to Cart" title="" type="button" class="button btn-cart"><span>Add to Cart</span> </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- end Slider -->
-        <!-- our features -->
-        <div class="our-features-box">
-            <div class="container">
-                <ul>
-                    <li>
-                        <div class="feature-box need-help">
-                            <div class="icon-truck"></div>
-                            <div class="content">FREE SHIP đơn trên 1tr5</div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="feature-box free-shipping">
-                            <div class="icon-support"></div>
-                            <div class="content">Cần hỗ trợ gọi  0123456789</div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="feature-box money-back">
-                            <div class="icon-money"></div>
-                            <div class="content">Hoàn tiền nếu sản phẩm lỗi</div>
-                        </div>
-                    </li>
-                    <li class="last">
-                        <div class="feature-box return-policy">
-                            <div class="icon-return"></div>
-                            <div class="content">30 ngày đổi trả</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
         @RenderBody()
-
         <!-- Footer -->
         <footer>
             <div class="newsletter-block">
@@ -897,6 +772,179 @@
         var iid1 = "countbox_1";
         CountBack_slider(gsecs1, "countbox_1", 1);
     </script>
+
+    <script>
+        $(document).ready(function () {
+            ShowCount();
+            // Sử dụng event delegation để gắn sự kiện click cho các nút "Thêm Vào Giỏ"
+            $(document).on('click', '.btn-cart', function (e) {
+                e.preventDefault(); // Ngăn chặn hành động mặc định của nút
+                var id = $(this).data('id');
+                var quality = 1;
+                var tquality = $('.qty').val();
+                if (tquality != '') {
+                    quality = parseInt(tquality);
+                }
+                $.ajax({
+                    url: '/ShoppingCart/AddToCart',
+                    type: 'POST',
+                    data: { id: id, SL: quality },
+                    success: function (rs) {
+                        if (rs.success) {
+                            $("#cart_count").html(rs.Count);
+                            alert(rs.msg);
+                        }
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+            ShowCount();
+            // Sử dụng event delegation để gắn sự kiện click cho các nút "Thêm Vào Giỏ"
+            $(document).on('click', '#empty_cart_button', function (e) {
+                e.preventDefault(); // Ngăn chặn hành động mặc định của nút
+                var id = $(this).data('id');
+                var conf = confirm('Bạn có chắc chắn muốn xóa toàn bộ sản phẩm không ?');
+                debugger;
+                if (conf == true) {
+                    $.ajax({
+                        url: '/ShoppingCart/DeleteAll',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                location.reload();
+                                $("#cart_count").html(rs.Count);
+                            }
+
+                        }
+                    });
+                }
+
+            });
+
+            $(document).on('click', '.remove-item', function (e) {
+                e.preventDefault(); // Ngăn chặn hành động mặc định của nút
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/ShoppingCart/Delete',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            $('#trow_' + id).remove();
+                            $("#cart_count").html(rs.Count);
+                            calculateTotal();
+                        }
+                    }
+                });
+            });
+        });
+
+        function ShowCount() {
+            $.ajax({
+                url: '/ShoppingCart/ShowCount',
+                type: 'GET',
+                success: function (rs) {
+                    if (rs.success) {
+                        $("#cart_count").html(rs.Count);
+                    }
+                }
+            });
+        }
+
+        function ShowCount() {
+            $.ajax({
+                url: '/ShoppingCart/ShowCount',
+                type: 'GET',
+                success: function (rs) {
+                    if (rs.success) {
+                        $("#cart_count").html(rs.Count);
+                    }
+                }
+            });
+        }
+
+        function decreaseQty(button) {
+            var input = button.parentElement.querySelector('.qty');
+            var qty = parseInt(input.value);
+            if (!isNaN(qty) && qty > 1) {
+                input.value = qty - 1;
+                calculateTotal(); // Gọi hàm calculateTotal() sau khi giảm số lượng
+
+            }
+            return false;
+        }
+
+        function increaseQty(button) {
+            var input = button.parentElement.querySelector('.qty');
+            var qty = parseInt(input.value);
+            if (!isNaN(qty)) {
+                input.value = qty + 1;
+                calculateTotal(); // Gọi hàm calculateTotal() sau khi tăng số lượng
+
+            }
+            return false;
+        }
+
+        function UpdateSP() {
+            var cartItems = [];
+            $('tbody tr').each(function () {
+                var id = $(this).find('.id').val();
+                var tquality = $(this).find('.qty').val();
+                if (tquality != '') {
+                    var quality = parseInt(tquality);
+                    cartItems.push({ id: id, SL: quality });
+                }
+            });
+            $.ajax({
+                url: '/ShoppingCart/Update',
+                type: 'POST',
+                contentType: 'application/json', // Thiết lập kiểu dữ liệu gửi đi là JSON
+                data: JSON.stringify(cartItems),
+                success: function (rs) {
+                    // Xử lý phản hồi từ server (nếu cần)
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi (nếu có)
+                }
+            });
+        }
+
+
+
+        function calculateTotal() {
+            var total = 0;
+            var stotal = 0;
+            $('tbody tr').each(function () {
+                var soluong = parseFloat($(this).find('.qty').val());
+                var gia = parseFloat($(this).find('.price-l').text().replace('đ', '').replace(',', '')); // Lấy giá từ text, loại bỏ ký tự "đ" và dấu phẩy
+                if (!isNaN(soluong) && !isNaN(gia)) {
+                    var tien = soluong * gia;
+                    total += tien;
+                    stotal += total;
+                    var formattedTien = numeral(tien).format('0,0') + "đ";
+                    $(this).find('.price-total').text(formattedTien); // Cập nhật giá trị tiền vào ô tiền tương ứng
+                    $(this).find('.price-t').text(formattedTien);
+                }
+            });
+
+            var formattedTotal = numeral(total).format('0,0') + "đ";
+            $('.total-price').text(formattedTotal); // Hiển thị tổng tiền
+            $('.price-t').text(formattedTotal);
+            UpdateSP(); // Gọi hàm sendTotalPrice() sau khi tính toán tổng tiền
+        }
+
+        $(document).on('change', '.qty', function () {
+            calculateTotal(); // Gọi hàm calculateTotal() khi số lượng thay đổi
+        });
+
+
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
 </body>
 
 <!-- Mirrored from htmldemo.themessoft.com/freshia/version2/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 15 May 2024 14:36:25 GMT -->

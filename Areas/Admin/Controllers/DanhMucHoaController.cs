@@ -11,6 +11,7 @@ using System.IO;
 using System.Web.Configuration;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
+using QLDienHoa03.App_Start;
 
 namespace QLDienHoa03.Areas.Admin.Controllers
 {
@@ -66,6 +67,26 @@ namespace QLDienHoa03.Areas.Admin.Controllers
              return RedirectToAction("Index");
          }
  */
+        [HttpPost]
+        public ActionResult addCMT(int rate, string comment,string MaHoa)
+        {
+            BangCMT cmt = new BangCMT();
+            if (SessionConfig.GetUser() == null)
+            {
+                TempData["error"] = "Bạn cần đăng nhập để thực hiện chức năng này.";
+                TempData["solution"] = "Đăng nhập ngay";
+                return Redirect("Detail_List/"+ MaHoa);
+            }
+
+            cmt.TenTK = SessionConfig.GetUser().TenTK;
+            cmt.CMT = comment;
+            cmt.MaHoa = MaHoa;
+            cmt.NgayDang = DateTime.Now.Date;
+            cmt.DanhGia = rate;
+            data.BangCMTs.Add(cmt);
+            data.SaveChanges();
+            return Redirect("Detail_List/" + MaHoa);
+        }
         [HttpPost]
         public JsonResult Delete(string id)
         {

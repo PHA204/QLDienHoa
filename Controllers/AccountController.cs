@@ -11,15 +11,16 @@ namespace QLDienHoa03.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Login
+        QL_Dien_HoaEntities data = new QL_Dien_HoaEntities();
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]        
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string username, string password, string returnUrl)
         {
             using (var TK = new QL_Dien_HoaEntities())
             {
@@ -27,11 +28,16 @@ namespace QLDienHoa03.Controllers
                 if (account != null)
                 {                    
                     SessionConfig.SetUser(account);
-                    var check = TK.PhanQuyens.FirstOrDefault(x => x.TenTK.Equals(account.TenTK));
-                    if (check == null)
-                        return RedirectToAction("Index", "Home",new {Area=""});
+                    /* var check = TK.PhanQuyens.FirstOrDefault(x => x.TenTK.Equals(account.TenTK));
+                     if (check == null)*/
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {                                        
+                        return RedirectToAction("Index", "Home");
+                    }
                     else
-                        return RedirectToAction("Index", "Main", new { area = "Admin" });
+                    {
+                        return Redirect(returnUrl);
+                    }
                 }
                 else
                 {
@@ -40,6 +46,7 @@ namespace QLDienHoa03.Controllers
                 }
             }
         }
+
         public ActionResult DangKy()
         {
             return View();
@@ -48,7 +55,12 @@ namespace QLDienHoa03.Controllers
         [HttpPost]
         public ActionResult DangKy(TaiKhoan TK)
         {
-            QL_Dien_HoaEntities data = new QL_Dien_HoaEntities();
+            var check = data.TaiKhoans.FirstOrDefault(x => x.TenTK.Equals(TK.TenTK));
+            if (check != null)
+            {
+                TempData["error"] = "Tên Tài khoản Đã Tồn Tại";
+                return View();
+            }
             data.TaiKhoans.Add(TK);
             data.SaveChanges();
             return RedirectToAction("Login");
@@ -60,6 +72,6 @@ namespace QLDienHoa03.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index","Home");
            
-        }
+        }      
     }
 }

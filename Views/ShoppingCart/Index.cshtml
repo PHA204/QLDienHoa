@@ -1,0 +1,323 @@
+﻿@model IEnumerable<QLDienHoa03.Models.ShoppingCartItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_user.cshtml";
+    var total = ViewBag.Total;
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<section class="main-container col1-layout">
+    <div class="main container">
+        <div class="col-main">
+            <div class="cart wow bounceInUp animated">
+                <div class="page-title">
+                    <h2>Shopping Cart</h2>
+                </div>
+                <div class="table-responsive">
+                    <form method="post" action="#updatePost/">
+                        <input type="hidden" value="Vwww7itR3zQFe86m" name="form_key">
+                        <fieldset>
+                            <table class="data-table cart-table" id="shopping-cart-table">
+                                <thead>
+                                    <tr class="first last">
+                                        <th rowspan="1">&nbsp;</th>
+                                        <th rowspan="1">&nbsp;</th>
+                                        <th rowspan="1"><span class="nobr">Sản Phẩm</span></th>
+                                        <th colspan="1" class="a-center"><span class="nobr">Giá Bán</span></th>
+                                        <th class="a-center" rowspan="1">Số Lượng</th>
+                                        <th colspan="1" class="a-center">Tổng Tiền</th>
+                                        <th class="a-center" rowspan="1">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr class="first last">
+                                        <td class="a-right last" colspan="50">
+                                            <button class="button btn-continue" title="Continue Shopping" type="button">
+                                                <a href="@Url.Action("Index", "Home")" style="color: inherit; text-decoration: none;  width: 100%; height: 100%;">Mua Thêm Sản Phẩm</a>
+                                            </button>                                            
+                                            <button id="empty_cart_button" class="button btn-empty" title="Clear Cart" value="empty_cart" name="update_cart_action" type="submit"><span>Clear Cart</span></button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @{
+                                        var i = 1;
+                                        foreach (var item in ViewBag.CartItems)
+                                        {
+                                            <tr id="trow_@item.MaHoa" style="padding-top:20px" class="first odd">
+                                                <td class="a-center last"> @(i++)</td>
+                                                <td class="image"><a class="product-image" title="Sample Product" href="#/women-s-crepe-printed-black/"><img width="75" alt="Sample Product" src="@Url.Content(item.HinhAnh)"></a></td>
+                                                <td><h4 class=""> @item.TenHoa <input type="hidden" value="@item.MaHoa" class="id" /> </h4></td>
+                                                <td class="a-right"><span class="cart-price"> <span class="price price-l">@item.Gia đ</span> </span></td>
+                                                <td class="a-center movewishlist">
+                                                    <button onClick="decreaseQty(this);" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
+                                                    <input type="text" class="input-text qty" title="Qty" maxlength="12" id="qty-@i" name="qty" value="@item.SoLuong">
+                                                    <button onClick="increaseQty(this);" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                                </td>
+                                                <td class="a-right movewishlist"><span class="cart-price"> <span class="price price-total">@item.TongTien đ</span> </span></td>
+                                                <td class="a-center last"><a class="button remove-item"  title="Remove item" href="#" data-id="@item.MaHoa"><span><span>Remove item</span></span></a></td>
+                                            </tr>                                            
+                                        }
+
+                                        if (ViewBag.CartItems.Count == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="7" class="a-center"><h1>Giỏ hàng của bạn trống.</h1></td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- BEGIN CART COLLATERALS -->
+                <div class="cart-collaterals row">
+                    <div class="col-sm-4">
+                        <div class="shipping">
+                            <h3>Estimate Shipping and Tax</h3>
+                            <div class="shipping-form">
+                                <form id="shipping-zip-form" method="post" action="#estimatePost/">
+                                    <p>Enter your destination to get a shipping estimate.</p>
+                                    <ul class="form-list">
+                                        <li>
+                                            <label class="required" for="country"><em>*</em>Country</label>
+                                            <div class="input-box">
+                                                <select title="Country" class="validate-select" id="country" name="country_id">
+                                                </select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="region_id">State/Province</label>
+                                            <div class="input-box">
+                                                <select style="" title="State/Province" name="region_id" id="region_id" defaultvalue="" class="required-entry validate-select">
+                                                </select>
+                                                <input type="text" style="display:none;" class="input-text required-entry" title="State/Province" value="" name="region" id="region">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="postcode">Zip/Postal Code</label>
+                                            <div class="input-box">
+                                                <input type="text" value="" name="estimate_postcode" id="postcode" class="input-text validate-postcode">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="buttons-set11">
+                                        <button class="button get-quote" onclick="coShippingMethodForm.submit()" title="Get a Quote" type="button"><span>Get a Quote</span></button>
+                                    </div>
+                                    <!--buttons-set11-->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="discount">
+                            <h3>Discount Codes</h3>
+                            <form method="post" action="#couponPost/" id="discount-coupon-form">
+                                <label for="coupon_code">Enter your coupon code if you have one.</label>
+                                <input type="hidden" value="0" id="remove-coupone" name="remove">
+                                <input type="text" value="" name="coupon_code" id="coupon_code" class="input-text fullwidth">
+                                <button value="Apply Coupon" onclick="discountForm.submit(false)" class="button coupon " title="Apply Coupon" type="button"><span>Apply Coupon</span></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="totals">
+                            <h3>Shopping Cart Total</h3>
+                            <div class="inner">
+                                <table class="table shopping-cart-table-total" id="shopping-cart-totals-table">
+                                    <colgroup>
+                                        <col>
+                                        <col width="1">
+                                    </colgroup>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="1" class="a-left" style=""><strong>Grand Total</strong></td>
+                                            <td class="a-right" style=""><strong><span class="price-t">@(total+"đ")</span></strong></td>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="1" class="a-left" style=""> Subtotal </td>
+                                            <td class="a-left" style=""><span class="price-t"> @(total+"đ")</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="checkout">
+                                    <li>
+                                        <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Proceed to Checkout</span></button>
+                                    </li>
+                                    <br>
+                                    <li><a title="Checkout with Multiple Addresses" href="multiple_addresses.html">Checkout with Multiple Addresses</a> </li>
+                                    <br>
+                                </ul>
+                            </div>
+                            <!--inner-->
+                        </div>
+                    </div>
+                </div>
+
+                <!--cart-collaterals-->
+            </div>
+            <div class="crosssel bounceInUp animated">
+                <div class="also-like">
+                    <div class="category-products">
+                        <div class="new_title">
+                            <h2>you may be interested</h2>
+                        </div>
+                        <ul class="products-grid">
+                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product3.jpg"> </a>
+                                            <div class="new-label new-top-left">new</div>
+                                            <div class="actions">
+                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
+                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
+                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare</span></a></div>
+                                            </div>
+                                            <div class="add_cart">
+                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"><span class="regular-price"> <span class="price">$125.00</span> </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product1.jpg"> </a>
+                                            <div class="new-label new-top-left">new</div>
+                                            <div class="actions">
+                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
+                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
+                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare</span></a></div>
+                                            </div>
+                                            <div class="add_cart">
+                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"><span class="regular-price"> <span class="price">$325.00</span> </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product1.jpg"> </a>
+                                            <div class="new-label new-top-left">new</div>
+                                            <div class="actions">
+                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
+                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
+                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare"></span></a></div>
+                                            </div>
+                                            <div class="add_cart">
+                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"><span class="regular-price"> <span class="price">$235.00</span> </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product1.jpg"> </a>
+                                            <div class="new-label new-top-left">new</div>
+                                            <div class="actions">
+                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
+                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
+                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare</span></a></div>
+                                            </div>
+                                            <div class="add_cart">
+                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"><span class="regular-price"> <span class="price">$155.00</span> </span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--crosssell-->
+        </div>
+    </div>
+</section>

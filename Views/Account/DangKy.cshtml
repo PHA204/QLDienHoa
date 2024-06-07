@@ -54,7 +54,7 @@
                                                     @Html.EditorFor(model => model.TenTK, new { htmlAttributes = new { @class = "form-control" } })
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="inputEmailAddress" class="form-label">Họ Tên</label>
+                                                    <label for="inputEmailAddress" class="form-label">Họ Tên (Không Bắt Buộc) </label>
                                                     @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
 
                                                 </div>
@@ -65,11 +65,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="inputSelectCountry" class="form-label">Thành Phố</label>
+                                                    <label for="inputSelectCountry" class="form-label">Thành Phố (Không Bắt Buộc)</label>
                                                     @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="inputSelectCountry" class="form-label">Số Điện Thoại</label>
+                                                    <label for="inputSelectCountry" class="form-label">Số Điện Thoại (Không Bắt Buộc)</label>
                                                     @Html.EditorFor(model => model.SĐT, new { htmlAttributes = new { @class = "form-control" } })
                                                 </div>
                                                 <div class="col-12 mt-3">
@@ -77,6 +77,11 @@
                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
                                                         <label class="form-check-label" for="flexSwitchCheckChecked">Tôi đã đọc và đồng ý điều khoản</label>
                                                     </div>
+                                                </div>
+                                                <div class="form-group col-12">
+                                                    <p class="text-danger">
+                                                        @TempData["error"]
+                                                    </p>
                                                 </div>
                                                 <div class="col-12 mt-3">
                                                     <div class="d-grid">
