@@ -46,59 +46,64 @@
                                     <th>Tên Người Gửi</th>
                                     <th>Tên Người Nhận</th>
                                     <th>Địa Chỉ Người Nhận</th>
+                                    <th>Số Điện Thoại</th>
                                     <th>Ngày Giao</th>
                                     <th> Giờ Giao</th>
                                     <th>Đã Giao</th>
                                     <th>Tên Hoa</th>
-                                    <th>Tên Khu Vực</th>
+                                    <th>Số Lượng</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="myTable">
                                 @foreach (var item in ViewBag.phieuDat)
                                 {
-                                    <tr>
-                                        <td class="align-middle">
-                                            @item.SoPhieu
-                                        </td>
-                                        <td class="align-middle">
-                                            @item.TenNguoiGui
-                                        </td>
-                                        <td class="align-middle">
-                                            @item.TenNguoiNhan
-                                        </td>
-                                        <td class="align-middle">
-                                            @item.DiaChiNguoiNhan
-                                        </td>
-                                        <td class="align-middle">
-                                            @item.NgayGiaoFormatted
-                                        </td>
+                                <tr>
+                                    <td class="align-middle">
+                                        @item.SoPhieu
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.TenNguoiGui
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.TenNguoiNhan
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.DiaChiNguoiNhan
+                                    </td>
+                                    <td>
+                                        @item.Sdt
+                                    </td>
+                                    <td class="align-middle">
+                                        @item.NgayGiaoFormatted
+                                    </td>
 
-                                        <td class="align-middle">
-                                            @item.GioGiao
-                                        </td>
-                                        <td class="align-middle">
-                                            @if (item.DaGiao == 1)
-                                            {
-                                                <span class="badge badge-success">Done</span>
-                                            }
-                                            @if (item.DaGiao == 0)
-                                            {
-                                                <span class="badge badge-danger">SOS</span>
-                                            }
-                                        </td>
-                                        <td>
-                                            @item.DM_Hoa.TenHoa
-                                        </td>
-                                        <td>
-                                            @item.GiaPhiVanChuyen.TenKhuVuc
-                                        </td>
-                                        <td class="table-action">
-                                            <a href="#!" class="btn btn-icon btn-outline-primary"><i class="feather icon-eye"></i></a>
-                                            <a href="@Url.Action("Edit","PhieuDat",new { id=item.SoPhieu})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
-                                            <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.SoPhieu')"><i class="feather icon-trash-2"></i></a>
-                                        </td>
-                                    </tr>
+                                    <td class="align-middle">
+                                        @item.GioGiao
+                                    </td>
+                                    <td class="align-middle">
+                                        @if (item.DaGiao == 1)
+                                        {
+                                            <span class="badge badge-success">Done</span>
+                                        }
+                                        @if (item.DaGiao == 0)
+                                        {
+                                            <span class="badge badge-danger">SOS</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @item.DM_Hoa.TenHoa
+                                    </td>
+                                    <td>
+                                        @item.SoLuong
+                                    </td>
+
+                                    <td class="table-action">
+                                        <a href="#!" class="btn btn-icon btn-outline-primary"><i class="feather icon-eye"></i></a>
+                                        <a href="@Url.Action("Edit","PhieuDat",new { id=item.SoPhieu})" class="btn btn-icon btn-outline-success"><i class="feather icon-edit"></i></a>
+                                        <a href="#" class="btn btn-icon btn-outline-success" id="showModal" onclick="Confirm('@item.SoPhieu')"><i class="feather icon-trash-2"></i></a>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>

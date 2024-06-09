@@ -1,0 +1,36 @@
+﻿@model IEnumerable<QLDienHoa03.Models.ShoppingCartItem>
+@{    
+    var total = ViewBag.Total;
+}
+
+<table style="font-size: 20px; margin-top:-10px;" class="data-table cart-table" id="shopping-cart-table">
+    <thead>       
+    </thead>
+    <tfoot>
+        <tr class="first last">
+            <td colspan="1" class="a-left" style=""><strong>Tổng :</strong></td>
+            <td class="a-right" style=""><strong><span class="price-t">@(total+"đ")</span></strong></td>
+        </tr>
+    </tfoot>
+    <tbody>
+        @{            
+            foreach (var item in ViewBag.CartItems)
+            {
+                <tr id="trow_@item.MaHoa" style="padding-top:20px" class="first odd">                    
+                    <td class="image"><a class="product-image" title="Sample Product" href="#/women-s-crepe-printed-black/"><img width="75" alt="Sample Product" src="@Url.Content(item.HinhAnh)"></a></td>
+                    <td> <h4 style="font-weight:bold;"> @item.TenHoa </h4> @(item.SoLuong) x @(item.Gia)đ </td>
+                    <td class="a-right"><span class="cart-price"> <span class="price price-l"></span> </span></td>                                  
+                </tr>
+
+            }
+
+            if (ViewBag.CartItems.Count == 0)
+            {
+                <tr>
+                    <td colspan="7" class="a-center"><h1>Giỏ hàng của bạn trống.</h1></td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>

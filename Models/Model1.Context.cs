@@ -31,11 +31,11 @@ namespace QLDienHoa03.Models
         public virtual DbSet<NGUYENLIEU> NGUYENLIEUx { get; set; }
         public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
         public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
-        public virtual DbSet<PhieuDat> PhieuDats { get; set; }
         public virtual DbSet<PHIEUNHAPKHO> PHIEUNHAPKHOes { get; set; }
         public virtual DbSet<Quyen> Quyens { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
         public virtual DbSet<BangCMT> BangCMTs { get; set; }
+        public virtual DbSet<PhieuDat> PhieuDats { get; set; }
     }
 }

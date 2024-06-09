@@ -17,7 +17,7 @@ namespace QLDienHoa03.Models
     {
         public string MaHoa { get; set; }
         public string TenTK { get; set; }
-        
+
         public string CMT { get; set; }
         public int DanhGia { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]

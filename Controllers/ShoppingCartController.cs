@@ -28,6 +28,21 @@ namespace QLDienHoa03.Controllers
             return View();
         }
 
+        public ActionResult PatialIndexCart()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart == null)
+            {
+                cart = new ShoppingCart();
+                Session["Cart"] = cart; // Ensure the cart is initialized in the session
+            }
+            ViewBag.Total = cart.GetTongTienFormat();
+            ViewBag.CartItems = cart.Items.ToList();
+            return PartialView();
+        }
+
+
+
         [HttpPost]
         public ActionResult AddToCart(string id, int SL)
         {
@@ -109,5 +124,42 @@ namespace QLDienHoa03.Controllers
             return Json(result);
         }
 
+        public ActionResult Create()
+        {
+
+            ViewBag.KhuVuc = new SelectList(db.GiaPhiVanChuyens, "MaKhuVuc", "TenKhuVuc");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(PhieuDat phieudat)
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];           
+            foreach (var item in cart.Items)
+            {
+                PhieuDat PD = new PhieuDat();
+                PD.SoPhieu = getma();
+                PD.Hoa = item.MaHoa;
+                PD.TenNguoiGui = phieudat.TenNguoiGui;
+                PD.TenNguoiNhan = phieudat.TenNguoiNhan;
+                PD.DiaChiNguoiNhan = phieudat.DiaChiNguoiNhan;
+                PD.NgayGiao = phieudat.NgayGiao;
+                PD.SoLuong = item.SoLuong; 
+                PD.DaGiao = 0;
+                PD.GioGiao = phieudat.GioGiao;
+                PD.KhuVuc = phieudat.KhuVuc;
+                PD.Sdt = phieudat.Sdt;                
+                db.PhieuDats.Add(PD);
+                db.SaveChanges();               
+            }
+            DeleteAll();
+            return RedirectToAction("Index"); // Chuyển hướng sau khi thêm thành công
+        }
+
+        public string getma()
+        {
+            int ma = db.PhieuDats.Count() + 1;
+            return "PD" + ma.ToString();
+        }
     }
 }

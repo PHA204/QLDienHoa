@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<QLDienHoa03.Models.ShoppingCartItem>
 @{
+    QLDienHoa03.Models.QL_Dien_HoaEntities data = new QLDienHoa03.Models.QL_Dien_HoaEntities();
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_user.cshtml";
     var total = ViewBag.Total;
+    ViewBag.Women = data.DM_Hoa.ToList();
 }
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -35,7 +37,7 @@
                                         <td class="a-right last" colspan="50">
                                             <button class="button btn-continue" title="Continue Shopping" type="button">
                                                 <a href="@Url.Action("Index", "Home")" style="color: inherit; text-decoration: none;  width: 100%; height: 100%;">Mua Thêm Sản Phẩm</a>
-                                            </button>                                            
+                                            </button>
                                             <button id="empty_cart_button" class="button btn-empty" title="Clear Cart" value="empty_cart" name="update_cart_action" type="submit"><span>Clear Cart</span></button>
                                         </td>
                                     </tr>
@@ -56,8 +58,9 @@
                                                     <button onClick="increaseQty(this);" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
                                                 </td>
                                                 <td class="a-right movewishlist"><span class="cart-price"> <span class="price price-total">@item.TongTien đ</span> </span></td>
-                                                <td class="a-center last"><a class="button remove-item"  title="Remove item" href="#" data-id="@item.MaHoa"><span><span>Remove item</span></span></a></td>
-                                            </tr>                                            
+                                                <td class="a-center last"><a class="button remove-item" title="Remove item" href="#" data-id="@item.MaHoa"><span><span>Remove item</span></span></a></td>
+                                            </tr>
+
                                         }
 
                                         if (ViewBag.CartItems.Count == 0)
@@ -147,7 +150,7 @@
                                 </table>
                                 <ul class="checkout">
                                     <li>
-                                        <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><span>Proceed to Checkout</span></button>
+                                        <button class="button btn-proceed-checkout" title="Proceed to Checkout" type="button"><a style="color: inherit; text-decoration: none;  width: 100%; height: 100%;" href="@Url.Action("Create","ShoppingCart")">Đi Đặt Hàng</a></button>
                                     </li>
                                     <br>
                                     <li><a title="Checkout with Multiple Addresses" href="multiple_addresses.html">Checkout with Multiple Addresses</a> </li>
@@ -168,150 +171,51 @@
                             <h2>you may be interested</h2>
                         </div>
                         <ul class="products-grid">
-                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                                <div class="item-inner">
-                                    <div class="item-img">
-                                        <div class="item-img-info">
-                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product3.jpg"> </a>
-                                            <div class="new-label new-top-left">new</div>
-                                            <div class="actions">
-                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
-                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
-                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare</span></a></div>
-                                            </div>
-                                            <div class="add_cart">
-                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
+                            @{
+                                i = 0;
+                            }
+                            @foreach (var item in ViewBag.Women)
+                            {
+
+                                <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                    <div class="item-inner">
+                                        <div class="item-img">
+                                            <div class="item-img-info">
+                                                <a class="product-image" title="Sample Product" href="@Url.Action("Detail","Home", new { id=item.MaHoa})">
+                                                <img alt="Sample Product" src="@Url.Content(item.HinhAnh)" height="300"> </a>                                                                                            
+                                                <div class="add_cart">
+                                                    <button class="button btn-cart" title="Add to Cart" type="button" data-id="@item.MaHoa"></button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="item-info">
-                                        <div class="info-inner">
-                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
-                                            <div class="item-content">
-                                                <div class="rating">
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div style="width:80%" class="rating"></div>
+                                        <div class="item-info">
+                                            <div class="info-inner">
+                                                <div class="item-title"><a title="Sample Product" href="product_detail.html">@item.TenHoa</a></div>
+                                                <div class="item-content">
+                                                    <div class="rating">
+                                                        <div class="ratings">
+                                                            <div class="rating-box">
+                                                                <div style="width:80%" class="rating"></div>
+                                                            </div>
+                                                            <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
                                                         </div>
-                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                    <div class="item-price">
+                                                        <div class="price-box"><span class="regular-price"> <span class="price">@item.GiaFormatted vnđ</span> </span></div>
                                                     </div>
                                                 </div>
-                                                <div class="item-price">
-                                                    <div class="price-box"><span class="regular-price"> <span class="price">$125.00</span> </span></div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                                <div class="item-inner">
-                                    <div class="item-img">
-                                        <div class="item-img-info">
-                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product1.jpg"> </a>
-                                            <div class="new-label new-top-left">new</div>
-                                            <div class="actions">
-                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
-                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
-                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare</span></a></div>
-                                            </div>
-                                            <div class="add_cart">
-                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item-info">
-                                        <div class="info-inner">
-                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
-                                            <div class="item-content">
-                                                <div class="rating">
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div style="width:80%" class="rating"></div>
-                                                        </div>
-                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item-price">
-                                                    <div class="price-box"><span class="regular-price"> <span class="price">$325.00</span> </span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                                <div class="item-inner">
-                                    <div class="item-img">
-                                        <div class="item-img-info">
-                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product1.jpg"> </a>
-                                            <div class="new-label new-top-left">new</div>
-                                            <div class="actions">
-                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
-                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
-                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare"></span></a></div>
-                                            </div>
-                                            <div class="add_cart">
-                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item-info">
-                                        <div class="info-inner">
-                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
-                                            <div class="item-content">
-                                                <div class="rating">
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div style="width:80%" class="rating"></div>
-                                                        </div>
-                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item-price">
-                                                    <div class="price-box"><span class="regular-price"> <span class="price">$235.00</span> </span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                                <div class="item-inner">
-                                    <div class="item-img">
-                                        <div class="item-img-info">
-                                            <a class="product-image" title="Sample Product" href="product_detail.html"> <img alt="Sample Product" src="products-images/product1.jpg"> </a>
-                                            <div class="new-label new-top-left">new</div>
-                                            <div class="actions">
-                                                <div class="quick-view-btn"><a href="quick_view.html" title="Add to Cart"><span>Add to Cart</span></a></div>
-                                                <div class="link-wishlist"><a href="wishlist.html" title="Add to Wishlist"><span>Add to Wishlist</span></a></div>
-                                                <div class="link-compare"><a href="compare.html" title="Add to Compare"><span>Add to Compare</span></a></div>
-                                            </div>
-                                            <div class="add_cart">
-                                                <button class="button btn-cart" title="Add to Cart" type="button"><span>Add to Cart</span></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item-info">
-                                        <div class="info-inner">
-                                            <div class="item-title"><a title="Sample Product" href="product_detail.html">Sample Product</a></div>
-                                            <div class="item-content">
-                                                <div class="rating">
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div style="width:80%" class="rating"></div>
-                                                        </div>
-                                                        <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
-                                                    </div>
-                                                </div>
-                                                <div class="item-price">
-                                                    <div class="price-box"><span class="regular-price"> <span class="price">$155.00</span> </span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+
+
+                                i++;
+                                if (i == 4)
+                                {
+                                    break;
+                                }
+                            }
                         </ul>
                     </div>
                 </div>
